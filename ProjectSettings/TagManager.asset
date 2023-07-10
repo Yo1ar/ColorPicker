@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Collectable
+  - Damageable
+  - Enemy
+  - Ground
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - JumpSurface
+  - Player
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 1568961115
+    locked: 0
+  - name: Clouds
+    uniqueID: 2247559425
+    locked: 0
+  - name: Level
+    uniqueID: 2612349373
+    locked: 0
+  - name: PLayer
+    uniqueID: 362710871
+    locked: 0
+  - name: Environment
+    uniqueID: 2547336689
+    locked: 0
+  - name: Props
+    uniqueID: 2978325851
+    locked: 0
+  - name: OverScene
+    uniqueID: 913119005
+    locked: 0
