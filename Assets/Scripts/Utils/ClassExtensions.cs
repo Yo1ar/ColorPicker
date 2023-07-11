@@ -19,6 +19,9 @@ namespace Utils
 
 		public static Vector3 AddX(this Vector3 vector3, float addedX) =>
 			new(vector3.x + addedX, vector3.y);
+		
+		public static Vector3 AddY(this Vector3 vector3, float addedY) =>
+			new(vector3.x, vector3.y + addedY);
 
 		public static Vector3 Add(this Vector3 vector3, Vector3 offset) =>
 			new(vector3.x + offset.x, vector3.y + offset.y, vector3.z + offset.z);

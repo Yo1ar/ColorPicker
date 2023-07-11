@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Components.Player.Eraser;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,14 +11,20 @@ namespace GameCore.GameServices
 	{
 		private AssetService _assetService;
 		private GameObject _player;
-		public event Action<Transform> OnPlayerCreated;
+
 		public Transform Player => _player.transform;
+		public List<IErasable> Erasables { get; } = new();
+
+		public event Action<Transform> OnPlayerCreated;
 
 		public override Task InitService()
 		{
 			_assetService = ServiceLocator.assetService;
 			return Task.CompletedTask;
 		}
+		
+		public void AddToErasable(IErasable erasable) =>
+			Erasables.Add(erasable);
 
 		public void CreatePlayer(Vector3 position)
 		{

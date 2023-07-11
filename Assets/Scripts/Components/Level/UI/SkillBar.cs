@@ -54,7 +54,7 @@ namespace Components.Level.UI
 		}
 
 		private void OnEraserTap() =>
-			_playerSkills.EraseSomething();
+			_playerSkills.ActivateErasableMode();
 
 		private void OnFireballTap() =>
 			_playerSkills.TryLaunchFireball();
