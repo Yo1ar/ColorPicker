@@ -18,7 +18,8 @@ GameObject:
   - component: {fileID: 8487233350759509366}
   - component: {fileID: 1615805071466303219}
   - component: {fileID: 1505437492273033738}
-  m_Layer: 0
+  - component: {fileID: 8722008652442088930}
+  m_Layer: 11
   m_Name: pfb_mob_handy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -212,6 +213,20 @@ SortingGroup:
   m_SortingLayer: 4
   m_SortingOrder: 1
   m_SortAtRoot: 0
+--- !u!114 &8722008652442088930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689831335622259391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57261fc900f042c0a6691184fa96df84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eraserAbove: {fileID: 5357610949200225659, guid: ab09e2fc621b5e643b001d232b631743, type: 3}
+  _eraserAboveOffset: 1.3
 --- !u!1001 &567365602866129409
 PrefabInstance:
   m_ObjectHideFlags: 0
