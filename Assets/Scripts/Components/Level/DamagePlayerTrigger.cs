@@ -7,7 +7,7 @@ namespace Components.Level
 {
     public class DamagePlayerTrigger : MonoBehaviour
     {
-        [SerializeField] private UnityEvent<Transform> OnDamage;
+        [SerializeField] private UnityEvent<Transform> _onDamage;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -17,7 +17,7 @@ namespace Components.Level
             var playerHealth = other.GetComponent<PlayerHealth>();
             playerHealth.Damage();
         
-            OnDamage?.Invoke(other.transform);
+            _onDamage?.Invoke(other.transform);
         }
     }
 }

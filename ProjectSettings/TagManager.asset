@@ -54,7 +54,7 @@ TagManager:
   - name: Level
     uniqueID: 2612349373
     locked: 0
-  - name: PLayer
+  - name: Player
     uniqueID: 362710871
     locked: 0
   - name: Environment

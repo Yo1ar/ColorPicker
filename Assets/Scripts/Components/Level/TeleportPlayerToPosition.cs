@@ -1,18 +1,85 @@
+using System.Threading.Tasks;
+using Cinemachine;
+using GameCore.GameServices;
 using UnityEngine;
+using UnityEngine.Rendering;
+using Utils;
 
 namespace Components.Level
 {
 	public class TeleportPlayerToPosition : MonoBehaviour
 	{
-		[SerializeField] private Transform _target;
+		[SerializeField] private SpriteRenderer _target;
+		private readonly float _waitPlayerDisappear = 0.5f;
+		private readonly float _waitCameraFollow = 0.5f;
+		private readonly float _waitPlayerAppear = 0.2f;
+		private readonly float _waitPortalDisappears = 0.2f;
 
-		public void Teleport(Transform player)
+		private Rigidbody2D _playerRigidbody;
+		private SortingGroup _playerSortingGroup;
+		private CinemachineVirtualCamera _cmCamera;
+
+		private void Awake() =>
+			_cmCamera = FindObjectOfType<CinemachineVirtualCamera>();
+
+		private void OnEnable() =>
+			ServiceLocator.factoryService.OnPlayerCreated += GetPlayerComponents;
+
+		private void OnDisable() =>
+			ServiceLocator.factoryService.OnPlayerCreated -= GetPlayerComponents;
+
+		private void GetPlayerComponents(Transform player)
 		{
-			if (!player.TryGetComponent(out Rigidbody2D rigidbody2D))
-				return;
-		
-			player.position = _target.position;
-			rigidbody2D.velocity = Vector2.zero;
+			player.TryGetComponent(out _playerRigidbody);
+			player.TryGetComponent(out _playerSortingGroup);
+		}
+
+		public async void Teleport(Transform player)
+		{
+			HidePlayer();
+			SwitchTargetRenderer(true);
+			
+			await Task.Delay(_waitPlayerDisappear.AsMilliseconds());
+			
+			_cmCamera.Follow = _target.transform;
+			
+			await Task.Delay(_waitCameraFollow.AsMilliseconds());
+			
+			_playerRigidbody.MovePosition(_target.transform.position);
+			
+			await Task.Delay(_waitPlayerAppear.AsMilliseconds());
+			
+			ShowPlayer();
+			ReturnCameraToNormalFollow();
+
+			await Task.Delay(_waitPortalDisappears.AsMilliseconds());
+
+			SwitchTargetRenderer(false);
+		}
+
+		private void SwitchTargetRenderer(bool value) =>
+			_target.enabled = value;
+
+		private void ReturnCameraToNormalFollow()
+		{
+			_playerRigidbody.velocity = Vector2.zero;
+			_cmCamera.Follow = _playerRigidbody.transform;
+		}
+
+		private void ShowPlayer()
+		{
+			_playerSortingGroup.sortingLayerName = "Player";
+			_playerSortingGroup.sortingOrder = 0;
+			_playerRigidbody.gravityScale = 1;
+			_playerRigidbody.velocity = Vector2.zero;
+		}
+
+		private void HidePlayer()
+		{
+			_playerSortingGroup.sortingLayerName = "Background";
+			_playerSortingGroup.sortingOrder = -1;
+			_playerRigidbody.gravityScale = 0;
+			_playerRigidbody.velocity = Vector2.zero;
 		}
 	}
 }

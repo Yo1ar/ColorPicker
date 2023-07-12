@@ -1,9 +1,7 @@
-﻿using System;
-using Components.Level;
+﻿using Components.Level;
 using Components.Player.Eraser;
 using GameCore.GameServices;
 using UnityEngine;
-using Utils.Constants;
 
 namespace Components.Player
 {
