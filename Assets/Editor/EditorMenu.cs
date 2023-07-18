@@ -30,10 +30,6 @@ namespace Editor
 		public static void OpenScene_GameUI() =>
 			Scenes.OpenScene(Scenes.GameUI);
 
-		[MenuItem("Scenes/MainMenu")]
-		public static void OpenScene_MainMenu() =>
-			Scenes.OpenScene(Scenes.MainMenu);
-
 		[MenuItem("Scenes/MainMenuUI")]
 		public static void OpenScene_MainMenuUI() =>
 			Scenes.OpenScene(Scenes.MainMenuUI);

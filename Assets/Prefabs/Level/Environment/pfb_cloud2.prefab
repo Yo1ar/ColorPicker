@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2454967431370211469}
   - component: {fileID: 5276789359394813325}
   - component: {fileID: 2821478642308178899}
-  - component: {fileID: 2580031694012556158}
   m_Layer: 0
   m_Name: pfb_cloud2
   m_TagString: Untagged
@@ -32,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5276789359394813325
 SpriteRenderer:
@@ -111,15 +110,3 @@ MonoBehaviour:
     _randomFrameStart: 0
     _loop: 0
     _frames: []
---- !u!114 &2580031694012556158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2454967431370211471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c625379135ad4c40ba4627ad60c33d91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
