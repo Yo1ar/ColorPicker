@@ -257,7 +257,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _groundCheckDepth: 0.235
-  _groundCheckWide: 1
+  _groundCheckWide: 0.5
 --- !u!114 &4520430255095382992
 MonoBehaviour:
   m_ObjectHideFlags: 0
