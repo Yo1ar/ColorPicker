@@ -14,7 +14,7 @@ namespace Components.Enemies
 		{
 			base.Awake();
 			
-			_projectile = ServiceLocator.assetService.PencilProjectile;
+			_projectile = Services.AssetService.PencilProjectile;
 			_projectilePool = new ProjectilePool(_projectile);
 		}
 

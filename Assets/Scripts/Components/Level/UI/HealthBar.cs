@@ -1,27 +1,31 @@
+using Components.Player;
+using GameCore.GameServices;
+using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using UnityEngine.UI;
+
 namespace Components.Level.UI
 {
-	using Player;
-	using DG.Tweening;
-	using DG.Tweening.Core;
-	using DG.Tweening.Plugins.Options;
 	using UnityEngine;
-	using UnityEngine.UI;
-	
+
 	public class HealthBar : MonoBehaviour
 	{
 		[SerializeField] private Image _back;
 		private Slider _healthSlider;
 		private PlayerHealth _playerHealth;
 		private TweenerCore<Color, Color, ColorOptions> _tween;
-		private const Ease Ease = DG.Tweening.Ease.InSine;
+		private FactoryService _factoryService;
 
 		private readonly Color _damageColor = Color.red;
 		private readonly Color _healColor = Color.green;
 		private const float AnimationDuration = 2f;
+		private const Ease Ease = DG.Tweening.Ease.InSine;
 
 		private void Awake()
 		{
-			_playerHealth = FindFirstObjectByType<PlayerHealth>();
+			_factoryService = Services.FactoryService;
+			_playerHealth = _factoryService.Player.GetComponent<PlayerHealth>();
 			_healthSlider = GetComponent<Slider>();
 		}
 
@@ -35,11 +39,13 @@ namespace Components.Level.UI
 		{
 			_playerHealth.OnDamage -= OnDamage;
 			_playerHealth.OnHeal -= OnHeal;
-			
+
 			_tween.Kill();
 		}
 
-		[ContextMenu("On Damage")]
+		private void GetPlayerHealth(Transform player) =>
+			_playerHealth = player.GetComponent<PlayerHealth>();
+
 		private void OnDamage()
 		{
 			CheckTweenActive();
@@ -47,7 +53,6 @@ namespace Components.Level.UI
 			StartFadeAnimation(_damageColor);
 		}
 
-		[ContextMenu("On Heal")]
 		private void OnHeal()
 		{
 			CheckTweenActive();
@@ -61,7 +66,7 @@ namespace Components.Level.UI
 				_tween.Kill();
 		}
 
-		private void SetBarValue() => 
+		private void SetBarValue() =>
 			_healthSlider.value = _playerHealth.currentHealth;
 
 		private void StartFadeAnimation(Color color)

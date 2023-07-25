@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 186048309}
   - component: {fileID: 186048308}
   - component: {fileID: 186048310}
+  - component: {fileID: 186048311}
   m_Layer: 5
   m_Name: img_firaballActive
   m_TagString: Untagged
@@ -348,6 +349,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonCounter: {fileID: 981936015}
+--- !u!114 &186048311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186048306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/buttonEast
 --- !u!1 &195644662
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +541,8 @@ GameObject:
   - component: {fileID: 337113746}
   - component: {fileID: 337113748}
   - component: {fileID: 337113749}
+  - component: {fileID: 337113750}
+  - component: {fileID: 337113751}
   m_Layer: 5
   m_Name: btn_jump
   m_TagString: Untagged
@@ -621,6 +637,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inactiveImage: {fileID: 337113746}
   _activeImage: {fileID: 195644664}
+--- !u!114 &337113750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337113744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/buttonSouth
+--- !u!225 &337113751
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337113744}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &726851149
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +870,7 @@ GameObject:
   - component: {fileID: 900816816}
   - component: {fileID: 900816818}
   - component: {fileID: 900816817}
+  - component: {fileID: 900816820}
   m_Layer: 5
   m_Name: btn_fireball
   m_TagString: Untagged
@@ -896,6 +938,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900816815}
   m_CullTransparentMesh: 1
+--- !u!225 &900816820
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900816815}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &981936011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1127,7 @@ GameObject:
   - component: {fileID: 1266650269}
   - component: {fileID: 1266650271}
   - component: {fileID: 1266650270}
+  - component: {fileID: 1266650272}
   m_Layer: 5
   m_Name: btn_eraser
   m_TagString: Untagged
@@ -1140,6 +1195,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266650268}
   m_CullTransparentMesh: 1
+--- !u!225 &1266650272
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266650268}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1429984871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,6 +1489,7 @@ GameObject:
   - component: {fileID: 1609051598}
   - component: {fileID: 1609051597}
   - component: {fileID: 1609051599}
+  - component: {fileID: 1609051600}
   m_Layer: 5
   m_Name: img_eraserActive
   m_TagString: Untagged
@@ -1500,6 +1568,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonCounter: {fileID: 263646240}
+--- !u!114 &1609051600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609051595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ControlPath: <Gamepad>/buttonWest
 --- !u!1 &2070968162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1800,5 +1881,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _eraserBtn: {fileID: 1609051599}
   _fireballBtn: {fileID: 186048310}
-  _jumpBtn: {fileID: 337113748}
   _jumpBtnStateSwitch: {fileID: 337113749}

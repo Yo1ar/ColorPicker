@@ -11,18 +11,19 @@ namespace GameCore.StateMachine
 		private GameStateLoadProgress _stateLoadProgress;
 		private GameStateLoadLevel _stateLoadLevel;
 		private GameStateGameLoop _stateGameLoop;
-
+		
 		private void Update() =>
 			_currentState?.Update();
 
-		public void Init(ServiceLocator serviceLocator)
+		public GameStateMachine Init(Services services)
 		{
 			LoadingScreen loadingScreen = FindLoadingScreen();
 			
-			_stateBootstrap = new GameStateBootstrap(this, serviceLocator);
+			_stateBootstrap = new GameStateBootstrap(this, services);
 			_stateLoadProgress = new GameStateLoadProgress(this);
 			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen);
 			_stateGameLoop = new GameStateGameLoop(this);
+			return this;
 		}
 
 		private LoadingScreen FindLoadingScreen() => 

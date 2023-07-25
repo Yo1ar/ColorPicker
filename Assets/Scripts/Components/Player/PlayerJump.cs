@@ -1,4 +1,5 @@
 using System;
+using GameCore.GameServices;
 using UnityEngine;
 
 namespace Components.Player
@@ -9,6 +10,7 @@ namespace Components.Player
 		[SerializeField] private float _force;
 		private Rigidbody2D _rigidbody2D;
 		private GroundCheck _groundCheck;
+		private InputService _inputService;
 		private bool _canJump;
 		public event Action<bool> CanJump;
 
@@ -16,7 +18,14 @@ namespace Components.Player
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_groundCheck = GetComponent<GroundCheck>();
+			_inputService = Services.InputService;
 		}
+
+		private void OnEnable() =>
+			_inputService.OnJumpPressed += Jump;
+
+		private void OnDisable() =>
+			_inputService.OnJumpPressed -= Jump;
 
 		private void Update()
 		{
@@ -26,7 +35,7 @@ namespace Components.Player
 				Jump();
 		}
 
-		public void Jump()
+		private void Jump()
 		{
 			if (!_canJump)
 				return;

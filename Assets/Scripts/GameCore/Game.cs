@@ -11,7 +11,7 @@ namespace GameCore
 	public sealed class Game
 	{
 		private GameStateMachine _gameStateMachine;
-		private ServiceLocator _serviceLocator;
+		private Services _services;
 
 		public Game() =>
 			StartGameFlow();
@@ -31,16 +31,18 @@ namespace GameCore
 
 		private async void StartGameFlow()
 		{
+			_services = new Services();
+			
 			await LoadGameUI();
-			_serviceLocator = new ServiceLocator();
+			
 			StartGameStateMachine();
 		}
 
 		private async Task LoadGameUI()
 		{
-			AsyncOperation loading = SceneManager.LoadSceneAsync(Scenes.GameUI, LoadSceneMode.Additive);
+			AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(Scenes.GameUI, LoadSceneMode.Additive);
 
-			while (!loading.isDone)
+			while (!asyncOperation.isDone)
 				await Task.Yield();
 		}
 
@@ -48,8 +50,9 @@ namespace GameCore
 		{
 			var stateMachineObject = new GameObject("GameStateMachine");
 			_gameStateMachine = stateMachineObject.AddComponent<GameStateMachine>();
-			_gameStateMachine.Init(_serviceLocator);
-			_gameStateMachine.EnterBootstrapState();
+			_gameStateMachine
+				.Init(_services)
+				.EnterBootstrapState();
 		}
 	}
 }

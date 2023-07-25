@@ -18,10 +18,10 @@ namespace Components.Enemies
 			_enemyMove = GetComponent<EnemyMove>();
 
 		private void OnEnable() =>
-			ServiceLocator.factoryService.OnPlayerCreated += SetPlayer;
+			Services.FactoryService.OnPlayerCreated += SetPlayer;
 
 		private void OnDisable() =>
-			ServiceLocator.factoryService.OnPlayerCreated -= SetPlayer;
+			Services.FactoryService.OnPlayerCreated -= SetPlayer;
 
 		private void FixedUpdate() =>
 			_enemyMove.SetLookDirection(IsPlayerInChaseRadius() ? CalculateDirection() : 0);

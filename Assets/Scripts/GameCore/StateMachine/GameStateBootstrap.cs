@@ -1,22 +1,21 @@
 using GameCore.GameServices;
-using UnityEditor;
 
 namespace GameCore.StateMachine
 {
 	public sealed class GameStateBootstrap : IGameState
 	{
 		private readonly GameStateMachine _stateMachine;
-		private readonly ServiceLocator _serviceLocator;
+		private readonly Services _services;
 
-		public GameStateBootstrap(GameStateMachine stateMachine, ServiceLocator serviceLocator)
+		public GameStateBootstrap(GameStateMachine stateMachine, Services services)
 		{
 			_stateMachine = stateMachine;
-			_serviceLocator = serviceLocator;
+			_services = services;
 		}
 
 		public async void Enter()
 		{
-			await _serviceLocator.InitServices();
+			await _services.InitServices();
 			_stateMachine.EnterLoadProgressState();
 		}
 

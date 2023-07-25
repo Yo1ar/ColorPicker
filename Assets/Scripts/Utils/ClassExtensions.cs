@@ -14,6 +14,9 @@ namespace Utils
 		public static int AsMilliseconds(this float value) =>
 			(int)(value * 1000);
 
+		public static bool IsEmpty(this string value) =>
+			value == string.Empty;
+
 		#region Vectors
 
 		public static Vector2 ToVector2(this Vector3 vector3) =>

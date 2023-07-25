@@ -21,5 +21,8 @@ namespace GameCore.GameUI
 
 		public void MakeTextNormal() =>
 			_text.fontStyle = FontStyles.Normal;
+
+		public void SetText(string text) =>
+			_text.SetText(text);
 	}
 }

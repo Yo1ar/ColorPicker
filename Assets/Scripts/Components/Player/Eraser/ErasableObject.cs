@@ -21,7 +21,7 @@ namespace Components.Player.Eraser
 		}
 
 		private void Start() =>
-			ServiceLocator.factoryService.AddToErasable(this);
+			Services.FactoryService.AddToErasable(this);
 
 		public void Erase() =>
 			gameObject.SetActive(false);

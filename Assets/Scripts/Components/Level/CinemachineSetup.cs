@@ -14,10 +14,10 @@ namespace Components.Level
 			SetCameraFollowPlayer();
 
 		private void OnEnable() => 
-			ServiceLocator.factoryService.OnPlayerCreated += SetPlayerAsTarget;
+			Services.FactoryService.OnPlayerCreated += SetPlayerAsTarget;
 
 		private void OnDisable() => 
-			ServiceLocator.factoryService.OnPlayerCreated -= SetPlayerAsTarget;
+			Services.FactoryService.OnPlayerCreated -= SetPlayerAsTarget;
 
 		private void SetPlayerAsTarget(Transform player) => 
 			_cmCamera.Follow = player;

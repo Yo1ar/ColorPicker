@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 953354133336000466}
   - component: {fileID: 953354133336000461}
   - component: {fileID: 953354133336000460}
-  - component: {fileID: 953354133336000463}
+  - component: {fileID: 8900170754007766946}
   m_Layer: 0
   m_Name: pfb_fireballProjectile
   m_TagString: Damageable
@@ -139,7 +139,7 @@ Transform:
   m_Children:
   - {fileID: 953354132134288522}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &953354133336000461
 MonoBehaviour:
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 300
   _targetTag: Enemy
+  _releaseAfter: 1.5
 --- !u!50 &953354133336000460
 Rigidbody2D:
   serializedVersion: 4
@@ -182,8 +183,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &953354133336000463
-CircleCollider2D:
+--- !u!70 &8900170754007766946
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -211,9 +212,9 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.15
+  m_Size: {x: 0.0001, y: 0.5}
+  m_Direction: 1

@@ -1,7 +1,7 @@
 using Components.Player;
+using GameCore.GameServices;
 using GameCore.GameUI;
 using UnityEngine;
-using Utils.Constants;
 
 namespace Components.Level.UI
 {
@@ -9,9 +9,10 @@ namespace Components.Level.UI
 	{
 		[SerializeField] private LevelUIButton _eraserBtn;
 		[SerializeField] private LevelUIButton _fireballBtn;
-		[SerializeField] private LevelUIButton _jumpBtn;
 		[SerializeField] private JumpButtonStateSwitch _jumpBtnStateSwitch;
-		
+
+		private FactoryService _factoryService;
+		private InputService _inputService;
 		private PlayerJump _playerJump;
 		private PlayerInventory _playerInventory;
 		private PlayerSkills _playerSkills;
@@ -19,10 +20,11 @@ namespace Components.Level.UI
 
 		private void Awake()
 		{
-			GameObject player = GameObject.FindWithTag(Tags.Player);
-			_playerJump = player.GetComponent<PlayerJump>();
-			_playerInventory = player.GetComponent<PlayerInventory>();
-			_playerSkills = player.GetComponent<PlayerSkills>();
+			_factoryService = Services.FactoryService;
+			_inputService = Services.InputService;
+			_playerInventory = _factoryService.Player.GetComponent<PlayerInventory>();
+			_playerSkills = _factoryService.Player.GetComponent<PlayerSkills>();
+			_playerJump = _factoryService.Player.GetComponent<PlayerJump>();
 		}
 
 		private void Start()
@@ -33,9 +35,8 @@ namespace Components.Level.UI
 
 		private void OnEnable()
 		{
-			_jumpBtn.OnTap += _playerJump.Jump;
-			_eraserBtn.OnTap += OnEraserTap;
-			_fireballBtn.OnTap += OnFireballTap;
+			_inputService.OnErasePressed += OnEraserTap;
+			_inputService.OnLaunchFireballPressed += OnFireballTap;
 
 			_playerInventory.OnEraserCountModified += _eraserBtn.SetCounterValue;
 			_playerInventory.OnFireballsCountModified += _fireballBtn.SetCounterValue;
@@ -44,9 +45,8 @@ namespace Components.Level.UI
 
 		private void OnDisable()
 		{
-			_jumpBtn.OnTap -= _playerJump.Jump;
-			_eraserBtn.OnTap -= OnEraserTap;
-			_fireballBtn.OnTap -= OnFireballTap;
+			_inputService.OnErasePressed -= OnEraserTap;
+			_inputService.OnLaunchFireballPressed -= OnFireballTap;
 
 			_playerInventory.OnEraserCountModified -= _eraserBtn.SetCounterValue;
 			_playerInventory.OnFireballsCountModified -= _fireballBtn.SetCounterValue;

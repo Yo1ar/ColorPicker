@@ -15,7 +15,7 @@ namespace GameCore.GameServices
 
 		public override Task InitService()
 		{
-			_serviceConfig = ServiceLocator.configService.assetServiceConfig;
+			_serviceConfig = Services.ConfigService.assetServiceConfig;
 			return Task.CompletedTask;
 		}
 	}

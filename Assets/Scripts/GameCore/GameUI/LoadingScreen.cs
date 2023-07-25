@@ -5,7 +5,7 @@ namespace GameCore.GameUI
 	public class LoadingScreen : MonoBehaviour
 	{
 		private ShowHideCanvasGroup _showHideCanvas;
-
+		
 		private void Awake() =>
 			_showHideCanvas = GetComponent<ShowHideCanvasGroup>();
 
@@ -14,5 +14,6 @@ namespace GameCore.GameUI
 
 		public void Hide() =>
 			_showHideCanvas.Hide();
+		
 	}
 }

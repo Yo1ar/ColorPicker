@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using GameCore.GameServices;
 using GameCore.StateMachine;
 using UnityEngine;
 using Utils.Constants;
@@ -11,16 +12,29 @@ namespace GameCore.GameUI
 		[SerializeField] private GameMenuButton _resumeButton;
 		[SerializeField] private GameMenuButton _settingsButton;
 		[SerializeField] private GameMenuButton _goToMainButton;
-		[SerializeField] private float _gap;
 		private ShowHideCanvasGroup _showHideCanvas;
+		private InputService _inputSystem;
 
-		private void Awake() =>
-			_showHideCanvas = GetComponent<ShowHideCanvasGroup>();
-
-		private void Update()
+		private void Awake()
 		{
-			if (Input.GetKeyDown(KeyCode.Escape))
-				ShowHideGameMenu();
+			_inputSystem = Services.InputService;
+			_showHideCanvas = GetComponent<ShowHideCanvasGroup>();
+		}
+
+		private void OnEnable()
+		{
+			_inputSystem.OnBackPressed += ShowHideGameMenu;
+			_resumeButton.OnClick += ResumeAction;
+			_settingsButton.OnClick += SettingsAction;
+			_goToMainButton.OnClick += MainMenuAction;
+		}
+
+		private void OnDisable()
+		{
+			_inputSystem.OnBackPressed -= ShowHideGameMenu;
+			_resumeButton.OnClick -= ResumeAction;
+			_settingsButton.OnClick -= SettingsAction;
+			_goToMainButton.OnClick -= MainMenuAction;
 		}
 
 		private void ShowHideGameMenu()
@@ -31,21 +45,7 @@ namespace GameCore.GameUI
 				Show();
 		}
 
-		private void OnEnable()
-		{
-			_resumeButton.OnClick += ResumeAction;
-			_settingsButton.OnClick += SettingsAction;
-			_goToMainButton.OnClick += MainMenuAction;
-		}
-
-		private void OnDisable()
-		{
-			_resumeButton.OnClick -= ResumeAction;
-			_settingsButton.OnClick -= SettingsAction;
-			_goToMainButton.OnClick -= MainMenuAction;
-		}
-
-		public void Show()
+		private void Show()
 		{
 			_showHideCanvas.Show();
 			Game.Pause();

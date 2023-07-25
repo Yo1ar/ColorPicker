@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Components.Player.Eraser;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
 namespace GameCore.GameServices
@@ -19,7 +20,7 @@ namespace GameCore.GameServices
 
 		public override Task InitService()
 		{
-			_assetService = ServiceLocator.assetService;
+			_assetService = Services.AssetService;
 			return Task.CompletedTask;
 		}
 		

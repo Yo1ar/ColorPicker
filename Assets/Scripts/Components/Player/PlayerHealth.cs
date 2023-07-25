@@ -49,7 +49,8 @@ namespace Components.Player
 			currentHealth++;
 		}
 
-		private void Die() =>
-			Debug.Log("GAME OVER!");
+		private void Die()
+		{
+		}
 	}
 }

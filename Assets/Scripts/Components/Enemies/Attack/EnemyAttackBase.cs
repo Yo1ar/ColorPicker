@@ -38,10 +38,10 @@ namespace Components.Enemies
 		}
 
 		private void OnEnable() =>
-			ServiceLocator.factoryService.OnPlayerCreated += SetPlayerWhenCreated;
+			Services.FactoryService.OnPlayerCreated += SetPlayerWhenCreated;
 
 		private void OnDisable() =>
-			ServiceLocator.factoryService.OnPlayerCreated -= SetPlayerWhenCreated;
+			Services.FactoryService.OnPlayerCreated -= SetPlayerWhenCreated;
 
 		private bool IsPlayerInAttackZone()
 		{
@@ -60,7 +60,7 @@ namespace Components.Enemies
 #if UNITY_EDITOR_64
 			Vector3 center = transform.position.Add(OffsetWithDirection);
 #else
-			Vector3 center = _transform.position.Add(OffsetWithDirection);
+			Vector3 center = Transform.position.Add(OffsetWithDirection);
 #endif
 			return center;
 		}

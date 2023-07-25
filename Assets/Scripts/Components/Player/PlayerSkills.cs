@@ -25,8 +25,8 @@ namespace Components.Player
 			_playerAnimation = GetComponent<PlayerAnimation>();
 			_playerHealth = GetComponent<PlayerHealth>();
 
-			_factory = ServiceLocator.factoryService;
-			_projectile = ServiceLocator.assetService.FireballProjectile;
+			_factory = Services.FactoryService;
+			_projectile = Services.AssetService.FireballProjectile;
 			_fireballPool = new ProjectilePool(_projectile);
 		}
 

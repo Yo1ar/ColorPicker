@@ -33,8 +33,8 @@ namespace Components.Enemies
 		{
 			base.Awake();
 
-			_portalPrefab = Instantiate(ServiceLocator.assetService.PortalAttack);
-			_projectilePrefab = ServiceLocator.assetService.PencilProjectile;
+			_portalPrefab = Instantiate(Services.AssetService.PortalAttack);
+			_projectilePrefab = Services.AssetService.PencilProjectile;
 			_projectilePool = new ProjectilePool(_projectilePrefab);
 			_portalPrefab.gameObject.SetActive(false);
 		}

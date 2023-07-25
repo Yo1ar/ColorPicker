@@ -7,13 +7,13 @@ namespace Configs
 	[CreateAssetMenu(fileName = "ScenesConfig", menuName = "Configs/Scenes config")]
 	public sealed class ScenesConfig : ScriptableObject
 	{
-		public List<SceneSet> sceneSets;
+		public List<SceneContainer> SceneContainers;
 		
-		public SceneSet GetSceneSet(SceneSets set)
+		public SceneContainer GetSceneContainerWithSet(SceneSets set)
 		{
-			foreach (SceneSet sceneSet in sceneSets)
-				if (sceneSet.set == set)
-					return sceneSet;
+			foreach (SceneContainer container in SceneContainers)
+				if (container.Set == set)
+					return container;
 
 			Debug.LogError("Can't find scene set");
 			return null;
