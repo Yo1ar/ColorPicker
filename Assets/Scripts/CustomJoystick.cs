@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.OnScreen;
+using UnityEngine.UI;
 
 public class CustomJoystick : OnScreenControl, IPointerUpHandler, IPointerDownHandler, IDragHandler
 {
@@ -16,22 +17,16 @@ public class CustomJoystick : OnScreenControl, IPointerUpHandler, IPointerDownHa
 	private RectTransform _background;
 
 	[SerializeField] private RectTransform _handle;
+	[Range(0.01f, 1f), SerializeField] private float _scaleFactor;
+	[Range(0.01f, 1f), SerializeField] private float _scale2;
 
-	private RectTransform _transform;
 	private Vector2 _defaultBackgroundPosition;
 	private Vector2 _defaultHandlePosition;
-
-	private const float HandleSizeOffset = 0.7f;
 
 	protected override string controlPathInternal
 	{
 		get => _controlPath;
 		set => _controlPath = value;
-	}
-
-	private void Awake()
-	{
-		_transform = transform as RectTransform;
 	}
 
 	private void Start()
@@ -42,7 +37,7 @@ public class CustomJoystick : OnScreenControl, IPointerUpHandler, IPointerDownHa
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		_background.anchoredPosition = eventData.pressPosition;
+		_background.position = eventData.pressPosition;
 		OnDrag(eventData);
 	}
 
@@ -53,7 +48,7 @@ public class CustomJoystick : OnScreenControl, IPointerUpHandler, IPointerDownHa
 		Vector2 deltaWithDirection = ApplyDirection(deltaClamped);
 
 		SendValueToControl(deltaWithDirection);
-		
+
 		_handle.anchoredPosition = deltaWithDirection;
 	}
 
@@ -98,24 +93,24 @@ public class CustomJoystick : OnScreenControl, IPointerUpHandler, IPointerDownHa
 	}
 #if UNITY_EDITOR
 
-	private void OnDrawGizmos()
+	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.magenta;
 
 		switch (_direction)
 		{
 			case JoystickDirection.Free:
-				Gizmos.DrawWireSphere(_background.anchoredPosition, _handleMoveRange);
+				Gizmos.DrawWireSphere(_background.position, _handleMoveRange * _scaleFactor);
 				break;
 			case JoystickDirection.Horizontal:
 				Gizmos.DrawWireCube(
-					_background.anchoredPosition,
-					new Vector3(_handleMoveRange * 2, _handle.rect.height * HandleSizeOffset));
+					_handle.position,
+					new Vector3(_handleMoveRange * _scaleFactor * 2, _handle.rect.height * _scaleFactor * _scale2));
 				break;
 			case JoystickDirection.Vertical:
 				Gizmos.DrawWireCube(
-					_background.anchoredPosition,
-					new Vector3(_handle.rect.width * HandleSizeOffset, _handleMoveRange * 2));
+					_handle.position,
+					new Vector3(_handle.rect.width * _scaleFactor * _scale2, _handleMoveRange * _scaleFactor * 2));
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

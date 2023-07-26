@@ -1346,7 +1346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 315, y: 180}
+  m_AnchoredPosition: {x: 315, y: 226}
   m_SizeDelta: {x: 512, y: 512}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1332295008
@@ -1362,7 +1362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5000061, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.24705882}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5000061, b: 0, a: 1}
+  m_Color: {r: 0.6320754, g: 0.3172771, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1873,9 +1873,9 @@ RectTransform:
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -658.37885, y: -271.83063}
-  m_SizeDelta: {x: -1316.7576, y: -543.6613}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 301.6211, y: 268.16937}
+  m_SizeDelta: {x: 603.24243, y: 536.3387}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2045567881
 MonoBehaviour:
@@ -1928,10 +1928,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controlPath: <Gamepad>/leftStick
-  _direction: 1
+  _direction: 0
   _handleMoveRange: 150
   _background: {fileID: 1332295007}
   _handle: {fileID: 1746393955}
+  _scaleFactor: 0.4
+  _scale2: 0.6
 --- !u!1 &2070968162
 GameObject:
   m_ObjectHideFlags: 0
