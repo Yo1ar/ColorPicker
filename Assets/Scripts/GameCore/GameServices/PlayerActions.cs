@@ -196,7 +196,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""WASD [Keyboard]"",
                     ""id"": ""85b025ba-e177-48bf-be0f-963659e1c020"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -251,7 +251,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Arrows [Keyboard]"",
                     ""id"": ""e1737440-5497-4785-a092-1fc5194ac305"",
-                    ""path"": ""2DVector(mode=2)"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
