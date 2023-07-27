@@ -24,17 +24,29 @@ namespace GameCore.GameUI
 		private void OnEnable()
 		{
 			_inputSystem.OnBackPressed += ShowHideGameMenu;
+			
 			_resumeButton.OnClick += ResumeAction;
+			_resumeButton.OnClick += ShowHideGameMenu;
+
 			_settingsButton.OnClick += SettingsAction;
+			_settingsButton.OnClick += ShowHideGameMenu;
+			
 			_goToMainButton.OnClick += MainMenuAction;
+			_goToMainButton.OnClick += ShowHideGameMenu;
 		}
 
 		private void OnDisable()
 		{
 			_inputSystem.OnBackPressed -= ShowHideGameMenu;
+			
 			_resumeButton.OnClick -= ResumeAction;
+			_resumeButton.OnClick -= ShowHideGameMenu;
+			
 			_settingsButton.OnClick -= SettingsAction;
+			_settingsButton.OnClick -= ShowHideGameMenu;
+			
 			_goToMainButton.OnClick -= MainMenuAction;
+			_goToMainButton.OnClick -= ShowHideGameMenu;
 		}
 
 		private void ShowHideGameMenu()
