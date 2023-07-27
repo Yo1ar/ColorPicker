@@ -10,6 +10,7 @@ namespace GameCore.GameServices
 		private FactoryService _factoryService;
 		private PlayerActions _actions;
 
+		public event Action<float> OnMovePressed;
 		public event Action OnJumpPressed;
 		public event Action OnLaunchFireballPressed;
 		public event Action OnErasePressed;
@@ -23,6 +24,8 @@ namespace GameCore.GameServices
 		{
 			_actions.Enable();
 
+			_actions.Main.Move.performed += InvokeMove;
+			_actions.Main.Move.canceled += InvokeMove;
 			_actions.Main.Jump.started += InvokeJump;
 			_actions.Main.Erase.started += InvokeErase;
 			_actions.Main.LaunchFireball.started += InvokeLaunchFireball;
@@ -30,6 +33,12 @@ namespace GameCore.GameServices
 			_actions.Main.Back.canceled += InvokeBack;
 			
 			return Task.CompletedTask;
+		}
+
+		private void InvokeMove(InputAction.CallbackContext obj)
+		{
+			var moveVector = obj.ReadValue<Vector2>();
+			OnMovePressed?.Invoke(moveVector.x);
 		}
 
 		private void InvokeJump(InputAction.CallbackContext obj) =>
