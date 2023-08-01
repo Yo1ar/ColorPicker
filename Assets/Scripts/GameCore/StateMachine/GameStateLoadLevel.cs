@@ -56,6 +56,6 @@ namespace GameCore.StateMachine
 		}
 
 		private SceneContainer GetSceneContainer(SceneSets sceneSet) =>
-			Services.ConfigService.scenesConfig.GetSceneContainerWithSet(sceneSet);
+			Services.ConfigService.ScenesConfig.GetSceneContainerWithSet(sceneSet);
 	}
 }

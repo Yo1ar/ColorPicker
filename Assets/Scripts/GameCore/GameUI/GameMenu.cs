@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Configs;
 using GameCore.GameServices;
 using GameCore.StateMachine;
 using UnityEngine;
@@ -13,17 +14,17 @@ namespace GameCore.GameUI
 		[SerializeField] private GameMenuButton _settingsButton;
 		[SerializeField] private GameMenuButton _goToMainButton;
 		private ShowHideCanvasGroup _showHideCanvas;
-		private InputService _inputSystem;
-
+		private GameEvents _gameEvents;
+		
 		private void Awake()
 		{
-			_inputSystem = Services.InputService;
+			_gameEvents = Services.ConfigService.GameEvents;
 			_showHideCanvas = GetComponent<ShowHideCanvasGroup>();
 		}
 
 		private void OnEnable()
 		{
-			_inputSystem.OnBackPressed += ShowHideGameMenu;
+			_gameEvents.OnBackPressed += ShowHideGameMenu;
 			
 			_resumeButton.OnClick += ResumeAction;
 			_resumeButton.OnClick += ShowHideGameMenu;
@@ -37,7 +38,7 @@ namespace GameCore.GameUI
 
 		private void OnDisable()
 		{
-			_inputSystem.OnBackPressed -= ShowHideGameMenu;
+			_gameEvents.OnBackPressed -= ShowHideGameMenu;
 			
 			_resumeButton.OnClick -= ResumeAction;
 			_resumeButton.OnClick -= ShowHideGameMenu;

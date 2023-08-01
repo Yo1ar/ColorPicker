@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Configs;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,26 +9,25 @@ namespace GameCore.GameServices
 	public class InputService : ServiceBase
 	{
 		private FactoryService _factoryService;
-		private PlayerActions _actions;
+		private readonly PlayerActions _actions;
+		private readonly PlayerEvents _playerEvents;
+		private readonly GameEvents _gameEvents;
 
-		public event Action<float> OnMovePressed;
-		public event Action OnJumpPressed;
-		public event Action OnLaunchFireballPressed;
-		public event Action OnErasePressed;
-		public event Action OnBackPressed;
-		public event Action OnScreenTapPressed;
-
-		public InputService() =>
+		public InputService()
+		{
 			_actions = new PlayerActions();
+			_playerEvents = Services.ConfigService.PlayerEvents;
+			_gameEvents = Services.ConfigService.GameEvents;
+		}
 
 		public override Task InitService()
 		{
 			_actions.Enable();
 
-			_actions.Main.Move.performed += InvokeMove;
-			_actions.Main.Move.canceled += InvokeMove;
-			_actions.Main.Jump.started += InvokeJump;
-			_actions.Main.Erase.started += InvokeErase;
+			_actions.Main.Move.performed += InvokePlayerMove;
+			_actions.Main.Move.canceled += InvokePlayerMove;
+			_actions.Main.Jump.started += InvokePlayerJump;
+			_actions.Main.Erase.started += InvokePlayerErase;
 			_actions.Main.LaunchFireball.started += InvokeLaunchFireball;
 			_actions.Main.OnScreenTap.canceled += InvokeOnScreenTap;
 			_actions.Main.Back.canceled += InvokeBack;
@@ -35,33 +35,36 @@ namespace GameCore.GameServices
 			return Task.CompletedTask;
 		}
 
-		private void InvokeMove(InputAction.CallbackContext obj)
+		private void InvokePlayerMove(InputAction.CallbackContext obj)
 		{
 			var moveVector = obj.ReadValue<Vector2>();
-			OnMovePressed?.Invoke(moveVector.x);
+			_playerEvents.OnMove?.Invoke(moveVector.x);
 		}
 
-		private void InvokeJump(InputAction.CallbackContext obj) =>
-			OnJumpPressed?.Invoke();
+		private void InvokePlayerJump(InputAction.CallbackContext obj) =>
+			_playerEvents.OnJump?.Invoke();
 
-		private void InvokeErase(InputAction.CallbackContext obj) =>
-			OnErasePressed?.Invoke();
+		private void InvokePlayerErase(InputAction.CallbackContext obj) =>
+			_playerEvents.OnErase?.Invoke();
 
 		private void InvokeLaunchFireball(InputAction.CallbackContext obj) =>
-			OnLaunchFireballPressed?.Invoke();
+			_playerEvents.OnShoot?.Invoke();
 
 		private void InvokeOnScreenTap(InputAction.CallbackContext obj) =>
-			OnScreenTapPressed?.Invoke();
+			_gameEvents.OnScreenTap?.Invoke();
 
 		private void InvokeBack(InputAction.CallbackContext obj) =>
-			OnBackPressed?.Invoke();
+			_gameEvents.OnBackPressed?.Invoke();
 
 		~InputService()
 		{
-			_actions.Main.Jump.performed -= InvokeJump;
-			_actions.Main.Erase.performed -= InvokeErase;
-			_actions.Main.LaunchFireball.performed -= InvokeLaunchFireball;
-			_actions.Main.OnScreenTap.performed -= InvokeOnScreenTap;
+			_actions.Main.Move.performed -= InvokePlayerMove;
+			_actions.Main.Move.canceled -= InvokePlayerMove;
+			_actions.Main.Jump.started -= InvokePlayerJump;
+			_actions.Main.Erase.started -= InvokePlayerErase;
+			_actions.Main.LaunchFireball.started -= InvokeLaunchFireball;
+			_actions.Main.OnScreenTap.canceled -= InvokeOnScreenTap;
+			_actions.Main.Back.canceled -= InvokeBack;
 		}
 	}
 }

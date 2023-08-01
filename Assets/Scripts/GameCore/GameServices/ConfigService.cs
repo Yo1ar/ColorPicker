@@ -6,18 +6,21 @@ namespace GameCore.GameServices
 {
 	public class ConfigService : ServiceBase
 	{
-		public ScenesConfig scenesConfig { get; private set; }
-		public AssetServiceConfig assetServiceConfig { get; private set; }
+		public ScenesConfig ScenesConfig { get; private set; }
+		public AssetServiceConfig AssetServiceConfig { get; private set; }
+		public PlayerEvents PlayerEvents { get; private set; }
+		public GameEvents GameEvents { get; private set; }
 
 		public override async Task InitService()
 		{
-			scenesConfig = await LoadConfig<ScenesConfig>();
-			assetServiceConfig = await LoadConfig<AssetServiceConfig>();
+			ScenesConfig = await LoadConfig<ScenesConfig>();
+			AssetServiceConfig = await LoadConfig<AssetServiceConfig>();
+			PlayerEvents = await LoadConfig<PlayerEvents>();
+			GameEvents = await LoadConfig<GameEvents>();
 		}
 
 		private async Task<TConfig> LoadConfig<TConfig>() where TConfig : ScriptableObject
 		{
-			// Debug.Log(typeof(TConfig));
 			ResourceRequest request = Resources.LoadAsync<TConfig>(GetConfigPath<TConfig>());
 
 			while (!request.isDone)

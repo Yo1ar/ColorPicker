@@ -1,4 +1,4 @@
-using System;
+using Configs;
 using GameCore.GameServices;
 using UnityEngine;
 
@@ -11,23 +11,23 @@ namespace Components.Player
 		private Rigidbody2D _rigidbody2D;
 		private Transform _transform;
 		private PlayerSkills _playerSkills;
-		private InputService _inputService;
+		private PlayerEvents _playerEvents;
 		
 		public float Direction { get; private set; }
 
 		private void Awake()
 		{
-			_inputService = Services.InputService;
+			_playerEvents = Services.ConfigService.PlayerEvents;
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_playerSkills = GetComponent<PlayerSkills>();
 			_transform = transform;
 		}
 
 		private void OnEnable() =>
-			_inputService.OnMovePressed += SetMoveDirection;
+			_playerEvents.OnMove += SetMoveDirection;
 
 		private void OnDisable() =>
-			_inputService.OnMovePressed -= SetMoveDirection;
+			_playerEvents.OnMove -= SetMoveDirection;
 
 		private void SetMoveDirection(float direction)
 		{
