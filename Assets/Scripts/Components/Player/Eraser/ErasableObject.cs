@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Utils;
 using Utils.Constants;
+using Utils.Debug;
 
 namespace Components.Player.Eraser
 {
@@ -11,7 +12,6 @@ namespace Components.Player.Eraser
 	{
 		[SerializeField] private GameObject _eraserAbove;
 		[SerializeField] private float _eraserAboveOffset;
-		
 
 		private void Awake()
 		{
@@ -29,10 +29,7 @@ namespace Components.Player.Eraser
 		public void Highlight(bool value) =>
 			_eraserAbove.SetActive(value);
 
-		private void OnDrawGizmosSelected()
-		{
-			Gizmos.color = Colors.GreenT;
-			Gizmos.DrawCube(transform.position.AddY(_eraserAboveOffset), Vector3.one / 2);
-		}
+		private void OnDrawGizmosSelected() =>
+			SceneViewLabels.DrawHandlesLabel(transform.position + Vector3.up * 2, "Erasable", Colors.Red);
 	}
 }

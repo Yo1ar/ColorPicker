@@ -37,13 +37,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OnScreenTap"",
-                    ""type"": ""Button"",
-                    ""id"": ""f54b4d27-bcc3-4cc3-9af5-58a7280a7308"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""1836a7fa-9953-4f9f-a4e3-03a16b364ebb"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""LaunchFireball"",
@@ -73,13 +73,13 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""1836a7fa-9953-4f9f-a4e3-03a16b364ebb"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""OnScreenTap"",
+                    ""type"": ""Button"",
+                    ""id"": ""f54b4d27-bcc3-4cc3-9af5-58a7280a7308"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -102,17 +102,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2e747959-29e0-45bc-a419-9b9163b3dbf8"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OnScreenTap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -302,6 +291,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e747959-29e0-45bc-a419-9b9163b3dbf8"",
+                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OnScreenTap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -311,11 +311,11 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
-        m_Main_OnScreenTap = m_Main.FindAction("OnScreenTap", throwIfNotFound: true);
+        m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_LaunchFireball = m_Main.FindAction("LaunchFireball", throwIfNotFound: true);
         m_Main_Erase = m_Main.FindAction("Erase", throwIfNotFound: true);
         m_Main_Back = m_Main.FindAction("Back", throwIfNotFound: true);
-        m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
+        m_Main_OnScreenTap = m_Main.FindAction("OnScreenTap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -378,21 +378,21 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Main;
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
     private readonly InputAction m_Main_Jump;
-    private readonly InputAction m_Main_OnScreenTap;
+    private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_LaunchFireball;
     private readonly InputAction m_Main_Erase;
     private readonly InputAction m_Main_Back;
-    private readonly InputAction m_Main_Move;
+    private readonly InputAction m_Main_OnScreenTap;
     public struct MainActions
     {
         private @PlayerActions m_Wrapper;
         public MainActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
-        public InputAction @OnScreenTap => m_Wrapper.m_Main_OnScreenTap;
+        public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @LaunchFireball => m_Wrapper.m_Main_LaunchFireball;
         public InputAction @Erase => m_Wrapper.m_Main_Erase;
         public InputAction @Back => m_Wrapper.m_Main_Back;
-        public InputAction @Move => m_Wrapper.m_Main_Move;
+        public InputAction @OnScreenTap => m_Wrapper.m_Main_OnScreenTap;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -405,9 +405,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @OnScreenTap.started += instance.OnOnScreenTap;
-            @OnScreenTap.performed += instance.OnOnScreenTap;
-            @OnScreenTap.canceled += instance.OnOnScreenTap;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
             @LaunchFireball.started += instance.OnLaunchFireball;
             @LaunchFireball.performed += instance.OnLaunchFireball;
             @LaunchFireball.canceled += instance.OnLaunchFireball;
@@ -417,9 +417,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Back.started += instance.OnBack;
             @Back.performed += instance.OnBack;
             @Back.canceled += instance.OnBack;
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
+            @OnScreenTap.started += instance.OnOnScreenTap;
+            @OnScreenTap.performed += instance.OnOnScreenTap;
+            @OnScreenTap.canceled += instance.OnOnScreenTap;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -427,9 +427,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @OnScreenTap.started -= instance.OnOnScreenTap;
-            @OnScreenTap.performed -= instance.OnOnScreenTap;
-            @OnScreenTap.canceled -= instance.OnOnScreenTap;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
             @LaunchFireball.started -= instance.OnLaunchFireball;
             @LaunchFireball.performed -= instance.OnLaunchFireball;
             @LaunchFireball.canceled -= instance.OnLaunchFireball;
@@ -439,9 +439,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Back.started -= instance.OnBack;
             @Back.performed -= instance.OnBack;
             @Back.canceled -= instance.OnBack;
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
+            @OnScreenTap.started -= instance.OnOnScreenTap;
+            @OnScreenTap.performed -= instance.OnOnScreenTap;
+            @OnScreenTap.canceled -= instance.OnOnScreenTap;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -462,10 +462,10 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public interface IMainActions
     {
         void OnJump(InputAction.CallbackContext context);
-        void OnOnScreenTap(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
         void OnLaunchFireball(InputAction.CallbackContext context);
         void OnErase(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
-        void OnMove(InputAction.CallbackContext context);
+        void OnOnScreenTap(InputAction.CallbackContext context);
     }
 }

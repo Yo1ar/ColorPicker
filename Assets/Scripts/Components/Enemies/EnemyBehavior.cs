@@ -1,4 +1,5 @@
 using UnityEngine;
+using Utils.Debug;
 
 namespace Components.Enemies
 {
@@ -36,5 +37,10 @@ namespace Components.Enemies
 
 		public void SetDirection(int direction) =>
 			LookDirection = direction;
+
+#if UNITY_EDITOR
+		private void OnDrawGizmos() =>
+			SceneViewLabels.DrawHandlesLabel(transform.position, gameObject.name, UnityEngine.Color.red);
+  #endif //UNITY_EDITOR
 	}
 }

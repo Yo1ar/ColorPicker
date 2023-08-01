@@ -2,6 +2,7 @@ using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 using Utils.Constants;
+using Utils.Debug;
 
 namespace Components.Enemies
 {
@@ -20,6 +21,7 @@ namespace Components.Enemies
 		protected Transform Transform;
 
 		private Vector3 OffsetWithDirection => new(Offset.x * transform.localScale.x, Offset.y);
+
 		protected virtual void Awake()
 		{
 			Transform = transform;
@@ -50,7 +52,7 @@ namespace Components.Enemies
 				_attackTriggerRadius,
 				_attackTriggers,
 				PlayerLayer);
-			
+
 			EnemyBehavior.SetCanAttack(count > 0);
 			return count > 0;
 		}
@@ -70,11 +72,10 @@ namespace Components.Enemies
 
 		private bool CanAttack() =>
 			Cooldown.isReady;
-		
-		protected virtual void OnDrawGizmosSelected()
-		{
-			Gizmos.color = Colors.Red;
-			Gizmos.DrawWireSphere(GetCenter(), _attackTriggerRadius);
-		}
+
+#if UNITY_EDITOR
+		protected virtual void OnDrawGizmosSelected() =>
+			SceneViewLabels.DrawGizmosWireSphere(GetCenter(), _attackTriggerRadius, Colors.Red);
+#endif // UNITY_EDITOR
 	}
 }

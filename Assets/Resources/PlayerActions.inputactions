@@ -15,13 +15,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OnScreenTap",
-                    "type": "Button",
-                    "id": "f54b4d27-bcc3-4cc3-9af5-58a7280a7308",
-                    "expectedControlType": "Button",
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "1836a7fa-9953-4f9f-a4e3-03a16b364ebb",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LaunchFireball",
@@ -51,13 +51,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "1836a7fa-9953-4f9f-a4e3-03a16b364ebb",
-                    "expectedControlType": "Vector2",
+                    "name": "OnScreenTap",
+                    "type": "Button",
+                    "id": "f54b4d27-bcc3-4cc3-9af5-58a7280a7308",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -80,17 +80,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2e747959-29e0-45bc-a419-9b9163b3dbf8",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OnScreenTap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -280,6 +269,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2e747959-29e0-45bc-a419-9b9163b3dbf8",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnScreenTap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

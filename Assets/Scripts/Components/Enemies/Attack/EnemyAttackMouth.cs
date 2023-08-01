@@ -3,6 +3,7 @@ using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 using Utils.Constants;
+using Utils.Debug;
 
 namespace Components.Enemies
 {
@@ -68,23 +69,28 @@ namespace Components.Enemies
 		private void HideTeleport() =>
 			_portalPrefab.gameObject.SetActive(false);
 
+#if UNITY_EDITOR
 		protected override void OnDrawGizmosSelected()
 		{
 			base.OnDrawGizmosSelected();
-			Gizmos.color = Colors.BlueT;
 
+			var size = new Vector3(_deviation, 0.1f);
+			
 			if (Player)
 			{
-				Gizmos.DrawCube(
+				SceneViewLabels.DrawGizmosWireCube(
 					new Vector3(Player.position.x, _spawnHeight + transform.position.y),
-					new Vector3(_deviation, 0.1f));
+					size,
+					Colors.BlueT);
 			}
 			else
 			{
-				Gizmos.DrawCube(
+				SceneViewLabels.DrawGizmosWireCube(
 					transform.position + new Vector3(1, _spawnHeight),
-					new Vector3(_deviation, 0.1f));
+					size,
+					Colors.BlueT);
 			}
 		}
+#endif // UNITY_EDITOR
 	}
 }

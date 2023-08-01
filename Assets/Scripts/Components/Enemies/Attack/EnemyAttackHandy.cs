@@ -1,15 +1,14 @@
 using UnityEngine;
 using Utils.Constants;
+using Utils.Debug;
 
 namespace Components.Enemies
 {
 	[RequireComponent(typeof(EnemyBehavior))]
 	public sealed class EnemyAttackHandy : EnemyAttackBase, IAttackBehavior
 	{
-		[Header("Handy")]
-		[SerializeField] private Vector2 _size;
+		[Header("Handy")] [SerializeField] private Vector2 _size;
 		private readonly Collider2D[] _results = new Collider2D[1];
-		
 
 		public void PerformAttack()
 		{
@@ -35,8 +34,7 @@ namespace Components.Enemies
 		protected override void OnDrawGizmosSelected()
 		{
 			base.OnDrawGizmosSelected();
-			Gizmos.color = Colors.RedT;
-			Gizmos.DrawCube(GetCenter(), _size);
+			SceneViewLabels.DrawGizmosWireCube(GetCenter(), _size, Colors.RedT);
 		}
 	}
 }
