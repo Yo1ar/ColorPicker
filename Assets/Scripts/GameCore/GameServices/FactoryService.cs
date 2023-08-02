@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Components.Player.Eraser;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Object = UnityEngine.Object;
 
 namespace GameCore.GameServices
@@ -18,19 +17,28 @@ namespace GameCore.GameServices
 
 		public event Action<Transform> OnPlayerCreated;
 
+		public FactoryService(AssetService assetService) =>
+			_assetService = assetService;
+
 		public override Task InitService()
 		{
 			_assetService = Services.AssetService;
 			return Task.CompletedTask;
 		}
-		
-		public void AddToErasable(IErasable erasable) =>
-			Erasables.Add(erasable);
 
 		public void CreatePlayer(Vector3 position)
 		{
 			_player = Object.Instantiate(_assetService.Player, position, Quaternion.identity) as GameObject;
 			OnPlayerCreated?.Invoke(_player.transform);
 		}
+
+		public void AddErasable(IErasable erasable) =>
+			Erasables.Add(erasable);
+
+		public void RemoveErasable(ErasableObject erasable) =>
+			Erasables.Remove(erasable);
+
+		public void ClearErasables() =>
+			Erasables.Clear();
 	}
 }

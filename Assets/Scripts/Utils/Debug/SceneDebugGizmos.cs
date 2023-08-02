@@ -4,7 +4,7 @@ using Utils.Constants;
 
 namespace Utils.Debug
 {
-	public static class SceneViewLabels
+	public static class SceneDebugGizmos
 	{
 		public static void DrawHandlesLabel(Vector3 position, string text, UnityEngine.Color color)
 		{

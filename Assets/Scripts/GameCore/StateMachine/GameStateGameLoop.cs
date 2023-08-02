@@ -1,3 +1,5 @@
+using GameCore.GameServices;
+
 namespace GameCore.StateMachine
 {
 	public sealed class GameStateGameLoop : IGameState
@@ -7,16 +9,11 @@ namespace GameCore.StateMachine
 		public GameStateGameLoop(GameStateMachine stateMachine) =>
 			_stateMachine = stateMachine;
 
-		public void Exit()
-		{
-		}
-
-		public void Update()
-		{
-		}
-
 		public void Enter()
 		{
 		}
+
+		public void Exit() =>
+			Services.FactoryService.ClearErasables();
 	}
 }

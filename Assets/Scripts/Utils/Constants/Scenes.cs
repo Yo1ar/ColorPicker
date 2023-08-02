@@ -8,7 +8,7 @@ namespace Utils.Constants
 		private const string SceneFormat = ".unity";
 
 		public const string Bootstrap = "Bootstrap";
-		public const string GameUI = "GameUI";
+		public const string LoadingScreen = "LoadingScreen";
 		public const string MainMenuUI = "MainMenuUI";
 		public const string Level1 = "Level1";
 		public const string Level2 = "Level2";

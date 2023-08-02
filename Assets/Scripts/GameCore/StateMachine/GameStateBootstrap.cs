@@ -1,27 +1,14 @@
-using GameCore.GameServices;
-
 namespace GameCore.StateMachine
 {
 	public sealed class GameStateBootstrap : IGameState
 	{
 		private readonly GameStateMachine _stateMachine;
-		private readonly Services _services;
 
-		public GameStateBootstrap(GameStateMachine stateMachine, Services services)
-		{
+		public GameStateBootstrap(GameStateMachine stateMachine) =>
 			_stateMachine = stateMachine;
-			_services = services;
-		}
 
-		public async void Enter()
-		{
-			await _services.InitServices();
+		public void Enter() =>
 			_stateMachine.EnterLoadProgressState();
-		}
-
-		public void Update()
-		{
-		}
 
 		public void Exit()
 		{

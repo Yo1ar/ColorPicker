@@ -7,16 +7,16 @@ namespace GameCore.GameServices
 {
 	public class AssetService : ServiceBase
 	{
-		private AssetServiceConfig _serviceConfig;
-		public Object Player => _serviceConfig.Player;
-		public Projectile FireballProjectile => _serviceConfig.FireballProjectile;
-		public Projectile PencilProjectile => _serviceConfig.PencilProjectile;
-		public Transform PortalAttack => _serviceConfig.PortalAttack;
+		private AssetServiceConfig _assetServiceConfig;
+		public Object Player => _assetServiceConfig.Player;
+		public Projectile FireballProjectile => _assetServiceConfig.FireballProjectile;
+		public Projectile PencilProjectile => _assetServiceConfig.PencilProjectile;
+		public Transform PortalAttack => _assetServiceConfig.PortalAttack;
 
-		public override Task InitService()
-		{
-			_serviceConfig = Services.ConfigService.AssetServiceConfig;
-			return Task.CompletedTask;
-		}
+		public AssetService(AssetServiceConfig assetServiceConfig) =>
+			_assetServiceConfig = assetServiceConfig;
+
+		public override Task InitService() =>
+			Task.CompletedTask;
 	}
 }

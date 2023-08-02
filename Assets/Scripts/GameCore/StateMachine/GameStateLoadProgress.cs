@@ -20,10 +20,6 @@ namespace GameCore.StateMachine
 			_stateMachine.EnterLoadLevelState(SceneSets.MainMenu);
 		}
 
-		public void Update()
-		{
-		}
-
 		public void Exit()
 		{
 		}

@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Configs;
 using UnityEngine;
@@ -13,11 +12,11 @@ namespace GameCore.GameServices
 		private readonly PlayerEvents _playerEvents;
 		private readonly GameEvents _gameEvents;
 
-		public InputService()
+		public InputService(PlayerEvents playerEvents, GameEvents gameEvents)
 		{
 			_actions = new PlayerActions();
-			_playerEvents = Services.ConfigService.PlayerEvents;
-			_gameEvents = Services.ConfigService.GameEvents;
+			_playerEvents = playerEvents;
+			_gameEvents = gameEvents;
 		}
 
 		public override Task InitService()
@@ -29,9 +28,9 @@ namespace GameCore.GameServices
 			_actions.Main.Jump.started += InvokePlayerJump;
 			_actions.Main.Erase.started += InvokePlayerErase;
 			_actions.Main.LaunchFireball.started += InvokeLaunchFireball;
-			_actions.Main.OnScreenTap.canceled += InvokeOnScreenTap;
+			_actions.Main.OnScreenTap.started += InvokeOnScreenTap;
 			_actions.Main.Back.canceled += InvokeBack;
-			
+
 			return Task.CompletedTask;
 		}
 

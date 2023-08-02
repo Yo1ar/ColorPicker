@@ -91,7 +91,7 @@ namespace GameCore.GameUI
 			Debug.Log("Settings");
 
 		private void GoToMainMenu() => 
-			GameStateMachine.instance.EnterLoadLevelState(SceneSets.MainMenu);
+			GameStateMachine.Instance.EnterLoadLevelState(SceneSets.MainMenu);
 		
 		private void MakeTextsNormal()
 		{

@@ -1,10 +1,8 @@
-using System.Threading.Tasks;
 using GameCore.GameServices;
+using GameCore.GameUI;
 using GameCore.StateMachine;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Utils.Constants;
 
 namespace GameCore
 {
@@ -12,16 +10,22 @@ namespace GameCore
 	{
 		private GameStateMachine _gameStateMachine;
 		private Services _services;
+		private readonly LoadingScreen _loadingScreen;
 
-		public Game() =>
+		public Game(LoadingScreen loadingScreen)
+		{
+			_loadingScreen = loadingScreen;
 			StartGameFlow();
+		}
 
-		public static void Quit() =>
+		public static void Quit()
+		{
 #if UNITY_EDITOR || UNITY_EDITOR_64
 			EditorApplication.isPlaying = false;
 #else
 		    Application.Quit();
 #endif
+		}
 
 		public static void Pause() =>
 			Time.timeScale = 0;
@@ -32,27 +36,10 @@ namespace GameCore
 		private async void StartGameFlow()
 		{
 			_services = new Services();
-			
-			await LoadGameUI();
-			
-			StartGameStateMachine();
-		}
+			await _services.InitServices();
 
-		private async Task LoadGameUI()
-		{
-			AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(Scenes.GameUI, LoadSceneMode.Additive);
-
-			while (!asyncOperation.isDone)
-				await Task.Yield();
-		}
-
-		private void StartGameStateMachine()
-		{
-			var stateMachineObject = new GameObject("GameStateMachine");
-			_gameStateMachine = stateMachineObject.AddComponent<GameStateMachine>();
-			_gameStateMachine
-				.Init(_services)
-				.EnterBootstrapState();
+			_gameStateMachine = new GameStateMachine(_loadingScreen);
+			_gameStateMachine.EnterBootstrapState();
 		}
 	}
 }

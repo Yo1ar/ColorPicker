@@ -75,7 +75,7 @@ namespace Components.Enemies
 
 #if UNITY_EDITOR
 		protected virtual void OnDrawGizmosSelected() =>
-			SceneViewLabels.DrawGizmosWireSphere(GetCenter(), _attackTriggerRadius, Colors.Red);
+			SceneDebugGizmos.DrawGizmosWireSphere(GetCenter(), _attackTriggerRadius, Colors.Red);
 #endif // UNITY_EDITOR
 	}
 }

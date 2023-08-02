@@ -12,24 +12,29 @@ namespace Components.Player.Eraser
 	{
 		[SerializeField] private GameObject _eraserAbove;
 		[SerializeField] private float _eraserAboveOffset;
-
+		private FactoryService _factoryService;
+		
 		private void Awake()
 		{
 			_eraserAbove = Instantiate(_eraserAbove, transform.position.AddY(_eraserAboveOffset), Quaternion.identity);
 			_eraserAbove.transform.SetParent(transform);
 			Highlight(false);
+			_factoryService = Services.FactoryService;
 		}
 
 		private void Start() =>
-			Services.FactoryService.AddToErasable(this);
+			_factoryService.AddErasable(this);
 
-		public void Erase() =>
+		public void Erase()
+		{
+			_factoryService.RemoveErasable(this);
 			gameObject.SetActive(false);
+		}
 
 		public void Highlight(bool value) =>
 			_eraserAbove.SetActive(value);
 
 		private void OnDrawGizmosSelected() =>
-			SceneViewLabels.DrawHandlesLabel(transform.position + Vector3.up * 2, "Erasable", Colors.Red);
+			SceneDebugGizmos.DrawHandlesLabel(transform.position + Vector3.up * 2, "Erasable", Colors.Red);
 	}
 }

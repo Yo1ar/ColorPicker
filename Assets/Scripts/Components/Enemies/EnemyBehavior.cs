@@ -40,7 +40,7 @@ namespace Components.Enemies
 
 #if UNITY_EDITOR
 		private void OnDrawGizmos() =>
-			SceneViewLabels.DrawHandlesLabel(transform.position, gameObject.name, UnityEngine.Color.red);
+			SceneDebugGizmos.DrawHandlesLabel(transform.position, gameObject.name, UnityEngine.Color.red);
   #endif //UNITY_EDITOR
 	}
 }

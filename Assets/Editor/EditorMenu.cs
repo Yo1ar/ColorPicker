@@ -20,15 +20,10 @@ namespace Editor
 			PlayerPrefs.Save();
 		}
 
-		#region Scenes
-
+#region Scenes
 		[MenuItem("Scenes/Bootstrap")]
 		public static void OpenScene_Bootstrap() =>
 			Scenes.OpenScene(Scenes.Bootstrap);
-
-		[MenuItem("Scenes/GameUI")]
-		public static void OpenScene_GameUI() =>
-			Scenes.OpenScene(Scenes.GameUI);
 
 		[MenuItem("Scenes/MainMenuUI")]
 		public static void OpenScene_MainMenuUI() =>
@@ -45,7 +40,6 @@ namespace Editor
 		[MenuItem("Scenes/LevelUI")]
 		public static void OpenScene_LevelUI() =>
 			Scenes.OpenScene(Scenes.LevelUI);
-
-		#endregion
+#endregion // Scenes
 	}
 }

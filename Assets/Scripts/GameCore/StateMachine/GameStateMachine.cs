@@ -1,33 +1,25 @@
-using GameCore.GameServices;
 using GameCore.GameUI;
 using Utils.Constants;
 
 namespace GameCore.StateMachine
 {
-	public sealed class GameStateMachine : Singleton<GameStateMachine>
+	public sealed class GameStateMachine
 	{
+		private readonly GameStateBootstrap _stateBootstrap;
+		private readonly GameStateLoadProgress _stateLoadProgress;
+		private readonly GameStateLoadLevel _stateLoadLevel;
+		private readonly GameStateGameLoop _stateGameLoop;
 		private IGameStateExitable _currentState;
-		private GameStateBootstrap _stateBootstrap;
-		private GameStateLoadProgress _stateLoadProgress;
-		private GameStateLoadLevel _stateLoadLevel;
-		private GameStateGameLoop _stateGameLoop;
-		
-		private void Update() =>
-			_currentState?.Update();
+		public static GameStateMachine Instance { get; private set; }
 
-		public GameStateMachine Init(Services services)
+		public GameStateMachine(LoadingScreen loadingScreen)
 		{
-			LoadingScreen loadingScreen = FindLoadingScreen();
-			
-			_stateBootstrap = new GameStateBootstrap(this, services);
+			Instance = this;
+			_stateBootstrap = new GameStateBootstrap(this);
 			_stateLoadProgress = new GameStateLoadProgress(this);
-			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen);
+			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen); //TODO: Need LoadingScreen
 			_stateGameLoop = new GameStateGameLoop(this);
-			return this;
 		}
-
-		private LoadingScreen FindLoadingScreen() => 
-			FindObjectOfType<LoadingScreen>();
 
 		public void EnterBootstrapState() =>
 			EnterState(_stateBootstrap);
@@ -45,12 +37,12 @@ namespace GameCore.StateMachine
 		{
 			if (IsSameState(newState))
 				return;
-			
+
 			_currentState?.Exit();
 			_currentState = newState;
 			newState.Enter();
 		}
-		
+
 		private void EnterStatePayloaded<TPayload>(IGameStatePayloaded<TPayload> newState, TPayload payload)
 		{
 			if (IsSameState(newState))
@@ -61,7 +53,7 @@ namespace GameCore.StateMachine
 			newState.Enter(payload);
 		}
 
-		private bool IsSameState(IGameStateUpdatable newState) =>
+		private bool IsSameState(IGameStateExitable newState) =>
 			_currentState?.GetType() == newState.GetType();
 	}
 }

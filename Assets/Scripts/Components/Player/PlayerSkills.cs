@@ -35,7 +35,7 @@ namespace Components.Player
 			if (!_readScreenPouchPosition)
 				return;
 			
-			if (Input.GetMouseButtonDown(0))
+			if (Input.GetMouseButtonUp(0))
 			{
 				Camera cam = Camera.main;
 				Vector3 mPosition = cam.ScreenToWorldPoint(Input.mousePosition);

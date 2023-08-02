@@ -13,8 +13,10 @@ namespace GameCore.GameServices
 		public SettingsData SettingsData { get; private set; }
 		public SceneSets SavedSceneSet { get; private set; }
 
-		public override async Task InitService() =>
-			await Task.Delay(0);
+		public override async Task InitService()
+		{
+			await Task.CompletedTask;
+		}
 
 		public bool HasLevelProgress() =>
 			PlayerPrefs.HasKey(LevelContainerStringKey);

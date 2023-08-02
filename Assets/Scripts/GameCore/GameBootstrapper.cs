@@ -1,3 +1,4 @@
+using GameCore.GameUI;
 using UnityEngine;
 
 namespace GameCore
@@ -5,13 +6,12 @@ namespace GameCore
 	public sealed class GameBootstrapper : MonoBehaviour
 	{
 		private Game _game;
+		private LoadingScreen _loadingScreen;
 
 		private void Awake()
 		{
-			StartNewGame();
+			_loadingScreen = FindObjectOfType<LoadingScreen>();
+			_game = new Game(_loadingScreen);
 		}
-
-		private void StartNewGame() =>
-			_game = new Game();
 	}
 }

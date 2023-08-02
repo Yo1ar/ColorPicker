@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using GameCore.GameServices;
 using GameCore.StateMachine;
 using UnityEngine;
-using Utils.Constants;
 
 namespace GameCore.GameUI
 {
@@ -66,7 +65,7 @@ namespace GameCore.GameUI
 			await UnderlineWithDelayButton(_exitButton, Game.Quit);
 
 		private void LoadLevel() =>
-			GameStateMachine.instance.EnterLoadLevelState(_progressService.SavedSceneSet);
+			GameStateMachine.Instance.EnterLoadLevelState(_progressService.SavedSceneSet);
 
 		private void ShowSettings() =>
 			Debug.Log("Settings");

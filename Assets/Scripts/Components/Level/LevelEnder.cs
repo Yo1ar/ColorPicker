@@ -19,6 +19,6 @@ namespace Components.Level
 		}
 
 		private void LoadNextLevel() =>
-			GameStateMachine.instance.EnterLoadLevelState(_sceneSetToLoad);
+			GameStateMachine.Instance.EnterLoadLevelState(_sceneSetToLoad);
 	}
 }

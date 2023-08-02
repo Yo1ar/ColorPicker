@@ -34,7 +34,7 @@ namespace Components.Enemies
 		protected override void OnDrawGizmosSelected()
 		{
 			base.OnDrawGizmosSelected();
-			SceneViewLabels.DrawGizmosWireCube(GetCenter(), _size, Colors.RedT);
+			SceneDebugGizmos.DrawGizmosWireCube(GetCenter(), _size, Colors.RedT);
 		}
 	}
 }

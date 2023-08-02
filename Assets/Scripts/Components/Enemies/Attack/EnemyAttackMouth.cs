@@ -78,14 +78,14 @@ namespace Components.Enemies
 			
 			if (Player)
 			{
-				SceneViewLabels.DrawGizmosWireCube(
+				SceneDebugGizmos.DrawGizmosWireCube(
 					new Vector3(Player.position.x, _spawnHeight + transform.position.y),
 					size,
 					Colors.BlueT);
 			}
 			else
 			{
-				SceneViewLabels.DrawGizmosWireCube(
+				SceneDebugGizmos.DrawGizmosWireCube(
 					transform.position + new Vector3(1, _spawnHeight),
 					size,
 					Colors.BlueT);

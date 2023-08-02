@@ -10,10 +10,8 @@
 		public void Enter();
 	}
 
-	public interface IGameStateExitable : IGameStateUpdatable
-	{ public void Exit(); }
-
-	public interface IGameStateUpdatable
-	{ public void Update(); }
-
+	public interface IGameStateExitable
+	{
+		public void Exit();
+	}
 }

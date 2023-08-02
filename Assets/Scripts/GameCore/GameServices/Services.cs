@@ -10,24 +10,21 @@ namespace GameCore.GameServices
 		public static FactoryService FactoryService { get; private set; }
 		public static InputService InputService { get; private set; }
 
-		public Services() => 
-			CreateServices();
-
-		private void CreateServices()
-		{
-			InputService = new();
-			ConfigService = new();
-			ProgressService = new();
-			AssetService = new();
-			FactoryService = new();
-		}
-
 		public async Task InitServices()
 		{
-			await InputService.InitService();
+			ConfigService = new ConfigService();
 			await ConfigService.InitService();
+			
+			InputService = new(ConfigService.PlayerEvents, ConfigService.GameEvents);
+			await InputService.InitService();
+
+			ProgressService = new();
 			await ProgressService.InitService();
+
+			AssetService = new(ConfigService.AssetServiceConfig);
 			await AssetService.InitService();
+
+			FactoryService = new(AssetService);
 			await FactoryService.InitService();
 		}
 	}

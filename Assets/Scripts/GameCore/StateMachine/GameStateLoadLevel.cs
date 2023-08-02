@@ -1,3 +1,4 @@
+using System;
 using Configs;
 using GameCore.GameServices;
 using GameCore.GameUI;
@@ -23,17 +24,22 @@ namespace GameCore.StateMachine
 
 		public async void Enter(SceneSets payload)
 		{
-			if (payload != SceneSets.MainMenu)
+			if (payload == SceneSets.MainMenu)
+				await _sceneLoader.LoadMainMenu();
+			else
+			{
 				_progressService.SaveLevel(payload);
-			
-			await _sceneLoader.LoadSceneSet(
-				GetSceneContainer(payload),
-				OnLevelLoaded);
-			
+				await _sceneLoader.LoadSceneSet(GetSceneContainer(payload), OnLevelLoaded);
+			}
+
 			_stateMachine.EnterGameLoopState();
 		}
 
-		private void OnLevelLoaded() =>
+		public void Exit()
+		{
+		}
+
+		private void OnLevelLoaded(AsyncOperation operation) =>
 			TryPlacePlayer();
 
 		private void TryPlacePlayer()
@@ -46,14 +52,6 @@ namespace GameCore.StateMachine
 
 		private static bool TryFindRespawn(out Transform respawn) =>
 			(respawn = GameObject.FindGameObjectWithTag(Tags.Respawn).transform) != null;
-
-		public void Update()
-		{
-		}
-
-		public void Exit()
-		{
-		}
 
 		private SceneContainer GetSceneContainer(SceneSets sceneSet) =>
 			Services.ConfigService.ScenesConfig.GetSceneContainerWithSet(sceneSet);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,10 +8,13 @@ namespace GameCore.GameUI
 	public class ShowHideCanvasGroup : MonoBehaviour
 	{
 		[SerializeField] private float _showTime;
+		[SerializeField] private bool _hideWhenFullyShown;
 		private Coroutine _currentRoutine;
 		private CanvasGroup _canvasGroup;
 
 		public bool IsShown { get; private set; }
+		public Action OnShown;
+		public Action OnHided;
 
 		private void Awake() =>
 			_canvasGroup = GetComponent<CanvasGroup>();
@@ -22,46 +26,6 @@ namespace GameCore.GameUI
 		[ContextMenu("Hide")]
 		public void Hide() =>
 			SetNewRoutine(StartCoroutine(HideRoutine()));
-
-		private IEnumerator ShowRoutine()
-		{
-			if (_canvasGroup.alpha >= 1)
-				yield break;
-
-			SetInteractable(true);
-			SetBlockRaycasts(true);
-
-			IsShown = true;
-
-			while (_canvasGroup.alpha < 1)
-			{
-				_canvasGroup.alpha += _showTime * Time.unscaledDeltaTime;
-				yield return null;
-			}
-		}
-
-		private IEnumerator HideRoutine()
-		{
-			if (_canvasGroup.alpha <= 0)
-				yield break;
-
-			SetInteractable(false);
-			SetBlockRaycasts(false);
-
-			IsShown = false;
-
-			while (_canvasGroup.alpha > 0)
-			{
-				_canvasGroup.alpha -= _showTime * Time.unscaledDeltaTime;
-				yield return null;
-			}
-		}
-
-		private void SetBlockRaycasts(bool value) =>
-			_canvasGroup.blocksRaycasts = value;
-
-		private void SetInteractable(bool value) =>
-			_canvasGroup.interactable = value;
 
 		private void SetNewRoutine(Coroutine value)
 		{
@@ -77,5 +41,47 @@ namespace GameCore.GameUI
 			StopCoroutine(_currentRoutine);
 			_currentRoutine = null;
 		}
+
+		private IEnumerator ShowRoutine()
+		{
+			if (_canvasGroup.alpha >= 1)
+				yield break;
+
+			SetInteractable(true);
+			SetBlockRaycasts(true);
+
+			while (_canvasGroup.alpha < 1)
+			{
+				_canvasGroup.alpha += _showTime * Time.unscaledDeltaTime;
+				yield return null;
+			}
+
+			IsShown = true;
+			OnShown?.Invoke();
+		}
+
+		private IEnumerator HideRoutine()
+		{
+			if (_canvasGroup.alpha <= 0)
+				yield break;
+
+			SetInteractable(false);
+			SetBlockRaycasts(false);
+
+			while (_canvasGroup.alpha > 0)
+			{
+				_canvasGroup.alpha -= _showTime * Time.unscaledDeltaTime;
+				yield return null;
+			}
+
+			IsShown = false;
+			OnHided?.Invoke();
+		}
+
+		private void SetBlockRaycasts(bool value) =>
+			_canvasGroup.blocksRaycasts = value;
+
+		private void SetInteractable(bool value) =>
+			_canvasGroup.interactable = value;
 	}
 }
