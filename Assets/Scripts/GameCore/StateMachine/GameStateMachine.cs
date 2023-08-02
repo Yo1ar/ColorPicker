@@ -17,7 +17,7 @@ namespace GameCore.StateMachine
 			Instance = this;
 			_stateBootstrap = new GameStateBootstrap(this);
 			_stateLoadProgress = new GameStateLoadProgress(this);
-			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen); //TODO: Need LoadingScreen
+			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen);
 			_stateGameLoop = new GameStateGameLoop(this);
 		}
 
