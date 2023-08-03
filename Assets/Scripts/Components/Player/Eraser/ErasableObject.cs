@@ -12,7 +12,7 @@ namespace Components.Player.Eraser
 		[SerializeField] private GameObject _eraserAbove;
 		[SerializeField] private float _eraserAboveOffset;
 		private FactoryService _factoryService;
-		
+
 		private void Awake()
 		{
 			_eraserAbove = Instantiate(_eraserAbove, transform.position.AddY(_eraserAboveOffset), Quaternion.identity);
@@ -33,7 +33,9 @@ namespace Components.Player.Eraser
 		public void Highlight(bool value) =>
 			_eraserAbove.SetActive(value);
 
+#if UNITY_EDITOR
 		private void OnDrawGizmosSelected() =>
 			SceneDebugGizmos.DrawHandlesLabel(transform.position + Vector3.up * 2, "Erasable", Colors.Red);
+#endif
 	}
 }

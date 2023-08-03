@@ -2,11 +2,13 @@ using UnityEditor;
 using UnityEngine;
 using Utils.Constants;
 
+
 namespace Utils.Debug
 {
+#if UNITY_EDITOR
 	public static class SceneDebugGizmos
 	{
-		public static void DrawHandlesLabel(Vector3 position, string text, UnityEngine.Color color)
+		public static void DrawHandlesLabel(Vector3 position, string text, Color color)
 		{
 			var style = new GUIStyle();
 			style.normal.textColor = Colors.Red;
@@ -25,4 +27,5 @@ namespace Utils.Debug
 			Gizmos.DrawWireCube(center, size);
 		}
 	}
+#endif // UNITY_EDITOR
 }

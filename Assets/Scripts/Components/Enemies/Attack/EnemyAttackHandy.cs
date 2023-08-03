@@ -31,10 +31,12 @@ namespace Components.Enemies
 			return count > 0;
 		}
 
+#if UNITY_EDITOR
 		protected override void OnDrawGizmosSelected()
 		{
 			base.OnDrawGizmosSelected();
 			SceneDebugGizmos.DrawGizmosWireCube(GetCenter(), _size, Colors.RedT);
 		}
+#endif
 	}
 }
