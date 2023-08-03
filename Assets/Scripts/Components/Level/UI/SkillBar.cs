@@ -1,3 +1,4 @@
+using System;
 using Components.Player;
 using GameCore.Events;
 using GameCore.GameServices;
@@ -21,7 +22,7 @@ namespace Components.Level.UI
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
-			_factoryService.OnPlayerCreated += OnPlayerCreated;
+			_factoryService.OnPlayerCreated.AddListener(OnPlayerCreated);
 		}
 
 		private void OnEnable()
@@ -29,6 +30,9 @@ namespace Components.Level.UI
 			PlayerEventManager.OnErase.AddListener(OnEraserTap);
 			PlayerEventManager.OnShoot.AddListener(OnFireballTap);
 		}
+
+		private void OnDisable() =>
+			_factoryService.OnPlayerCreated.RemoveListener(OnPlayerCreated);
 
 		private void OnPlayerCreated(Transform player)
 		{

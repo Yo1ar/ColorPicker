@@ -39,11 +39,11 @@ namespace Components.Enemies
 			Cooldown.Reset();
 		}
 
-		private void OnEnable() =>
-			Services.FactoryService.OnPlayerCreated += SetPlayerWhenCreated;
+		protected virtual void OnEnable() =>
+			Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerWhenCreated);
 
-		private void OnDisable() =>
-			Services.FactoryService.OnPlayerCreated -= SetPlayerWhenCreated;
+		protected virtual void OnDisable() =>
+			Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerWhenCreated);
 
 		private bool IsPlayerInAttackZone()
 		{

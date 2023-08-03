@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameCore.GameUI
 {
@@ -13,8 +14,8 @@ namespace GameCore.GameUI
 		private CanvasGroup _canvasGroup;
 
 		public bool IsShown { get; private set; }
-		public Action OnShown;
-		public Action OnHided;
+		public UnityEvent OnShown;
+		public UnityEvent OnHided;
 
 		private void Awake() =>
 			_canvasGroup = GetComponent<CanvasGroup>();

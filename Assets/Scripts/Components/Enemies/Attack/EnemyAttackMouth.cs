@@ -53,7 +53,7 @@ namespace Components.Enemies
 
 			HideTeleport();
 		}
-
+		
 		private void LaunchProjectile() =>
 			_projectilePool.LaunchProjectile(
 				position: InstantiatePosition,
@@ -66,8 +66,11 @@ namespace Components.Enemies
 			_portalPrefab.gameObject.SetActive(true);
 		}
 
-		private void HideTeleport() =>
-			_portalPrefab.gameObject.SetActive(false);
+		private void HideTeleport()
+		{
+			if (_portalPrefab!= null)
+				_portalPrefab.gameObject.SetActive(false);
+		}
 
 #if UNITY_EDITOR
 		protected override void OnDrawGizmosSelected()

@@ -85,8 +85,10 @@ namespace GameCore
 		private void InvokeGlobalOnLevelLoaded(AsyncOperation loading)
 		{
 			GlobalEventManager.OnLevelLoaded?.Invoke();
+			
 			_mainSceneLoading.completed -= FinishUILoading;
 			_uiSceneLoading.completed -= InvokeGlobalOnLevelLoaded;
+			GlobalEventManager.OnScreenTap.RemoveListener(FinishLevelLoading);
 		}
 
 		private void FinishLevelLoading()
@@ -100,12 +102,12 @@ namespace GameCore
 			if (_loadingScreen.IsShown)
 				_loadingScreen.Hide();
 			else
-				_loadingScreen.OnShown += HideLoadingOnShown;
+				_loadingScreen.OnShown.AddListener(HideLoadingOnShown);
 		}
 
 		private void HideLoadingOnShown()
 		{
-			_loadingScreen.OnShown -= HideLoadingOnShown;
+			_loadingScreen.OnShown.RemoveListener(HideLoadingOnShown);
 			_loadingScreen.Hide();
 		}
 
@@ -127,6 +129,8 @@ namespace GameCore
 			await UnloadSceneAsync(_currSceneContainer.MainScene.Name);
 			await UnloadSceneAsync(_currSceneContainer.UIScene.Name);
 			_currSceneContainer = null;
+			
+			GlobalEventManager.OnLevelUnloaded?.Invoke();
 		}
 
 		private async Task UnloadSceneAsync(string sceneName)

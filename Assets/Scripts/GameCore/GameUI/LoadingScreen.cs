@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GameCore.GameUI
 {
@@ -13,7 +14,7 @@ namespace GameCore.GameUI
 		private const string TapOnScreenText = "Tap the Screen to Play";
 
 		public bool IsShown => _showHideCanvas.IsShown;
-		public Action OnShown
+		public UnityEvent OnShown
 		{
 			get => _showHideCanvas.OnShown;
 			set => _showHideCanvas.OnShown = value;
@@ -26,10 +27,10 @@ namespace GameCore.GameUI
 			Show();
 
 		private void OnEnable() =>
-			_showHideCanvas.OnHided += SetLoadingText;
+			_showHideCanvas.OnHided.AddListener(SetLoadingText);
 
 		private void OnDisable() =>
-			_showHideCanvas.OnHided -= SetLoadingText;
+			_showHideCanvas.OnHided.RemoveListener(SetLoadingText);
 
 		public void Show() =>
 			_showHideCanvas.Show();

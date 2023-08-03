@@ -807,3 +807,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showTime: 1.5
   _hideWhenFullyShown: 0
+  OnShown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHided:
+    m_PersistentCalls:
+      m_Calls: []

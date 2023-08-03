@@ -23,10 +23,10 @@ namespace Components.Level
 			_cmCamera = FindObjectOfType<CinemachineVirtualCamera>();
 
 		private void OnEnable() =>
-			Services.FactoryService.OnPlayerCreated += GetPlayerComponents;
+			Services.FactoryService.OnPlayerCreated.AddListener(GetPlayerComponents);
 
 		private void OnDisable() =>
-			Services.FactoryService.OnPlayerCreated -= GetPlayerComponents;
+			Services.FactoryService.OnPlayerCreated.RemoveListener(GetPlayerComponents);
 
 		private void GetPlayerComponents(Transform player)
 		{

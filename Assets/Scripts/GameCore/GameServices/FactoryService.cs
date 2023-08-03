@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Components.Player.Eraser;
+using GameCore.Events;
 using UnityEngine;
+using UnityEngine.Events;
 using Object = UnityEngine.Object;
 
 namespace GameCore.GameServices
@@ -15,10 +17,16 @@ namespace GameCore.GameServices
 		public Transform Player => _player.transform;
 		public List<IErasable> Erasables { get; } = new();
 
-		public event Action<Transform> OnPlayerCreated;
+		public readonly UnityEvent<Transform> OnPlayerCreated = new();
 
-		public FactoryService(AssetService assetService) =>
+		public FactoryService(AssetService assetService)
+		{
 			_assetService = assetService;
+			GlobalEventManager.OnLevelUnloaded.AddListener(RemovePlayer);
+		}
+
+		private void RemovePlayer() =>
+			Object.DestroyImmediate(_player);
 
 		public override Task InitService()
 		{
@@ -40,5 +48,8 @@ namespace GameCore.GameServices
 
 		public void ClearErasables() =>
 			Erasables.Clear();
+
+		~FactoryService() =>
+			GlobalEventManager.OnLevelUnloaded.RemoveListener(RemovePlayer);
 	}
 }

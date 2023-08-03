@@ -1,3 +1,4 @@
+using System;
 using Components.Player;
 using GameCore.GameServices;
 using DG.Tweening;
@@ -25,8 +26,16 @@ namespace Components.Level.UI
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
-			_factoryService.OnPlayerCreated += OnPlayerCreated;
 			_healthSlider = GetComponent<Slider>();
+		}
+
+		private void OnEnable() =>
+			_factoryService.OnPlayerCreated.AddListener(OnPlayerCreated);
+
+		private void OnDisable()
+		{
+			_factoryService.OnPlayerCreated.RemoveListener(OnPlayerCreated);
+			_tween.Kill();
 		}
 
 		private void OnPlayerCreated(Transform player)
@@ -36,9 +45,6 @@ namespace Components.Level.UI
 			_playerHealth.OnDamage.AddListener(OnDamage);
 			_playerHealth.OnHeal.AddListener(OnHeal);
 		}
-
-		private void OnDisable() =>
-			_tween.Kill();
 
 		private void OnDamage()
 		{
