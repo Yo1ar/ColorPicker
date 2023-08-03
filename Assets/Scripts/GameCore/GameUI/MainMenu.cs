@@ -32,25 +32,11 @@ namespace GameCore.GameUI
 
 		private void OnEnable()
 		{
-			_playButton.OnClick += PlayAction;
-			_settingsButton.OnClick += SettingsAction;
-			_creditsButton.OnClick += CreditsAction;
-			_exitButton.OnClick += ExitAction;
+			_playButton.OnClick.AddListener(PlayAction);
+			_settingsButton.OnClick.AddListener(SettingsAction);
+			_creditsButton.OnClick.AddListener(CreditsAction);
+			_exitButton.OnClick.AddListener(ExitAction);
 		}
-
-		private void OnDisable()
-		{
-			_playButton.OnClick -= PlayAction;
-			_settingsButton.OnClick -= SettingsAction;
-			_creditsButton.OnClick -= CreditsAction;
-			_exitButton.OnClick -= ExitAction;
-		}
-
-		public void Show() =>
-			_showHideCanvas.Show();
-
-		public void Hide() =>
-			_showHideCanvas.Hide();
 
 		private async void PlayAction() =>
 			await UnderlineWithDelayButton(_playButton, LoadLevel);

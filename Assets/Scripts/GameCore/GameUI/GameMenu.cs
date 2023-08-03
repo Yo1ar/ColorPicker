@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Configs;
-using GameCore.GameServices;
+using GameCore.Events;
 using GameCore.StateMachine;
 using UnityEngine;
 using Utils.Constants;
@@ -14,41 +13,35 @@ namespace GameCore.GameUI
 		[SerializeField] private GameMenuButton _settingsButton;
 		[SerializeField] private GameMenuButton _goToMainButton;
 		private ShowHideCanvasGroup _showHideCanvas;
-		private GameEvents _gameEvents;
 		
-		private void Awake()
-		{
-			_gameEvents = Services.ConfigService.GameEvents;
+		private void Awake() =>
 			_showHideCanvas = GetComponent<ShowHideCanvasGroup>();
-		}
 
 		private void OnEnable()
 		{
-			_gameEvents.OnBackPressed += ShowHideGameMenu;
+			GlobalEventManager.OnBackPressed.AddListener(ShowHideGameMenu);
 			
-			_resumeButton.OnClick += ResumeAction;
-			_resumeButton.OnClick += ShowHideGameMenu;
+			_resumeButton.OnClick.AddListener(ResumeAction);
+			_resumeButton.OnClick.AddListener(ShowHideGameMenu);
 
-			_settingsButton.OnClick += SettingsAction;
-			_settingsButton.OnClick += ShowHideGameMenu;
+			_settingsButton.OnClick.AddListener(SettingsAction);
+			_settingsButton.OnClick.AddListener(ShowHideGameMenu);
 			
-			_goToMainButton.OnClick += MainMenuAction;
-			_goToMainButton.OnClick += ShowHideGameMenu;
+			_goToMainButton.OnClick.AddListener(MainMenuAction);
+			_goToMainButton.OnClick.AddListener(ShowHideGameMenu);
 		}
 
-		private void OnDisable()
-		{
-			_gameEvents.OnBackPressed -= ShowHideGameMenu;
-			
-			_resumeButton.OnClick -= ResumeAction;
-			_resumeButton.OnClick -= ShowHideGameMenu;
-			
-			_settingsButton.OnClick -= SettingsAction;
-			_settingsButton.OnClick -= ShowHideGameMenu;
-			
-			_goToMainButton.OnClick -= MainMenuAction;
-			_goToMainButton.OnClick -= ShowHideGameMenu;
-		}
+		// private void OnDisable()
+		// {
+		// 	_resumeButton.OnClick -= ResumeAction;
+		// 	_resumeButton.OnClick -= ShowHideGameMenu;
+		// 	
+		// 	_settingsButton.OnClick -= SettingsAction;
+		// 	_settingsButton.OnClick -= ShowHideGameMenu;
+		// 	
+		// 	_goToMainButton.OnClick -= MainMenuAction;
+		// 	_goToMainButton.OnClick -= ShowHideGameMenu;
+		// }
 
 		private void ShowHideGameMenu()
 		{

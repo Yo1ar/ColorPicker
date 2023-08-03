@@ -8,15 +8,11 @@ namespace GameCore.GameServices
 	{
 		public ScenesConfig ScenesConfig { get; private set; }
 		public AssetServiceConfig AssetServiceConfig { get; private set; }
-		public PlayerEvents PlayerEvents { get; private set; }
-		public GameEvents GameEvents { get; private set; }
 
 		public override async Task InitService()
 		{
 			ScenesConfig = await LoadConfig<ScenesConfig>();
 			AssetServiceConfig = await LoadConfig<AssetServiceConfig>();
-			PlayerEvents = await LoadConfig<PlayerEvents>();
-			GameEvents = await LoadConfig<GameEvents>();
 		}
 
 		private async Task<TConfig> LoadConfig<TConfig>() where TConfig : ScriptableObject

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Configs;
+using GameCore.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,15 +9,9 @@ namespace GameCore.GameServices
 	{
 		private FactoryService _factoryService;
 		private readonly PlayerActions _actions;
-		private readonly PlayerEvents _playerEvents;
-		private readonly GameEvents _gameEvents;
 
-		public InputService(PlayerEvents playerEvents, GameEvents gameEvents)
-		{
+		public InputService() =>
 			_actions = new PlayerActions();
-			_playerEvents = playerEvents;
-			_gameEvents = gameEvents;
-		}
 
 		public override Task InitService()
 		{
@@ -37,23 +31,23 @@ namespace GameCore.GameServices
 		private void InvokePlayerMove(InputAction.CallbackContext obj)
 		{
 			var moveVector = obj.ReadValue<Vector2>();
-			_playerEvents.OnMove?.Invoke(moveVector.x);
+			PlayerEventManager.OnMove?.Invoke(moveVector.x);
 		}
 
 		private void InvokePlayerJump(InputAction.CallbackContext obj) =>
-			_playerEvents.OnJump?.Invoke();
+			PlayerEventManager.OnJump?.Invoke();
 
 		private void InvokePlayerErase(InputAction.CallbackContext obj) =>
-			_playerEvents.OnErase?.Invoke();
+			PlayerEventManager.OnErase?.Invoke();
 
 		private void InvokeLaunchFireball(InputAction.CallbackContext obj) =>
-			_playerEvents.OnShoot?.Invoke();
+			PlayerEventManager.OnShoot?.Invoke();
 
 		private void InvokeOnScreenTap(InputAction.CallbackContext obj) =>
-			_gameEvents.OnScreenTap?.Invoke();
+			GlobalEventManager.OnScreenTap?.Invoke();
 
 		private void InvokeBack(InputAction.CallbackContext obj) =>
-			_gameEvents.OnBackPressed?.Invoke();
+			GlobalEventManager.OnBackPressed?.Invoke();
 
 		~InputService()
 		{

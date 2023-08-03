@@ -1,6 +1,7 @@
 using System;
 using Components.Level;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Components.Player
 {
@@ -10,7 +11,7 @@ namespace Components.Player
 		private int _pencils;
 		private int _fireballs;
 
-		public int erasers
+		public int Erasers
 		{
 			get => _erasers;
 			private set
@@ -19,16 +20,8 @@ namespace Components.Player
 				OnEraserCountModified?.Invoke(value);
 			}
 		}
-		public int pencils
-		{
-			get => _pencils;
-			private set
-			{
-				_pencils = value;
-				OnPencilCountModified?.Invoke(value);
-			}
-		}
-		public int fireballs
+
+		public int Fireballs
 		{
 			get => _fireballs;
 			private set
@@ -38,53 +31,49 @@ namespace Components.Player
 			}
 		}
 
-		public event Action<int> OnFireballsCountModified;
-		public event Action<int> OnEraserCountModified;
-		public event Action<int> OnPencilCountModified;
+		public UnityEvent<int> OnFireballsCountModified;
+		public UnityEvent<int> OnEraserCountModified;
 
 		[ContextMenu("Place eraser")]
 		public void PlaceEraser()
 		{
 			PlaceItem(CollectableItem.Eraser);
 		}
-		
+
 		[ContextMenu("Remove eraser")]
 		public void RemoveEraser()
 		{
 			Debug.Log(TryRemoveItem(CollectableItem.Eraser));
 		}
-		
+
 		public void PlaceItem(CollectableItem item)
 		{
 			if (item == CollectableItem.Eraser)
-				erasers++;
-			if (item == CollectableItem.Pencil)
-				pencils++;
+				Erasers++;
 			if (item == CollectableItem.Fireball)
-				fireballs++;
+				Fireballs++;
 		}
 
 		public bool TryRemoveItem(CollectableItem item)
 		{
-			if (item == CollectableItem.Eraser && erasers <= 0)
+			if (item == CollectableItem.Eraser && Erasers <= 0)
 				return false;
-			if (item == CollectableItem.Pencil && pencils <= 0)
+			if (item == CollectableItem.Fireball && Fireballs <= 0)
 				return false;
-			if (item == CollectableItem.Fireball && fireballs <= 0)
-				return false;
-			
+
 			RemoveItem(item);
 			return true;
 		}
-		
+
 		private void RemoveItem(CollectableItem item)
 		{
 			if (item == CollectableItem.Eraser)
-				erasers--;
-			if (item == CollectableItem.Pencil)
-				pencils--;
+				Erasers--;
 			if (item == CollectableItem.Fireball)
-				fireballs--;
+				Fireballs--;
 		}
+
+		public bool HaveEraser() =>
+			Erasers > 0;
 	}
 }

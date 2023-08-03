@@ -1,5 +1,5 @@
 using Components.Player;
-using Configs;
+using GameCore.Events;
 using GameCore.GameServices;
 using GameCore.GameUI;
 using UnityEngine;
@@ -13,7 +13,6 @@ namespace Components.Level.UI
 		[SerializeField] private JumpButtonStateSwitch _jumpBtnStateSwitch;
 
 		private FactoryService _factoryService;
-		private PlayerEvents _playerEvents;
 		private PlayerJump _playerJump;
 		private PlayerInventory _playerInventory;
 		private PlayerSkills _playerSkills;
@@ -22,40 +21,40 @@ namespace Components.Level.UI
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
-			_playerEvents = Services.ConfigService.PlayerEvents;
+			_factoryService.OnPlayerCreated += OnPlayerCreated;
+		}
+
+		private void OnEnable()
+		{
+			PlayerEventManager.OnErase.AddListener(OnEraserTap);
+			PlayerEventManager.OnShoot.AddListener(OnFireballTap);
+		}
+
+		private void OnPlayerCreated(Transform player)
+		{
+			GetPlayerComponents();
+			SubscribeToPlayerActions();
+		}
+
+		private void GetPlayerComponents()
+		{
 			_playerInventory = _factoryService.Player.GetComponent<PlayerInventory>();
 			_playerSkills = _factoryService.Player.GetComponent<PlayerSkills>();
 			_playerJump = _factoryService.Player.GetComponent<PlayerJump>();
 		}
 
-		private void Start()
+		private void SubscribeToPlayerActions()
 		{
-			_eraserBtn.SetCounterValue(_playerInventory.erasers);
-			_fireballBtn.SetCounterValue(_playerInventory.fireballs);
-		}
+			_eraserBtn.SetCounterValue(_playerInventory.Erasers);
+			_fireballBtn.SetCounterValue(_playerInventory.Fireballs);
 
-		private void OnEnable()
-		{
-			_playerEvents.OnErase += OnEraserTap;
-			_playerEvents.OnShoot += OnFireballTap;
-
-			_playerInventory.OnEraserCountModified += _eraserBtn.SetCounterValue;
-			_playerInventory.OnFireballsCountModified += _fireballBtn.SetCounterValue;
-			_playerJump.CanJump += _jumpBtnStateSwitch.SetState;
-		}
-
-		private void OnDisable()
-		{
-			_playerEvents.OnErase -= OnEraserTap;
-			_playerEvents.OnShoot -= OnFireballTap;
-
-			_playerInventory.OnEraserCountModified -= _eraserBtn.SetCounterValue;
-			_playerInventory.OnFireballsCountModified -= _fireballBtn.SetCounterValue;
-			_playerJump.CanJump -= _jumpBtnStateSwitch.SetState;
+			_playerInventory.OnEraserCountModified.AddListener(_eraserBtn.SetCounterValue);
+			_playerInventory.OnFireballsCountModified.AddListener(_fireballBtn.SetCounterValue);
+			_playerJump.CanJump.AddListener(_jumpBtnStateSwitch.SetState);
 		}
 
 		private void OnEraserTap() =>
-			_playerSkills.ActivateErasableMode();
+			_playerSkills.SwitchErasableMode();
 
 		private void OnFireballTap() =>
 			_playerSkills.TryLaunchFireball();

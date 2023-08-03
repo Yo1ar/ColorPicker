@@ -1,5 +1,6 @@
 ﻿using Components.Level;
 using Components.Player.Eraser;
+using GameCore.Events;
 using GameCore.GameServices;
 using UnityEngine;
 
@@ -15,7 +16,9 @@ namespace Components.Player
 		private PlayerAnimation _playerAnimation;
 		private PlayerHealth _playerHealth;
 		private FactoryService _factory;
-		private bool _readScreenPouchPosition;
+		private bool _erasableMode;
+		private bool _erasablesHighlighted;
+		private Camera _camera;
 
 		public bool IsAttacking { get; private set; }
 
@@ -24,52 +27,57 @@ namespace Components.Player
 			_playerInventory = GetComponent<PlayerInventory>();
 			_playerAnimation = GetComponent<PlayerAnimation>();
 			_playerHealth = GetComponent<PlayerHealth>();
+			_camera = Camera.main;
 
 			_factory = Services.FactoryService;
 			_projectile = Services.AssetService.FireballProjectile;
 			_fireballPool = new ProjectilePool(_projectile);
 		}
 
-		private void Update()
-		{
-			if (!_readScreenPouchPosition)
-				return;
-			
-			if (Input.GetMouseButtonUp(0))
-			{
-				Camera cam = Camera.main;
-				Vector3 mPosition = cam.ScreenToWorldPoint(Input.mousePosition);
-				RaycastHit2D hit =
-					Physics2D.Raycast(mPosition, Vector3.forward, 100f, LayerMask.GetMask("Enemy"));
+		private void OnEnable() =>
+			_playerHealth.OnDamage.AddListener(SetPlayerNotAttacking);
 
-				if (hit && hit.transform.TryGetComponent(out IErasable erasable))
-				{
-					erasable.Erase();
-					HighlightErasables(false);
-				}
+		private void EraseObject()
+		{
+			if (!_erasableMode)
+				return;
+
+			Vector3 mPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+			RaycastHit2D hit =
+				Physics2D.Raycast(mPosition, Vector3.forward, 100f, LayerMask.GetMask("Enemy"));
+
+			if (hit
+			    && hit.transform.TryGetComponent(out IErasable erasable)
+			    && TryErase())
+			{
+				erasable.Erase();
+				SwitchErasableMode();
 			}
 		}
 
-		private void OnEnable() =>
-			_playerHealth.OnDamage += SetPlayerNotAttacking;
-
-		private void OnDisable() =>
-			_playerHealth.OnDamage += SetPlayerNotAttacking;
-
-		public void ActivateErasableMode()
+		public void SwitchErasableMode()
 		{
-			if (_readScreenPouchPosition || !CanErase())
-				return;
-
-			HighlightErasables(true);
+			if (_erasableMode)
+			{
+				_erasableMode = !_erasableMode;
+				HighlightErasables(_erasableMode);
+			}
+			else if (CanErase())
+			{
+				_erasableMode = !_erasableMode;
+				HighlightErasables(_erasableMode);
+			}
 		}
 
 		private void HighlightErasables(bool value)
 		{
 			foreach (IErasable erasable in _factory.Erasables)
 				erasable.Highlight(value);
-			
-			_readScreenPouchPosition = value;
+
+			if (_erasableMode)
+				GlobalEventManager.OnScreenTap.AddListener(EraseObject);
+			else
+				GlobalEventManager.OnScreenTap.RemoveListener(EraseObject);
 		}
 
 		public void TryLaunchFireball()
@@ -99,6 +107,9 @@ namespace Components.Player
 			new(transform.localScale.x, 0);
 
 		private bool CanErase() =>
+			_playerInventory.HaveEraser();
+
+		private bool TryErase() =>
 			_playerInventory.TryRemoveItem(CollectableItem.Eraser);
 
 		private bool CanLaunchFireball() =>

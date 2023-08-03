@@ -1,6 +1,6 @@
-using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 namespace GameCore.GameUI
@@ -8,7 +8,7 @@ namespace GameCore.GameUI
 	public class GameMenuButton : MonoBehaviour, IPointerClickHandler
 	{
 		private TMP_Text _text;
-		public event Action OnClick;
+		public UnityEvent OnClick;
 
 		private void Awake() =>
 			_text = GetComponent<TMP_Text>();

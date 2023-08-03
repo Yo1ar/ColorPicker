@@ -1,19 +1,19 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Components.Player
 {
 	public class PlayerHealth : MonoBehaviour, IHealth
 	{
 		private const int MaxHealth = 3;
-		public int currentHealth { get; private set; }
+		public int CurrentHealth { get; private set; }
 
-		public event Action OnDamage;
-		public event Action OnHeal;
+		public UnityEvent OnDamage;
+		public UnityEvent OnHeal;
 
 		private void Awake() =>
-			currentHealth = MaxHealth;
-		
+			CurrentHealth = MaxHealth;
+
 		public void Damage()
 		{
 			CalculateDamage();
@@ -25,28 +25,28 @@ namespace Components.Player
 			CalculateHeal();
 			OnHeal?.Invoke();
 		}
-		
+
 		private void CalculateDamage()
 		{
-			if (currentHealth - 1 <= 0)
+			if (CurrentHealth - 1 <= 0)
 			{
-				currentHealth = 0;
+				CurrentHealth = 0;
 				Die();
 				return;
 			}
 
-			currentHealth--;
+			CurrentHealth--;
 		}
 
 		private void CalculateHeal()
 		{
-			if (currentHealth + 1 >= MaxHealth)
+			if (CurrentHealth + 1 >= MaxHealth)
 			{
-				currentHealth = MaxHealth;
+				CurrentHealth = MaxHealth;
 				return;
 			}
 
-			currentHealth++;
+			CurrentHealth++;
 		}
 
 		private void Die()

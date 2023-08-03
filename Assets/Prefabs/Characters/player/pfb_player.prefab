@@ -74,6 +74,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _force: 7
+  CanJump:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4570310566595987674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +114,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947b534bf7b7488d9f660475e23f9704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3238991589662096315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +132,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0409434ef9d5e2c4a81c725e97c5318f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnFireballsCountModified:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEraserCountModified:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6763522338752808644
 MonoBehaviour:
   m_ObjectHideFlags: 0

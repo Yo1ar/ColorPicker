@@ -25,26 +25,20 @@ namespace Components.Level.UI
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
-			_playerHealth = _factoryService.Player.GetComponent<PlayerHealth>();
+			_factoryService.OnPlayerCreated += OnPlayerCreated;
 			_healthSlider = GetComponent<Slider>();
 		}
 
-		private void OnEnable()
+		private void OnPlayerCreated(Transform player)
 		{
-			_playerHealth.OnDamage += OnDamage;
-			_playerHealth.OnHeal += OnHeal;
-		}
-
-		private void OnDisable()
-		{
-			_playerHealth.OnDamage -= OnDamage;
-			_playerHealth.OnHeal -= OnHeal;
-
-			_tween.Kill();
-		}
-
-		private void GetPlayerHealth(Transform player) =>
 			_playerHealth = player.GetComponent<PlayerHealth>();
+			
+			_playerHealth.OnDamage.AddListener(OnDamage);
+			_playerHealth.OnHeal.AddListener(OnHeal);
+		}
+
+		private void OnDisable() =>
+			_tween.Kill();
 
 		private void OnDamage()
 		{
@@ -67,7 +61,7 @@ namespace Components.Level.UI
 		}
 
 		private void SetBarValue() =>
-			_healthSlider.value = _playerHealth.currentHealth;
+			_healthSlider.value = _playerHealth.CurrentHealth;
 
 		private void StartFadeAnimation(Color color)
 		{

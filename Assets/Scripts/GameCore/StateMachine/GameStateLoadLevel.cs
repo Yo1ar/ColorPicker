@@ -1,5 +1,5 @@
-using System;
 using Configs;
+using GameCore.Events;
 using GameCore.GameServices;
 using GameCore.GameUI;
 using UnityEngine;
@@ -24,12 +24,14 @@ namespace GameCore.StateMachine
 
 		public async void Enter(SceneSets payload)
 		{
+			GlobalEventManager.OnLevelLoaded.AddListener(CreatePlayer);
+
 			if (payload == SceneSets.MainMenu)
 				await _sceneLoader.LoadMainMenu();
 			else
 			{
 				_progressService.SaveLevel(payload);
-				await _sceneLoader.LoadSceneSet(GetSceneContainer(payload), OnLevelLoaded);
+				await _sceneLoader.LoadSceneSet(GetSceneContainer(payload));
 			}
 
 			_stateMachine.EnterGameLoopState();
@@ -39,7 +41,7 @@ namespace GameCore.StateMachine
 		{
 		}
 
-		private void OnLevelLoaded(AsyncOperation operation) =>
+		private void CreatePlayer() =>
 			TryPlacePlayer();
 
 		private void TryPlacePlayer()

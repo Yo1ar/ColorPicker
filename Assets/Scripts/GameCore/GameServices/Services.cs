@@ -15,7 +15,7 @@ namespace GameCore.GameServices
 			ConfigService = new ConfigService();
 			await ConfigService.InitService();
 			
-			InputService = new(ConfigService.PlayerEvents, ConfigService.GameEvents);
+			InputService = new();
 			await InputService.InitService();
 
 			ProgressService = new();

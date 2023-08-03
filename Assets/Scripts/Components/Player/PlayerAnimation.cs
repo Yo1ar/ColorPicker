@@ -33,10 +33,7 @@ namespace Components.Player
 		}
 
 		private void OnEnable() =>
-			_playerHealth.OnDamage += AnimateDamage;
-
-		private void OnDisable() =>
-			_playerHealth.OnDamage -= AnimateDamage;
+			_playerHealth.OnDamage.AddListener(AnimateDamage);
 
 		private void Update()
 		{

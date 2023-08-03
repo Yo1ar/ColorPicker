@@ -1,7 +1,6 @@
-using System;
-using Configs;
-using GameCore.GameServices;
+using GameCore.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Components.Player
 {
@@ -11,30 +10,20 @@ namespace Components.Player
 		[SerializeField] private float _force;
 		private Rigidbody2D _rigidbody2D;
 		private GroundCheck _groundCheck;
-		private PlayerEvents _playerEvents;
 		private bool _canJump;
-		public event Action<bool> CanJump;
+		public UnityEvent<bool> CanJump;
 
 		private void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_groundCheck = GetComponent<GroundCheck>();
-			_playerEvents = Services.ConfigService.PlayerEvents;
 		}
 
 		private void OnEnable() =>
-			_playerEvents.OnJump += Jump;
+			PlayerEventManager.OnJump.AddListener(Jump);
 
-		private void OnDisable() =>
-			_playerEvents.OnJump -= Jump;
-
-		private void Update()
-		{
+		private void Update() =>
 			SetCanJump(_groundCheck.IsGrounded);
-
-			if (Input.GetKeyUp(KeyCode.Space))
-				Jump();
-		}
 
 		private void Jump()
 		{
