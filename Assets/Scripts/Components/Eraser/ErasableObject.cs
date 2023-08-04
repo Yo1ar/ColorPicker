@@ -1,11 +1,10 @@
-using System;
 using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 using Utils.Constants;
 using Utils.Debug;
 
-namespace Components.Player.Eraser
+namespace Components.Eraser
 {
 	public class ErasableObject : MonoBehaviour, IErasable
 	{

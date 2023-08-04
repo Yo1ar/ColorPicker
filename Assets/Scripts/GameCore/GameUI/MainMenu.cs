@@ -38,6 +38,14 @@ namespace GameCore.GameUI
 			_exitButton.OnClick.AddListener(ExitAction);
 		}
 
+		private void OnDisable()
+		{
+			_playButton.OnClick.RemoveListener(PlayAction);
+			_settingsButton.OnClick.RemoveListener(SettingsAction);
+			_creditsButton.OnClick.RemoveListener(CreditsAction);
+			_exitButton.OnClick.RemoveListener(ExitAction);
+		}
+
 		private async void PlayAction() =>
 			await UnderlineWithDelayButton(_playButton, LoadLevel);
 

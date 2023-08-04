@@ -31,17 +31,19 @@ namespace GameCore.GameUI
 			_goToMainButton.OnClick.AddListener(ShowHideGameMenu);
 		}
 
-		// private void OnDisable()
-		// {
-		// 	_resumeButton.OnClick -= ResumeAction;
-		// 	_resumeButton.OnClick -= ShowHideGameMenu;
-		// 	
-		// 	_settingsButton.OnClick -= SettingsAction;
-		// 	_settingsButton.OnClick -= ShowHideGameMenu;
-		// 	
-		// 	_goToMainButton.OnClick -= MainMenuAction;
-		// 	_goToMainButton.OnClick -= ShowHideGameMenu;
-		// }
+		private void OnDisable()
+		{
+			GlobalEventManager.OnBackPressed.RemoveListener(ShowHideGameMenu);
+			
+			_resumeButton.OnClick.RemoveListener(ResumeAction);
+			_resumeButton.OnClick.RemoveListener(ShowHideGameMenu);
+
+			_settingsButton.OnClick.RemoveListener(SettingsAction);
+			_settingsButton.OnClick.RemoveListener(ShowHideGameMenu);
+			
+			_goToMainButton.OnClick.RemoveListener(MainMenuAction);
+			_goToMainButton.OnClick.RemoveListener(ShowHideGameMenu);
+		}
 
 		private void ShowHideGameMenu()
 		{
@@ -53,8 +55,8 @@ namespace GameCore.GameUI
 
 		private void Show()
 		{
-			_showHideCanvas.Show();
 			Game.Pause();
+			_showHideCanvas.Show();
 		}
 
 		private void Hide()

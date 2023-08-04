@@ -475,6 +475,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _showTime: 0.5
+  _hideTime: 0.5
+  OnShown:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &699199811
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -638,6 +642,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098460562454e654e92ef51baf01a895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1053848131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +793,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098460562454e654e92ef51baf01a895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1074843295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1116,6 +1126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098460562454e654e92ef51baf01a895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1388243058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1264,6 +1277,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 098460562454e654e92ef51baf01a895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1693989379
 MonoBehaviour:
   m_ObjectHideFlags: 0

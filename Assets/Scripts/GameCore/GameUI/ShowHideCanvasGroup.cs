@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,13 +8,13 @@ namespace GameCore.GameUI
 	public class ShowHideCanvasGroup : MonoBehaviour
 	{
 		[SerializeField] private float _showTime;
-		[SerializeField] private bool _hideWhenFullyShown;
-		private Coroutine _currentRoutine;
+		[SerializeField] private float _hideTime;
 		private CanvasGroup _canvasGroup;
+		private Coroutine _currentRoutine;
+		public UnityEvent OnShown = new();
+		public UnityEvent OnHided = new();
 
 		public bool IsShown { get; private set; }
-		public UnityEvent OnShown;
-		public UnityEvent OnHided;
 
 		private void Awake() =>
 			_canvasGroup = GetComponent<CanvasGroup>();
@@ -28,10 +27,10 @@ namespace GameCore.GameUI
 		public void Hide() =>
 			SetNewRoutine(StartCoroutine(HideRoutine()));
 
-		private void SetNewRoutine(Coroutine value)
+		private void SetNewRoutine(Coroutine coroutine)
 		{
 			StopCurrentRoutine();
-			_currentRoutine = value;
+			_currentRoutine = coroutine;
 		}
 
 		private void StopCurrentRoutine()
@@ -53,7 +52,7 @@ namespace GameCore.GameUI
 
 			while (_canvasGroup.alpha < 1)
 			{
-				_canvasGroup.alpha += _showTime * Time.unscaledDeltaTime;
+				_canvasGroup.alpha += 1 / _showTime * Time.unscaledDeltaTime;
 				yield return null;
 			}
 
@@ -71,7 +70,7 @@ namespace GameCore.GameUI
 
 			while (_canvasGroup.alpha > 0)
 			{
-				_canvasGroup.alpha -= _showTime * Time.unscaledDeltaTime;
+				_canvasGroup.alpha -= 1 / _hideTime * Time.unscaledDeltaTime;
 				yield return null;
 			}
 

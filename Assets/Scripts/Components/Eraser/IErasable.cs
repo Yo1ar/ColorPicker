@@ -1,4 +1,4 @@
-namespace Components.Player.Eraser
+namespace Components.Eraser
 {
 	public interface IErasable
 	{

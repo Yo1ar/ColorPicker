@@ -1,5 +1,5 @@
-﻿using Components.Level;
-using Components.Player.Eraser;
+﻿using Components.Eraser;
+using Components.Level;
 using GameCore.Events;
 using GameCore.GameServices;
 using UnityEngine;

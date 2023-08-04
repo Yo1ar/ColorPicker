@@ -23,23 +23,27 @@ namespace GameCore.StateMachine
 			_progressService = Services.ProgressService;
 		}
 
-		public async void Enter(SceneSets payload)
+		public void Enter(SceneSets payload)
 		{
 			GlobalEventManager.OnLevelLoaded.AddListener(CreatePlayer);
 
 			if (payload == SceneSets.MainMenu)
-				await _sceneLoader.LoadMainMenu();
+				_sceneLoader.LoadMainMenu();
 			else
 			{
 				_progressService.SaveLevel(payload);
-				await _sceneLoader.LoadSceneSet(GetSceneContainer(payload));
+				_sceneLoader.LoadSceneSet(GetSceneContainer(payload));
 			}
 
-			_stateMachine.EnterGameLoopState();
+			_sceneLoader.OnLoaded.AddListener(GoToGameLoop);
 		}
 
-		public void Exit()
+		public void Exit() { }
+
+		private void GoToGameLoop()
 		{
+			_sceneLoader.OnLoaded.RemoveListener(GoToGameLoop);
+			GameStateMachine.Instance.EnterGameLoopState();
 		}
 
 		private void CreatePlayer() =>

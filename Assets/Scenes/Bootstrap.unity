@@ -805,8 +805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8321e3a03c1d745850ee4c4f40745d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showTime: 1.5
-  _hideWhenFullyShown: 0
+  _showTime: 1
+  _hideTime: 0.5
   OnShown:
     m_PersistentCalls:
       m_Calls: []

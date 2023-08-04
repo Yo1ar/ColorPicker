@@ -3,8 +3,8 @@ using Configs;
 using GameCore.Events;
 using GameCore.GameUI;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using Utils;
 using Utils.Constants;
 
 namespace GameCore
@@ -12,65 +12,78 @@ namespace GameCore
 	public sealed class SceneLoader
 	{
 		private readonly LoadingScreen _loadingScreen;
+		public readonly UnityEvent OnLoaded = new();
 		private SceneContainer _currSceneContainer;
 		private AsyncOperation _mainSceneLoading;
 		private AsyncOperation _uiSceneLoading;
 		private bool _mainMenuLoaded;
+		private bool _sceneSetLoaded;
 
 		public SceneLoader(LoadingScreen loadingScreen) =>
 			_loadingScreen = loadingScreen;
 
-		public async Task LoadMainMenu()
+		public void LoadMainMenu()
 		{
 			_loadingScreen.Show();
+			_loadingScreen.OnShown.AddListener(RunMainMenu);
 
-			if (_currSceneContainer != null)
-				await UnloadCurrentSceneSet();
-
-			AsyncOperation loading = LoadSceneAsyncAdditive(Scenes.MainMenuUI);
-			loading.completed += HideLoadingScreen;
-
-			while (loading.progress < 0.9f || !_loadingScreen.IsShown)
-				await Task.Yield();
-
-			loading.allowSceneActivation = true;
-			_mainMenuLoaded = true;
+			StartMainMenuLoading();
 		}
 
-		public async Task LoadSceneSet(SceneContainer newSceneContainer)
+		public void LoadSceneSet(SceneContainer newSceneContainer)
 		{
 			_loadingScreen.Show();
-
-			await UnloadOldScenes();
-
-			_currSceneContainer = newSceneContainer;
+			_loadingScreen.OnShown.AddListener(RunSceneSet);
 			
-			_mainSceneLoading = LoadSceneAsyncAdditive(_currSceneContainer.MainScene.Name);
-			_uiSceneLoading = LoadSceneAsyncAdditive(_currSceneContainer.UIScene.Name);
+			StartSceneSetLoading(newSceneContainer);
+		}
+
+		private void StartMainMenuLoading()
+		{
+			UnloadCurrentSceneSet();
+			
+			_mainSceneLoading = LoadSceneAsyncAdditive(Scenes.MainMenuUI);
+			_mainSceneLoading.completed += SetMainMenuLoaded;
+			_mainSceneLoading.completed += HideLoadingScreen;
+		}
+
+		private async void RunMainMenu()
+		{
+			_loadingScreen.OnShown.RemoveListener(RunMainMenu);
+
+			while (_mainSceneLoading.progress < 0.9f
+			       || !_loadingScreen.IsShown
+			       || _sceneSetLoaded)
+			{
+				await Task.Yield();
+				Debug.Log("awaiting");
+			}
+
+			_mainSceneLoading.allowSceneActivation = true;
+		}
+
+		private void StartSceneSetLoading(SceneContainer newSceneContainer)
+		{
+			UnloadOldScenes();
+			
+			_mainSceneLoading = LoadSceneAsyncAdditive(newSceneContainer.MainScene.Name);
+			_uiSceneLoading = LoadSceneAsyncAdditive(newSceneContainer.UIScene.Name);
 
 			_mainSceneLoading.completed += FinishUILoading;
+			_uiSceneLoading.completed += SetSceneSetLoaded;
 			_uiSceneLoading.completed += InvokeGlobalOnLevelLoaded;
-
-			await DelayAllLoadings();
-
-			PrepareTapToPlay();
 		}
 
-		private async Task UnloadOldScenes()
+		private async void RunSceneSet()
 		{
-			if (_currSceneContainer != null)
-				await UnloadCurrentSceneSet();
-
-			if (_mainMenuLoaded)
-				await UnloadMainMenu();
-		}
-
-		private async Task DelayAllLoadings()
-		{
-			while (_mainSceneLoading.progress < 0.9f && _uiSceneLoading.progress < 0.9f || !_loadingScreen.IsShown)
+			while (_mainSceneLoading.progress < 0.9f
+			       && _uiSceneLoading.progress < 0.9f
+			       || !_loadingScreen.IsShown
+			       || _mainMenuLoaded
+			       || _sceneSetLoaded)
 				await Task.Yield();
 
-			await Task.Delay(0.5f.AsMilliseconds());
+			PrepareTapToPlay();
 		}
 
 		private void PrepareTapToPlay()
@@ -79,22 +92,39 @@ namespace GameCore
 			GlobalEventManager.OnScreenTap.AddListener(FinishLevelLoading);
 		}
 
-		private void FinishUILoading(AsyncOperation loading) =>
+		private void FinishUILoading(AsyncOperation loading)
+		{
+			loading.completed -= FinishUILoading;
 			_uiSceneLoading.allowSceneActivation = true;
+		}
 
 		private void InvokeGlobalOnLevelLoaded(AsyncOperation loading)
 		{
+			loading.completed -= InvokeGlobalOnLevelLoaded;
+
 			GlobalEventManager.OnLevelLoaded?.Invoke();
-			
-			_mainSceneLoading.completed -= FinishUILoading;
-			_uiSceneLoading.completed -= InvokeGlobalOnLevelLoaded;
-			GlobalEventManager.OnScreenTap.RemoveListener(FinishLevelLoading);
 		}
 
 		private void FinishLevelLoading()
 		{
+			GlobalEventManager.OnScreenTap.RemoveListener(FinishLevelLoading);
+			
 			_mainSceneLoading.allowSceneActivation = true;
 			HideLoadingScreen();
+		}
+		
+		private void SetMainMenuLoaded(AsyncOperation loading)
+		{
+			loading.completed -= SetMainMenuLoaded;
+			_mainMenuLoaded = true;
+			OnLoaded?.Invoke();
+		}
+
+		private void SetSceneSetLoaded(AsyncOperation loading)
+		{
+			loading.completed -= SetSceneSetLoaded;
+			_sceneSetLoaded = true;
+			OnLoaded?.Invoke();
 		}
 
 		private void HideLoadingScreen(AsyncOperation asyncOperation = null)
@@ -118,25 +148,37 @@ namespace GameCore
 			return loading;
 		}
 
-		private async Task UnloadMainMenu()
+		private void UnloadOldScenes()
 		{
+			UnloadMainMenu();
+			UnloadCurrentSceneSet();
+		}
+
+		private async void UnloadMainMenu()
+		{
+			if (!_mainMenuLoaded)
+				return;
+
 			await UnloadSceneAsync(Scenes.MainMenuUI);
 			_mainMenuLoaded = false;
 		}
 
-		private async Task UnloadCurrentSceneSet()
+		private async void UnloadCurrentSceneSet()
 		{
+			if (!_sceneSetLoaded)
+				return;
+
 			await UnloadSceneAsync(_currSceneContainer.MainScene.Name);
 			await UnloadSceneAsync(_currSceneContainer.UIScene.Name);
 			_currSceneContainer = null;
-			
+			_sceneSetLoaded = false;
+
 			GlobalEventManager.OnLevelUnloaded?.Invoke();
 		}
 
 		private async Task UnloadSceneAsync(string sceneName)
 		{
 			AsyncOperation unloading = SceneManager.UnloadSceneAsync(sceneName);
-
 			while (!unloading.isDone)
 				await Task.Yield();
 		}

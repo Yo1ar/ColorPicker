@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Components.Player.Eraser;
+using Components.Eraser;
 using GameCore.Events;
 using UnityEngine;
 using UnityEngine.Events;
