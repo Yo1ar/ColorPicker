@@ -3,6 +3,7 @@ using GameCore.GameUI;
 using GameCore.StateMachine;
 using UnityEditor;
 using UnityEngine;
+using Utils.Debug;
 
 namespace GameCore
 {
@@ -11,10 +12,14 @@ namespace GameCore
 		private GameStateMachine _gameStateMachine;
 		private Services _services;
 		private readonly LoadingScreen _loadingScreen;
+		public static readonly GameLogger GameLogger = new();
 
 		public Game(LoadingScreen loadingScreen)
 		{
+			GameLogger.SwitchAllLogActivity(true);
+			
 			_loadingScreen = loadingScreen;
+
 			StartGameFlow();
 		}
 

@@ -1,5 +1,5 @@
-using System;
 using Components.Level;
+using GameCore;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -35,16 +35,12 @@ namespace Components.Player
 		public UnityEvent<int> OnEraserCountModified;
 
 		[ContextMenu("Place eraser")]
-		public void PlaceEraser()
-		{
+		public void PlaceEraser() =>
 			PlaceItem(CollectableItem.Eraser);
-		}
 
 		[ContextMenu("Remove eraser")]
-		public void RemoveEraser()
-		{
-			Debug.Log(TryRemoveItem(CollectableItem.Eraser));
-		}
+		public void RemoveEraser() =>
+			TryRemoveItem(CollectableItem.Eraser);
 
 		public void PlaceItem(CollectableItem item)
 		{
@@ -52,6 +48,8 @@ namespace Components.Player
 				Erasers++;
 			if (item == CollectableItem.Fireball)
 				Fireballs++;
+
+			Game.GameLogger.GameLoopLog("Inventory: " + item.ToString() + " placed", this);
 		}
 
 		public bool TryRemoveItem(CollectableItem item)
@@ -62,6 +60,8 @@ namespace Components.Player
 				return false;
 
 			RemoveItem(item);
+
+			Game.GameLogger.GameLoopLog("Inventory: " + item.ToString() + " removed", this);
 			return true;
 		}
 

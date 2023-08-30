@@ -31,6 +31,8 @@ namespace GameCore.GameServices
 		public override Task InitService()
 		{
 			_assetService = Services.AssetService;
+
+			Game.GameLogger.GameLog("Initialized", this);
 			return Task.CompletedTask;
 		}
 

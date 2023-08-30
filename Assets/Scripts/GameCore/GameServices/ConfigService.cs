@@ -13,6 +13,8 @@ namespace GameCore.GameServices
 		{
 			ScenesConfig = await LoadConfig<ScenesConfig>();
 			AssetServiceConfig = await LoadConfig<AssetServiceConfig>();
+			
+			Game.GameLogger.GameLog("Initialized", this);
 		}
 
 		private async Task<TConfig> LoadConfig<TConfig>() where TConfig : ScriptableObject

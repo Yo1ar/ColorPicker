@@ -13,9 +13,22 @@ namespace Utils
 
 		public static int AsMilliseconds(this float value) =>
 			(int)(value * 1000);
+		
+		#region String
 
 		public static bool IsEmpty(this string value) =>
 			value == string.Empty;
+		
+		public static string LogItalic(this string message) =>
+			$"<i>{message}</i>";
+
+		public static string LogBold(this string message) =>
+			$"<b>{message}</b>";
+
+		public static string LogColored(this string message, string color) =>
+			$"<color={color}>{message}</color>";
+
+		#endregion
 
 		#region Vectors
 
@@ -34,6 +47,6 @@ namespace Utils
 		public static Vector3 Add(this Vector3 vector3, Vector3 offset) =>
 			new(vector3.x + offset.x, vector3.y + offset.y, vector3.z + offset.z);
 
-  #endregion
+		#endregion
 	}
 }

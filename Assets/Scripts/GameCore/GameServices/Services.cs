@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Utils.Debug;
 
 namespace GameCore.GameServices
 {
@@ -14,18 +15,20 @@ namespace GameCore.GameServices
 		{
 			ConfigService = new ConfigService();
 			await ConfigService.InitService();
-			
-			InputService = new();
+
+			InputService = new InputService();
 			await InputService.InitService();
 
-			ProgressService = new();
+			ProgressService = new ProgressService();
 			await ProgressService.InitService();
 
-			AssetService = new(ConfigService.AssetServiceConfig);
+			AssetService = new AssetService(ConfigService.AssetServiceConfig);
 			await AssetService.InitService();
 
-			FactoryService = new(AssetService);
+			FactoryService = new FactoryService(AssetService);
 			await FactoryService.InitService();
+			
+			Game.GameLogger.GameLog("Services initialized", this);
 		}
 	}
 }

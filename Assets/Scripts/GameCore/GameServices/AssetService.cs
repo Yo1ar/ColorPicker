@@ -16,7 +16,10 @@ namespace GameCore.GameServices
 		public AssetService(AssetServiceConfig assetServiceConfig) =>
 			_assetServiceConfig = assetServiceConfig;
 
-		public override Task InitService() =>
-			Task.CompletedTask;
+		public override Task InitService()
+		{
+			Game.GameLogger.GameLog("Initialized", this);
+			return Task.CompletedTask;
+		}
 	}
 }

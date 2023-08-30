@@ -7,22 +7,23 @@ namespace GameCore.GameServices
 {
 	public class ProgressService : ServiceBase
 	{
-		private const string LevelContainerStringKey = "levelContainer";
-		private const string SettingsStringKey = "settings";
+		private const string LEVEL_CONTAINER_STRING_KEY = "levelContainer";
+		private const string SETTINGS_STRING_KEY = "settings";
 
 		public SettingsData SettingsData { get; private set; }
 		public SceneSets SavedSceneSet { get; private set; }
 
 		public override async Task InitService()
 		{
+			Game.GameLogger.GameLog("Initialized", this);
 			await Task.CompletedTask;
 		}
 
 		public bool HasLevelProgress() =>
-			PlayerPrefs.HasKey(LevelContainerStringKey);
+			PlayerPrefs.HasKey(LEVEL_CONTAINER_STRING_KEY);
 
 		public void SaveSettings(SettingsData settings) =>
-			PlayerPrefs.SetString(SettingsStringKey, MakeDataJson(settings));
+			PlayerPrefs.SetString(SETTINGS_STRING_KEY, MakeDataJson(settings));
 
 		public void LoadProgress()
 		{
@@ -32,7 +33,7 @@ namespace GameCore.GameServices
 
 		private void LoadLevel()
 		{
-			string savedSet = PlayerPrefs.GetString(LevelContainerStringKey);
+			string savedSet = PlayerPrefs.GetString(LEVEL_CONTAINER_STRING_KEY);
 			SavedSceneSet = savedSet.IsEmpty()
 				? SceneSets.Level1
 				: MakeDataFromJson<SceneSets>(savedSet);
@@ -40,7 +41,7 @@ namespace GameCore.GameServices
 
 		private void LoadSettings()
 		{
-			string savedSettings = PlayerPrefs.GetString(SettingsStringKey);
+			string savedSettings = PlayerPrefs.GetString(SETTINGS_STRING_KEY);
 
 			SettingsData = savedSettings.IsEmpty()
 				? new SettingsData(1, 1)
@@ -48,7 +49,7 @@ namespace GameCore.GameServices
 		}
 
 		public void SaveLevel(SceneSets sceneSets) =>
-			PlayerPrefs.SetString(LevelContainerStringKey, MakeDataJson(sceneSets));
+			PlayerPrefs.SetString(LEVEL_CONTAINER_STRING_KEY, MakeDataJson(sceneSets));
 
 		private string MakeDataJson<T>(T data) =>
 			JsonUtility.ToJson(data);

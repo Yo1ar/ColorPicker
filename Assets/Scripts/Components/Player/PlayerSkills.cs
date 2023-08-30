@@ -1,5 +1,6 @@
 ﻿using Components.Eraser;
 using Components.Level;
+using GameCore;
 using GameCore.Events;
 using GameCore.GameServices;
 using UnityEngine;
@@ -51,6 +52,8 @@ namespace Components.Player
 			    && TryErase())
 			{
 				erasable.Erase();
+				
+				Game.GameLogger.GameLoopLog(hit.transform.name + " erased", this);
 				SwitchErasableMode();
 			}
 		}
@@ -75,9 +78,15 @@ namespace Components.Player
 				erasable.Highlight(value);
 
 			if (_erasableMode)
+			{
 				GlobalEventManager.OnScreenTap.AddListener(EraseObject);
+				Game.GameLogger.GameLoopLog("Erasable mode enabled", this);
+			}
 			else
+			{
 				GlobalEventManager.OnScreenTap.RemoveListener(EraseObject);
+				Game.GameLogger.GameLoopLog("Erasable mode disabled", this);
+			}
 		}
 
 		public void TryLaunchFireball()
@@ -92,6 +101,8 @@ namespace Components.Player
 
 		public void LaunchFireball()
 		{
+			Game.GameLogger.GameLoopLog("Fireball launched", this);
+
 			_fireballPool.LaunchProjectile(
 				position: transform.position,
 				direction: GetShootDirection(),
