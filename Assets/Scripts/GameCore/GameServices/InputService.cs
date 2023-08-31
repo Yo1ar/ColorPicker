@@ -74,7 +74,7 @@ namespace GameCore.GameServices
 		private void InvokeBack(InputAction.CallbackContext obj)
 		{
 			GlobalEventManager.OnBackPressed?.Invoke();
-			Game.GameLogger.InputLog("Jump " + obj.phase, this);
+			Game.GameLogger.InputLog("Back " + obj.phase, this);
 		}
 
 		~InputService()

@@ -43,7 +43,7 @@
                 },
                 {
                     "name": "Back",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "71b4e93c-8a63-4c74-8d56-5326b2b55f00",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -61,17 +61,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "c51a328b-c949-414b-8398-36fbc590fbfc",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "fb2a5688-7ab0-4389-95c5-148184ef5f5c",
@@ -96,56 +85,12 @@
                 },
                 {
                     "name": "",
-                    "id": "397ac20d-f606-485f-8465-05b605ee2cab",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LaunchFireball",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1efbadf8-4547-44a0-8d69-2ac279e1ade4",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Erase",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2f7850cb-8b13-49fc-a686-b279931f75e6",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Erase",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "745e9e13-0c35-4665-850f-64dd86c6613c",
-                    "path": "*/{Menu}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8906f24d-5016-401c-bac2-6e35e8b09379",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -278,6 +223,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OnScreenTap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5bc76b27-aadc-47bc-9f64-ddd4324a4e04",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

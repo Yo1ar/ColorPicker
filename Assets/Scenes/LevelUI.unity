@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <Gamepad>/buttonEast
+  m_ControlPath: <Keyboard>/f
 --- !u!1 &191215757
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <Gamepad>/buttonSouth
+  m_ControlPath: <Keyboard>/space
 --- !u!225 &337113751
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1038,6 +1038,9 @@ MonoBehaviour:
   _showTime: 1
   _hideTime: 0
   OnShown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHided:
     m_PersistentCalls:
       m_Calls: []
 --- !u!225 &726851155
@@ -1371,11 +1374,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1624,9 +1627,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a8321e3a03c1d745850ee4c4f40745d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _showTime: 1
-  _hideTime: 1
+  _showTime: 0.2
+  _hideTime: 0.2
   OnShown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHided:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1263848390
@@ -2323,7 +2329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d54531977ecb194c95e2d3aa7a5d72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ControlPath: <Gamepad>/buttonWest
+  m_ControlPath: <Keyboard>/e
 --- !u!1 &1946287744
 GameObject:
   m_ObjectHideFlags: 0
@@ -2752,6 +2758,9 @@ MonoBehaviour:
   _showTime: 1
   _hideTime: 0
   OnShown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHided:
     m_PersistentCalls:
       m_Calls: []
 --- !u!225 &2132106757

@@ -28,16 +28,13 @@ namespace Utils.Debug
 			#endif
 		}
 
-		private string BuildMessage<T>(string message, T context)
-		{
-			StringBuilder builder = new StringBuilder()
+		private string BuildMessage<T>(string message, T context) =>
+			new StringBuilder()
 				.Append(_eventType)
 				.Append(": ")
 				.Append(context.ToString().LogItalic())
-				.Append("___")
-				.Append(message.LogBold().LogItalic());
-			
-			return builder.ToString();
-		}
+				.Append("__")
+				.Append(message.LogBold().LogItalic())
+				.ToString();
 	}
 }
