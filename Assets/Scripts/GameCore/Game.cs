@@ -16,6 +16,8 @@ namespace GameCore
 
 		public Game(LoadingScreen loadingScreen)
 		{
+			Application.targetFrameRate = 60;
+			
 			GameLogger.SwitchAllLogActivity(true);
 			
 			_loadingScreen = loadingScreen;
