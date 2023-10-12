@@ -62,10 +62,10 @@ namespace GameCore.GameUI
 			GameStateMachine.Instance.EnterLoadLevelState(_progressService.SavedSceneSet);
 
 		private void ShowSettings() =>
-			Debug.Log("Settings");
+			UnityEngine.Debug.Log("Settings");
 
 		private void ShowCredits() =>
-			Debug.Log("Created by: Yolar Games\n" +
+			UnityEngine.Debug.Log("Created by: Yolar Games\n" +
 			          "Developer: Nikita Ivanin\n" +
 			          "With inspiration from his lovely wife Margarita Wise");
 

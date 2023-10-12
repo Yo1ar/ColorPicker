@@ -15,8 +15,11 @@ namespace GameCore.GameUI
 		private void Awake() => 
 			_buttonImage = GetComponent<Image>();
 
-		public void OnPointerDown(PointerEventData eventData) => 
+		public void OnPointerDown(PointerEventData eventData)
+		{
+			UnityEngine.Debug.Log("tap " + gameObject.name);
 			OnTap?.Invoke();
+		}
 
 		public void SetCounterValue(int value)
 		{

@@ -55,14 +55,20 @@ namespace GameCore.GameUI
 
 		private void Show()
 		{
-			Game.Pause();
 			_showHideCanvas.Show();
+			Game.SetPause(true);
 		}
 
 		private void Hide()
 		{
 			_showHideCanvas.Hide();
-			Game.Unpause();
+			_showHideCanvas.OnHided.AddListener(EndHiding);
+		}
+
+		private void EndHiding()
+		{
+			_showHideCanvas.OnHided.RemoveListener(EndHiding);
+			Game.SetPause(false);
 			MakeTextsNormal();
 		}
 
@@ -83,7 +89,7 @@ namespace GameCore.GameUI
 		}
 
 		private void ShowSettings() =>
-			Debug.Log("Settings");
+			UnityEngine.Debug.Log("Settings");
 
 		private void GoToMainMenu() => 
 			GameStateMachine.Instance.EnterLoadLevelState(SceneSets.MainMenu);

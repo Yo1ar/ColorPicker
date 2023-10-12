@@ -67,6 +67,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLives: 2
+  OnDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHealed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7724932677047758450
 MonoBehaviour:
   m_ObjectHideFlags: 0

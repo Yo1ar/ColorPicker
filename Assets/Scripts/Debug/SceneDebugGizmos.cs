@@ -2,8 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using Utils.Constants;
 
-
-namespace Utils.Debug
+namespace Debug
 {
 #if UNITY_EDITOR
 	public static class SceneDebugGizmos

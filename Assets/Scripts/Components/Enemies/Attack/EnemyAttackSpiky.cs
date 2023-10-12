@@ -18,7 +18,7 @@ namespace Components.Enemies
 			_projectilePool = new ProjectilePool(_projectile);
 		}
 
-		public void PerformAttack()
+		public void PerformAttack(GameObject target)
 		{
 			for (int i = 0; i < _spikesCount; i++)
 				LaunchSpike();

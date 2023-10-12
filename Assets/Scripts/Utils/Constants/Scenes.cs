@@ -4,20 +4,20 @@ namespace Utils.Constants
 {
 	public static class Scenes
 	{
-		private const string ScenePath = "Assets/Scenes/";
-		private const string SceneFormat = ".unity";
+		private const string SCENE_PATH = "Assets/Scenes/";
+		private const string SCENE_FORMAT = ".unity";
 
-		public const string Bootstrap = "Bootstrap";
-		public const string LoadingScreen = "LoadingScreen";
-		public const string MainMenuUI = "MainMenuUI";
-		public const string Level1 = "Level1";
-		public const string Level2 = "Level2";
-		public const string LevelUI = "LevelUI";
+		public const string BOOTSTRAP = "Bootstrap";
+		public const string LOADING_SCREEN = "LoadingScreen";
+		public const string MAIN_MENU_UI = "MainMenuUI";
+		public const string LEVEL1 = "Level1";
+		public const string LEVEL2 = "Level2";
+		public const string LEVEL_UI = "LevelUI";
 
 		public static string ActiveScene => SceneManager.GetActiveScene().name;
 
 		public static string GetScenePath(string sceneName) =>
-			ScenePath + sceneName + SceneFormat;
+			SCENE_PATH + sceneName + SCENE_FORMAT;
 
 #if UNITY_EDITOR
 		public static void OpenScene(string sceneName) =>

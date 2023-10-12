@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using Configs;
 using GameCore.Events;
 using GameCore.GameServices;
 using GameCore.GameUI;
@@ -15,52 +13,49 @@ namespace GameCore.StateMachine
 		private readonly FactoryService _factoryService;
 		private readonly ProgressService _progressService;
 
-		public GameStateLoadLevel(GameStateMachine stateMachine, LoadingScreen loadingScreen)
+		public GameStateLoadLevel(GameStateMachine stateMachine, LoadingScreen loadingScreen, ICoroutineRunner coroutineRunner)
 		{
 			_stateMachine = stateMachine;
-			_sceneLoader = new SceneLoader(loadingScreen);
+			_sceneLoader = new SceneLoader(loadingScreen, coroutineRunner);
 			_factoryService = Services.FactoryService;
 			_progressService = Services.ProgressService;
 		}
 
 		public void Enter(SceneSets payload)
 		{
-			GlobalEventManager.OnLevelLoaded.AddListener(CreatePlayer);
-
 			if (payload == SceneSets.MainMenu)
-				_sceneLoader.LoadMainMenu();
+				_sceneLoader.Load(SceneSets.MainMenu, GoToGameLoop);
 			else
 			{
 				_progressService.SaveLevel(payload);
-				_sceneLoader.LoadSceneSet(GetSceneContainer(payload));
+				_sceneLoader.Load(payload, PrepareLevel);
 			}
-
-			_sceneLoader.OnLoaded.AddListener(GoToGameLoop);
 		}
 
 		public void Exit() { }
 
-		private void GoToGameLoop()
-		{
-			_sceneLoader.OnLoaded.RemoveListener(GoToGameLoop);
+		private void GoToGameLoop() =>
 			GameStateMachine.Instance.EnterGameLoopState();
+
+		private void PrepareLevel()
+		{
+			CreatePlayer();
+			GoToGameLoop();
 		}
 
-		private void CreatePlayer() =>
-			TryPlacePlayer();
-
-		private void TryPlacePlayer()
+		private void CreatePlayer()
 		{
 			if (TryFindRespawn(out Transform respawn))
 				_factoryService.CreatePlayer(respawn.position);
 			else
-				Debug.Log("Can't find player respawn");
+				UnityEngine.Debug.Log("Can't find player respawn");
 		}
 
-		private static bool TryFindRespawn(out Transform respawn) =>
-			(respawn = GameObject.FindGameObjectWithTag(Tags.Respawn).transform) != null;
-
-		private SceneContainer GetSceneContainer(SceneSets sceneSet) =>
-			Services.ConfigService.ScenesConfig.GetSceneContainerWithSet(sceneSet);
+		private bool TryFindRespawn(out Transform respawn)
+		{
+			var respawnObject = GameObject.FindGameObjectWithTag(Tags.Respawn);
+			respawn = respawnObject.transform;
+			return respawnObject != null;
+		}
 	}
 }

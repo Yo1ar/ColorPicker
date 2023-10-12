@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 300
-  _targetTag: Enemy
+  _targetTag: 1
   _releaseAfter: 1.5
 --- !u!50 &953354133336000460
 Rigidbody2D:

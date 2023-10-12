@@ -1,6 +1,6 @@
+using Debug;
 using UnityEngine;
 using Utils.Constants;
-using Utils.Debug;
 
 namespace Components.Enemies
 {
@@ -10,7 +10,7 @@ namespace Components.Enemies
 		[Header("Handy")] [SerializeField] private Vector2 _size;
 		private readonly Collider2D[] _results = new Collider2D[1];
 
-		public void PerformAttack()
+		public void PerformAttack(GameObject target)
 		{
 			if (CheckPlayerReachedByAttack() && Player.TryGetComponent(out IHealth health))
 				health.Damage();

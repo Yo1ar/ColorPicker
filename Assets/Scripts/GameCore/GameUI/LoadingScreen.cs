@@ -1,3 +1,4 @@
+using GameCore.Events;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,10 +10,9 @@ namespace GameCore.GameUI
 		[SerializeField] private TMP_Text _text;
 		private ShowHideCanvasGroup _showHideCanvas;
 
-		private const string LoadingText = "Loading";
-		private const string TapOnScreenText = "Tap to Play";
+		private const string TEXT_LOADING = "Loading...";
+		private const string TEXT_TAP_ON_SCREEN = "Tap to Play";
 
-		public bool IsShown => _showHideCanvas.IsShown;
 		public UnityEvent OnShown => _showHideCanvas.OnShown;
 		private UnityEvent OnHided => _showHideCanvas.OnHided;
 
@@ -31,13 +31,16 @@ namespace GameCore.GameUI
 		public void Show() =>
 			_showHideCanvas.Show();
 
-		public void Hide() =>
+		public void Hide()
+		{
+			GlobalEventManager.OnScreenTap.RemoveListener(Hide);
 			_showHideCanvas.Hide();
+		}
 
-		public void SetTapOnTheScreenText() =>
-			_text.SetText(TapOnScreenText);
+		public void MakeReadyToPlay() =>
+			_text.SetText(TEXT_TAP_ON_SCREEN);
 
 		private void SetLoadingText() =>
-			_text.SetText(LoadingText);
+			_text.SetText(TEXT_LOADING);
 	}
 }

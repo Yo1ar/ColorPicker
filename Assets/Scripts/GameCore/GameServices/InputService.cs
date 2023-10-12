@@ -9,9 +9,13 @@ namespace GameCore.GameServices
 	{
 		private FactoryService _factoryService;
 		private readonly PlayerActions _actions;
-
-		public InputService() =>
+		private readonly BackInputCaller _backInputCaller;
+		
+		public InputService()
+		{
 			_actions = new PlayerActions();
+			_backInputCaller = Object.FindObjectOfType<BackInputCaller>();
+		}
 
 		public override Task InitService()
 		{
@@ -29,8 +33,8 @@ namespace GameCore.GameServices
 
 			_actions.Main.OnScreenTap.started += InvokeOnScreenTap;
 
-			_actions.Main.Back.started += InvokeBack;
-
+			// _actions.Main.Back.started += InvokeBack;
+			_backInputCaller.OnBackPressed += InvokeBack;
 			Game.GameLogger.GameLog("Initialized", this);
 			return Task.CompletedTask;
 		}
@@ -71,10 +75,10 @@ namespace GameCore.GameServices
 			Game.GameLogger.InputLog("OnScreenTap started", this);
 		}
 
-		private void InvokeBack(InputAction.CallbackContext obj)
+		private void InvokeBack()
 		{
 			GlobalEventManager.OnBackPressed?.Invoke();
-			Game.GameLogger.InputLog("Back " + obj.phase, this);
+			Game.GameLogger.InputLog("Back pressed", this);
 		}
 
 		~InputService()
@@ -91,7 +95,7 @@ namespace GameCore.GameServices
 
 			_actions.Main.OnScreenTap.canceled -= InvokeOnScreenTap;
 
-			_actions.Main.Back.started -= InvokeBack;
+			_backInputCaller.OnBackPressed -= InvokeBack;
 		}
 	}
 }

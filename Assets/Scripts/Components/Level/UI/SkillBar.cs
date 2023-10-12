@@ -22,7 +22,11 @@ namespace Components.Level.UI
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
-			_factoryService.OnPlayerCreated.AddListener(OnPlayerCreated);
+
+			if (_factoryService.Player != null)
+				InitPLayer();
+			else
+				_factoryService.OnPlayerCreated.AddListener(InitPLayer);
 		}
 
 		private void OnEnable()
@@ -31,10 +35,14 @@ namespace Components.Level.UI
 			PlayerEventManager.OnShoot.AddListener(OnFireballTap);
 		}
 
-		private void OnDisable() =>
-			_factoryService.OnPlayerCreated.RemoveListener(OnPlayerCreated);
+		private void OnDisable()
+		{
+			_factoryService.OnPlayerCreated.RemoveListener(InitPLayer);
+			PlayerEventManager.OnErase.RemoveListener(OnEraserTap);
+			PlayerEventManager.OnShoot.RemoveListener(OnFireballTap);
+		}
 
-		private void OnPlayerCreated(Transform player)
+		private void InitPLayer()
 		{
 			GetPlayerComponents();
 			SubscribeToPlayerActions();

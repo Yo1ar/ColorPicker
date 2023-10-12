@@ -32,7 +32,7 @@ namespace Components.CustomAnimator
 		{
 			if (_currentAnimation == null)
 				return;
-			if (!_cooldown.isReady)
+			if (!_cooldown.IsReady)
 				return;
 
 			ShowCurrentFrame();
@@ -65,7 +65,7 @@ namespace Components.CustomAnimator
 				if (customAnim.name == animName)
 					return customAnim;
 
-			Debug.LogError("Can't find custom anim with name " + "\"{animName}\"");
+			UnityEngine.Debug.LogError("Can't find custom anim with name " + "\"{animName}\"");
 			return null;
 		}
 

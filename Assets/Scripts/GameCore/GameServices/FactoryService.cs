@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Components.Eraser;
@@ -12,12 +11,11 @@ namespace GameCore.GameServices
 	public sealed class FactoryService : ServiceBase
 	{
 		private AssetService _assetService;
-		private GameObject _player;
 
-		public Transform Player => _player.transform;
+		public GameObject Player { get; private set; }
 		public List<IErasable> Erasables { get; } = new();
 
-		public readonly UnityEvent<Transform> OnPlayerCreated = new();
+		public readonly UnityEvent OnPlayerCreated = new();
 
 		public FactoryService(AssetService assetService)
 		{
@@ -26,7 +24,7 @@ namespace GameCore.GameServices
 		}
 
 		private void RemovePlayer() =>
-			Object.DestroyImmediate(_player);
+			Object.DestroyImmediate(Player);
 
 		public override Task InitService()
 		{
@@ -38,8 +36,8 @@ namespace GameCore.GameServices
 
 		public void CreatePlayer(Vector3 position)
 		{
-			_player = Object.Instantiate(_assetService.Player, position, Quaternion.identity) as GameObject;
-			OnPlayerCreated?.Invoke(_player.transform);
+			Player = Object.Instantiate(_assetService.Player, position, Quaternion.identity) as GameObject;
+			OnPlayerCreated?.Invoke();
 		}
 
 		public void AddErasable(IErasable erasable) =>

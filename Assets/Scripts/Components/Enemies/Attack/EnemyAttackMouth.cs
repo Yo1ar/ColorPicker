@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
+using Debug;
 using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 using Utils.Constants;
-using Utils.Debug;
 
 namespace Components.Enemies
 {
@@ -40,7 +40,7 @@ namespace Components.Enemies
 			_portalPrefab.gameObject.SetActive(false);
 		}
 
-		public async void PerformAttack()
+		public async void PerformAttack(GameObject target)
 		{
 			_playerStaticPosition = OverPlayerPosition;
 			ShowTeleport(_playerStaticPosition);

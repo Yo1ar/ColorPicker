@@ -5,14 +5,14 @@ namespace Components.Player
 {
 	public class PlayerHealth : MonoBehaviour, IHealth
 	{
-		private const int MaxHealth = 3;
+		private const int MAX_HEALTH = 3;
 		public int CurrentHealth { get; private set; }
 
 		public UnityEvent OnDamage;
 		public UnityEvent OnHeal;
 
 		private void Awake() =>
-			CurrentHealth = MaxHealth;
+			CurrentHealth = MAX_HEALTH;
 
 		public void Damage()
 		{
@@ -40,9 +40,9 @@ namespace Components.Player
 
 		private void CalculateHeal()
 		{
-			if (CurrentHealth + 1 >= MaxHealth)
+			if (CurrentHealth + 1 >= MAX_HEALTH)
 			{
-				CurrentHealth = MaxHealth;
+				CurrentHealth = MAX_HEALTH;
 				return;
 			}
 

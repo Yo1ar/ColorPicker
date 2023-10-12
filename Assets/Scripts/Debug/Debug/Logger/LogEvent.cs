@@ -1,7 +1,8 @@
 using System.Text;
+using Utils;
 using Utils.Constants;
 
-namespace Utils.Debug
+namespace Debug.Debug
 {
 	public class LogEvent
 	{

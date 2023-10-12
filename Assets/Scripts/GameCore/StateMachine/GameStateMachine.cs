@@ -12,12 +12,12 @@ namespace GameCore.StateMachine
 		private IGameStateExitable _currentState;
 		public static GameStateMachine Instance { get; private set; }
 
-		public GameStateMachine(LoadingScreen loadingScreen)
+		public GameStateMachine(LoadingScreen loadingScreen, ICoroutineRunner coroutineRunner)
 		{
 			Instance = this;
 			_stateBootstrap = new GameStateBootstrap(this);
 			_stateLoadProgress = new GameStateLoadProgress(this);
-			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen);
+			_stateLoadLevel = new GameStateLoadLevel(this, loadingScreen, coroutineRunner);
 			_stateGameLoop = new GameStateGameLoop(this);
 		}
 

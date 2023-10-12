@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
+using Utils.Constants;
 
 namespace Components
 {
@@ -8,7 +9,7 @@ namespace Components
 	public sealed class Projectile : MonoBehaviour
 	{
 		[SerializeField] private float _speed;
-		[SerializeField] private string _targetTag;
+		[SerializeField] private GameTag _targetTag;
 		[SerializeField] private float _releaseAfter = 1.5f;
 		private Rigidbody2D _rigidbody;
 		private CapsuleCollider2D _capsuleCollider2D;
@@ -28,7 +29,7 @@ namespace Components
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
-			if (!other.CompareTag(_targetTag) ||
+			if (!other.CompareTag(_targetTag.ToString()) ||
 			    !other.gameObject.TryGetComponent(out IHealth health))
 				return;
 

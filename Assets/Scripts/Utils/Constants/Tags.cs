@@ -10,4 +10,12 @@
 		public const string Finish = "Finish";
 		public const string Ground = "Ground";
 	}
+	
+	public enum GameTag
+	{
+		Player,
+		Enemy,
+		Respawn,
+		Finish,
+	}
 }

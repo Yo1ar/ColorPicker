@@ -9,13 +9,13 @@ namespace Configs
 	{
 		public List<SceneContainer> SceneContainers;
 		
-		public SceneContainer GetSceneContainerWithSet(SceneSets set)
+		public SceneContainer GetSceneContainer(SceneSets set)
 		{
 			foreach (SceneContainer container in SceneContainers)
 				if (container.Set == set)
 					return container;
 
-			Debug.LogError("Can't find scene set");
+			UnityEngine.Debug.LogError("Can't find scene set");
 			return null;
 		}
 	}

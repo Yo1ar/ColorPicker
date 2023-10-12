@@ -13,15 +13,21 @@ namespace Components.Enemies
 		private Transform _player;
 		private EnemyMove _enemyMove;
 		private readonly Collider2D[] _results = new Collider2D[1];
+		private FactoryService _factoryService;
 
-		private void Awake() =>
+		private void Awake()
+		{
 			_enemyMove = GetComponent<EnemyMove>();
+			_factoryService = Services.FactoryService;
 
-		private void OnEnable() =>
-			Services.FactoryService.OnPlayerCreated.AddListener(SetPlayer);
+			if (_factoryService.Player != null)
+				InitPlayer();
+			else
+				_factoryService.OnPlayerCreated.AddListener(InitPlayer);
+		}
 
 		private void OnDisable() =>
-			Services.FactoryService.OnPlayerCreated.RemoveListener(SetPlayer);
+			Services.FactoryService.OnPlayerCreated.RemoveListener(InitPlayer);
 
 		private void FixedUpdate() =>
 			_enemyMove.SetLookDirection(IsPlayerInChaseRadius() ? CalculateDirection() : 0);
@@ -42,8 +48,8 @@ namespace Components.Enemies
 			return count > 0;
 		}
 
-		private void SetPlayer(Transform player) =>
-			_player = player;
+		private void InitPlayer() =>
+			_player = _factoryService.Player.transform;
 
 		private void OnDrawGizmosSelected()
 		{

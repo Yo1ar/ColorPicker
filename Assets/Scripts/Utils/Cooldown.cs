@@ -7,7 +7,8 @@ namespace Utils
 		private readonly float _cdValue;
 		private float _endValue;
 
-		public bool isReady => _endValue <= Time.time;
+		public bool IsReady => _endValue <= Time.time;
+		public float Value => Mathf.Clamp(_endValue - Time.time, 0, _cdValue);
 
 		public Cooldown(float cdValue) =>
 			_cdValue = cdValue;

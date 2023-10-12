@@ -1,7 +1,5 @@
-using System;
 using Cinemachine;
 using GameCore.GameServices;
-using GameCore.StateMachine;
 using UnityEngine;
 
 namespace Components.Level
@@ -9,20 +7,26 @@ namespace Components.Level
 	public class CinemachineSetup : MonoBehaviour
 	{
 		private CinemachineVirtualCamera _cmCamera;
-		
-		private void Awake() => 
-			SetCameraFollowPlayer();
+		private FactoryService _factoryService;
 
-		private void OnEnable() => 
-			Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerAsTarget);
+		private void Awake()
+		{
+			_cmCamera = GetComponent<CinemachineVirtualCamera>();
+			_factoryService = Services.FactoryService;
+
+			if (_factoryService.Player != null)
+				InitPlayer();
+			else
+				_factoryService.OnPlayerCreated.AddListener(InitPlayer);
+		}
 
 		private void OnDisable() => 
-			Services.FactoryService.OnPlayerCreated.RemoveListener(SetPlayerAsTarget);
+			Services.FactoryService.OnPlayerCreated.RemoveListener(InitPlayer);
 
-		private void SetPlayerAsTarget(Transform player) => 
-			_cmCamera.Follow = player;
-
-		private void SetCameraFollowPlayer() => 
-			_cmCamera = GetComponent<CinemachineVirtualCamera>();
+		private void InitPlayer()
+		{
+			_cmCamera.Follow = _factoryService.Player.transform;
+			_factoryService.Player.transform.parent = _cmCamera.transform.parent;
+		}
 	}
 }

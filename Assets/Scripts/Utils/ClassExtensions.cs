@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Components.Player;
+using UnityEngine;
 using Utils.Constants;
 
 namespace Utils
@@ -8,17 +9,20 @@ namespace Utils
 		public static bool IsInLayer(this GameObject gameObject, LayerMask layer) =>
 			layer == (layer | 1 << gameObject.layer);
 
+		public static bool TryGetHealth(this GameObject gameObject, out PlayerHealth playerHealth) =>
+			gameObject.TryGetComponent(out playerHealth);
+
 		public static bool IsPlayer(this Collider2D collider) =>
 			collider.gameObject.CompareTag(Tags.Player);
 
 		public static int AsMilliseconds(this float value) =>
 			(int)(value * 1000);
-		
-		#region String
+
+		#region STRINGS
 
 		public static bool IsEmpty(this string value) =>
 			value == string.Empty;
-		
+
 		public static string LogItalic(this string message) =>
 			$"<i>{message}</i>";
 
@@ -30,7 +34,7 @@ namespace Utils
 
 		#endregion
 
-		#region Vectors
+		#region VECTORS
 
 		public static Vector2 ToVector2(this Vector3 vector3) =>
 			new(vector3.x, vector3.y);

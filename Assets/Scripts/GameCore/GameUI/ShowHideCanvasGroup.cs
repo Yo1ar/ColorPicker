@@ -1,4 +1,5 @@
-using System.Collections;
+using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,8 +10,10 @@ namespace GameCore.GameUI
 	{
 		[SerializeField] private float _showTime;
 		[SerializeField] private float _hideTime;
+		[SerializeField] private bool _unscaled;
+		
 		private CanvasGroup _canvasGroup;
-		private Coroutine _currentRoutine;
+		private Tween _tween;
 		public UnityEvent OnShown = new();
 		public UnityEvent OnHided = new();
 
@@ -20,62 +23,64 @@ namespace GameCore.GameUI
 			_canvasGroup = GetComponent<CanvasGroup>();
 
 		[ContextMenu("Show")]
-		public void Show() =>
-			SetNewRoutine(StartCoroutine(ShowRoutine()));
+		public void Show()
+		{
+			if (_tween.IsActive())
+				_tween.onComplete += ShowAction;
+			else
+				ShowAction();
+		}
 
 		[ContextMenu("Hide")]
-		public void Hide() =>
-			SetNewRoutine(StartCoroutine(HideRoutine()));
-
-		private void SetNewRoutine(Coroutine coroutine)
+		public void Hide()
 		{
-			StopCurrentRoutine();
-			_currentRoutine = coroutine;
+			if (_tween.IsActive())
+				_tween.onComplete += HideAction;
+			else
+				HideAction();
 		}
 
-		private void StopCurrentRoutine()
+		private void ShowAction()
 		{
-			if (_currentRoutine == null)
-				return;
-
-			StopCoroutine(_currentRoutine);
-			_currentRoutine = null;
-		}
-
-		private IEnumerator ShowRoutine()
-		{
-			if (_canvasGroup.alpha >= 1)
-				yield break;
-
 			SetInteractable(true);
 			SetBlockRaycasts(true);
 
-			while (_canvasGroup.alpha < 1)
-			{
-				_canvasGroup.alpha += 1 / _showTime * Time.unscaledDeltaTime;
-				yield return null;
-			}
+			_tween.Kill();
 
-			IsShown = true;
-			OnShown?.Invoke();
+			if (_unscaled)
+				_tween = _canvasGroup.DOFade(1, _showTime).SetUpdate(true);
+			else
+				_tween = _canvasGroup.DOFade(1, _showTime);
+			
+			_tween.onComplete += InvokeShown;
+
+			void InvokeShown()
+			{
+				OnShown?.Invoke();
+				IsShown = true;
+			}
 		}
 
-		private IEnumerator HideRoutine()
+		private void HideAction()
 		{
-			if (_canvasGroup.alpha <= 0)
-				yield break;
-
+			
 			SetInteractable(false);
 			SetBlockRaycasts(false);
+			
+			_tween.Kill();
+			
+			if (_unscaled)
+				_tween = _canvasGroup.DOFade(0, _hideTime).SetUpdate(true);
+			else
+				_tween = _canvasGroup.DOFade(0, _hideTime);
 
-			while (_canvasGroup.alpha > 0)
+			_tween.onComplete += InvokeHided;
+			
+			void InvokeHided()
 			{
-				_canvasGroup.alpha -= 1 / _hideTime * Time.unscaledDeltaTime;
-				yield return null;
+				OnHided?.Invoke();
+				IsShown = false;
 			}
-
-			IsShown = false;
-			OnHided?.Invoke();
 		}
 
 		private void SetBlockRaycasts(bool value) =>

@@ -20,28 +20,29 @@ namespace Components.Level.UI
 
 		private readonly Color _damageColor = Color.red;
 		private readonly Color _healColor = Color.green;
-		private const float AnimationDuration = 2f;
-		private const Ease Ease = DG.Tweening.Ease.InSine;
+		private const float ANIMATION_DURATION = 2f;
+		private const Ease EASE = DG.Tweening.Ease.InSine;
 
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
 			_healthSlider = GetComponent<Slider>();
-		}
 
-		private void OnEnable() =>
-			_factoryService.OnPlayerCreated.AddListener(OnPlayerCreated);
+			if (_factoryService.Player != null)
+				InitPlayer();
+			else
+				_factoryService.OnPlayerCreated.AddListener(InitPlayer);
+		}
 
 		private void OnDisable()
 		{
-			_factoryService.OnPlayerCreated.RemoveListener(OnPlayerCreated);
+			_factoryService.OnPlayerCreated.RemoveListener(InitPlayer);
 			_tween.Kill();
 		}
 
-		private void OnPlayerCreated(Transform player)
+		private void InitPlayer()
 		{
-			_playerHealth = player.GetComponent<PlayerHealth>();
-			
+			_playerHealth = _factoryService.Player.GetComponent<PlayerHealth>();
 			_playerHealth.OnDamage.AddListener(OnDamage);
 			_playerHealth.OnHeal.AddListener(OnHeal);
 		}
@@ -72,7 +73,7 @@ namespace Components.Level.UI
 		private void StartFadeAnimation(Color color)
 		{
 			_back.color = color;
-			_tween = _back.DOColor(Color.white, AnimationDuration).SetEase(Ease);
+			_tween = _back.DOColor(Color.white, ANIMATION_DURATION).SetEase(EASE);
 		}
 	}
 }

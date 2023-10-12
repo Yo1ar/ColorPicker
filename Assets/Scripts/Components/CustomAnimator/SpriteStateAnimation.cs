@@ -27,7 +27,7 @@ namespace Components.CustomAnimator
 				if (state.name == stateName)
 					return state;
 
-			Debug.LogError("Can't find state name", this);
+			UnityEngine.Debug.LogError("Can't find state name", this);
 			return null;
 		}
 	}

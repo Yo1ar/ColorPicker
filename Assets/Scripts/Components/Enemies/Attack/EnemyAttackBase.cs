@@ -1,8 +1,8 @@
+using Debug;
 using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 using Utils.Constants;
-using Utils.Debug;
 
 namespace Components.Enemies
 {
@@ -19,16 +19,26 @@ namespace Components.Enemies
 		private readonly Collider2D[] _attackTriggers = new Collider2D[1];
 		protected EnemyBehavior EnemyBehavior;
 		protected Transform Transform;
+		private FactoryService _factoryService;
 
 		private Vector3 OffsetWithDirection => new(Offset.x * transform.localScale.x, Offset.y);
 
 		protected virtual void Awake()
 		{
+			_factoryService = Services.FactoryService;
 			Transform = transform;
 			EnemyBehavior = GetComponent<EnemyBehavior>();
 			Cooldown = new Cooldown(_cooldownValue);
 			Cooldown.Reset();
+
+			if (_factoryService.Player != null)
+				InitPlayer();
+			else
+				_factoryService.OnPlayerCreated.AddListener(InitPlayer);
 		}
+
+		private void InitPlayer() =>
+			Player = _factoryService.Player.transform;
 
 		private void Update()
 		{
@@ -39,11 +49,8 @@ namespace Components.Enemies
 			Cooldown.Reset();
 		}
 
-		protected virtual void OnEnable() =>
-			Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerWhenCreated);
-
 		protected virtual void OnDisable() =>
-			Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerWhenCreated);
+			Services.FactoryService.OnPlayerCreated.RemoveListener(InitPlayer);
 
 		private bool IsPlayerInAttackZone()
 		{
@@ -71,7 +78,7 @@ namespace Components.Enemies
 			Player = player;
 
 		private bool CanAttack() =>
-			Cooldown.isReady;
+			Cooldown.IsReady;
 
 #if UNITY_EDITOR
 		protected virtual void OnDrawGizmosSelected() =>

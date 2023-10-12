@@ -1,6 +1,6 @@
 using Utils.Constants;
 
-namespace Utils.Debug
+namespace Debug.Debug
 {
 	public class GameLogger
 	{

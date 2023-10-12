@@ -18,20 +18,26 @@ namespace Components.Level
 		private Rigidbody2D _playerRigidbody;
 		private SortingGroup _playerSortingGroup;
 		private CinemachineVirtualCamera _cmCamera;
+		private FactoryService _factoryService;
 
-		private void Awake() =>
+		private void Awake()
+		{
 			_cmCamera = FindObjectOfType<CinemachineVirtualCamera>();
+			_factoryService = Services.FactoryService;
 
-		private void OnEnable() =>
-			Services.FactoryService.OnPlayerCreated.AddListener(GetPlayerComponents);
+			if (_factoryService.Player != null)
+				InitPLayer();
+			else
+				_factoryService.OnPlayerCreated.AddListener(InitPLayer);
+		}
 
 		private void OnDisable() =>
-			Services.FactoryService.OnPlayerCreated.RemoveListener(GetPlayerComponents);
+			Services.FactoryService.OnPlayerCreated.RemoveListener(InitPLayer);
 
-		private void GetPlayerComponents(Transform player)
+		private void InitPLayer()
 		{
-			player.TryGetComponent(out _playerRigidbody);
-			player.TryGetComponent(out _playerSortingGroup);
+			_factoryService.Player.TryGetComponent(out _playerRigidbody);
+			_factoryService.Player.TryGetComponent(out _playerSortingGroup);
 		}
 
 		public async void Teleport(Transform player)

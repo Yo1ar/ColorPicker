@@ -1,5 +1,5 @@
+using Debug;
 using UnityEngine;
-using Utils.Debug;
 
 namespace Components.Enemies
 {

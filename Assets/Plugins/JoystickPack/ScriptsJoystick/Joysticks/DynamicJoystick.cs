@@ -3,13 +3,13 @@ using UnityEngine.EventSystems;
 
 public class DynamicJoystick : Joystick
 {
-    public float MoveThreshold { get { return moveThreshold; } set { moveThreshold = Mathf.Abs(value); } }
+    public float MoveThreshold { get { return _moveThreshold; } set { _moveThreshold = Mathf.Abs(value); } }
 
-    [SerializeField] private float moveThreshold = 1;
+    [SerializeField] private float _moveThreshold = 1;
 
     protected override void Start()
     {
-        MoveThreshold = moveThreshold;
+        MoveThreshold = _moveThreshold;
         base.Start();
         // background.gameObject.SetActive(false); // no need to hide joystick
     }
@@ -29,9 +29,9 @@ public class DynamicJoystick : Joystick
 
     protected override void HandleInput(float magnitude, Vector2 normalised, Vector2 radius, Camera cam)
     {
-        if (magnitude > moveThreshold)
+        if (magnitude > _moveThreshold)
         {
-            Vector2 difference = normalised * (magnitude - moveThreshold) * radius;
+            Vector2 difference = normalised * (magnitude - _moveThreshold) * radius;
             background.anchoredPosition += difference;
         }
         base.HandleInput(magnitude, normalised, radius, cam);
