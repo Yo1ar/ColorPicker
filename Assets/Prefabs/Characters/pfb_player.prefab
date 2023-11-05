@@ -42,7 +42,7 @@ Transform:
   m_Children:
   - {fileID: 1929459248275977457}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3661616756891886790
 MonoBehaviour:
@@ -180,7 +180,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 41dd143877dea714a90608f90a35d44d, type: 2}
+  m_Material: {fileID: 6200000, guid: 0b0e368fa7064914580d726f43a8671b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -200,7 +200,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2964221795828227578}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 41dd143877dea714a90608f90a35d44d, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
