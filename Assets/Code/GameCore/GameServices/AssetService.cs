@@ -1,0 +1,26 @@
+using System.Threading.Tasks;
+using Components;
+using Components.Characters;
+using Configs;
+using UnityEngine;
+
+namespace GameCore.GameServices
+{
+	public class AssetService : ServiceBase
+	{
+		private AssetServiceConfig _assetServiceConfig;
+		public Object Player => _assetServiceConfig.Player;
+		public Projectile FireballProjectile => _assetServiceConfig.FireballProjectile;
+		public Projectile PencilProjectile => _assetServiceConfig.PencilProjectile;
+		public Transform PortalAttack => _assetServiceConfig.PortalAttack;
+
+		public AssetService(AssetServiceConfig assetServiceConfig) =>
+			_assetServiceConfig = assetServiceConfig;
+
+		public override Task InitService()
+		{
+			Game.GameLogger.GameLog("Initialized", this);
+			return Task.CompletedTask;
+		}
+	}
+}
