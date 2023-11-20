@@ -7,10 +7,13 @@ namespace Components.Color
 	public sealed class ColorHolder : MonoBehaviour
 	{
 		[SerializeField] private EColors _color;
-		[SerializeField] private SpriteRenderer _visual;
+		[SerializeField] private SpriteRenderer _view;
 		public EColors Color => _color;
 
+		private void Awake() =>
+			Recolor();
+
 		public void Recolor() =>
-			_visual.color = Colors.GetColor(_color);
+			_view.color = Colors.GetColor(_color);
 	}
 }

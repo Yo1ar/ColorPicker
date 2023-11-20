@@ -1,3 +1,5 @@
+using Characters.Player;
+using Components.Characters.Player;
 using Components.Player;
 using GameCore.GameServices;
 using DG.Tweening;

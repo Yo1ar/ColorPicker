@@ -1,4 +1,5 @@
-﻿using Components.Eraser;
+﻿using Characters.Player;
+using Components.Eraser;
 using Components.Player;
 using GameCore;
 using GameCore.Events;

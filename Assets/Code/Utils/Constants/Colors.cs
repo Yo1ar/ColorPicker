@@ -24,16 +24,6 @@ namespace Utils.Constants
 				_ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
 			};
 
-		public static Color GetColorWithIndex(int i) =>
-			i switch
-			{
-				(int)EColors.White => White,
-				(int)EColors.Red => Red,
-				(int)EColors.Green => Green,
-				(int)EColors.Blue => Blue,
-				_ => throw new ArgumentOutOfRangeException(nameof(i), i, null)
-			};
-
 		public static string GetLogColor(EColors color) =>
 			color switch
 			{

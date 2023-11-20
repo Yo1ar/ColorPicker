@@ -1,7 +1,8 @@
+using Components;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Components.Player
+namespace Characters.Player
 {
 	public class PlayerHealth : MonoBehaviour, IHealth
 	{
@@ -10,7 +11,8 @@ namespace Components.Player
 
 		public UnityEvent OnDamage;
 		public UnityEvent OnHeal;
-
+		public UnityEvent OnDeath;
+		
 		private void Awake() =>
 			CurrentHealth = MAX_HEALTH;
 
@@ -29,13 +31,10 @@ namespace Components.Player
 		private void CalculateDamage()
 		{
 			if (CurrentHealth - 1 <= 0)
-			{
-				CurrentHealth = 0;
 				Die();
-				return;
-			}
+			else
+				CurrentHealth--;
 
-			CurrentHealth--;
 		}
 
 		private void CalculateHeal()
@@ -51,6 +50,21 @@ namespace Components.Player
 
 		private void Die()
 		{
+			CurrentHealth = 0;
+			OnDeath?.Invoke();
+			Destroy(gameObject);
 		}
+
+		[ContextMenu("Invoke Damage")]
+		private void InvokeDamage() =>
+			Damage();
+
+		[ContextMenu("Invoke Heal")]
+		private void InvokeHeal() =>
+			Heal();
+
+		[ContextMenu("Invoke Death")]
+		private void InvokeDeath() =>
+			Die();
 	}
 }

@@ -16,7 +16,7 @@ namespace GameCore.GameUI
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			UnityEngine.Debug.Log("tap " + gameObject.name);
+			Debug.Log("tap " + gameObject.name);
 			OnTap?.Invoke();
 		}
 

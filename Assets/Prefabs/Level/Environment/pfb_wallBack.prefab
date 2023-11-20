@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pfb_wallBack
       objectReference: {fileID: 0}
+    - target: {fileID: 7779700249034526738, guid: 08f6981c0f64a6f4daa5a3ba378e11d2, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7779700249034526740, guid: 08f6981c0f64a6f4daa5a3ba378e11d2, type: 3}
       propertyPath: m_Color.b
       value: 0.7924528
@@ -30,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7779700249034526743, guid: 08f6981c0f64a6f4daa5a3ba378e11d2, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7779700249034526743, guid: 08f6981c0f64a6f4daa5a3ba378e11d2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -72,7 +76,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7779700249034526741, guid: 08f6981c0f64a6f4daa5a3ba378e11d2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

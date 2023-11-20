@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace GameCore.GameUI
 {
-	public class LevelUIButtonCounter
+	public class LevelUIButtonCounter : MonoBehaviour
 	{
 		public void TurnOff()
 		{

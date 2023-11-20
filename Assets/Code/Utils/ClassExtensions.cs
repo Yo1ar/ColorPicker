@@ -1,6 +1,6 @@
-﻿using Components.Color;
+﻿using Characters.Player;
+using Components.Characters.Player;
 using Components.Player;
-using GameCore.GameSystems;
 using UnityEngine;
 using Utils.Constants;
 
