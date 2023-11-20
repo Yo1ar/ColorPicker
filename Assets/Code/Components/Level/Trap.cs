@@ -1,5 +1,4 @@
 using System.Collections;
-using Components.Characters.Player;
 using Components.Player;
 using UnityEngine;
 using Utils;

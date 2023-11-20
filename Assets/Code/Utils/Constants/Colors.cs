@@ -21,9 +21,17 @@ namespace Utils.Constants
 				EColors.Red => Red,
 				EColors.Green => Green,
 				EColors.Blue => Blue,
-				EColors.Yellow => Color.yellow,
-				EColors.Cyan => Color.cyan,
 				_ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
+			};
+
+		public static Color GetColorWithIndex(int i) =>
+			i switch
+			{
+				(int)EColors.White => White,
+				(int)EColors.Red => Red,
+				(int)EColors.Green => Green,
+				(int)EColors.Blue => Blue,
+				_ => throw new ArgumentOutOfRangeException(nameof(i), i, null)
 			};
 
 		public static string GetLogColor(EColors color) =>
@@ -33,8 +41,6 @@ namespace Utils.Constants
 				EColors.Red => "red",
 				EColors.Green => "green",
 				EColors.Blue => "blue",
-				EColors.Yellow => "yellow",
-				EColors.Cyan => "cyan",
 				_ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
 			};
 	}
@@ -45,7 +51,5 @@ namespace Utils.Constants
 		Red = 1,
 		Green = 2,
 		Blue = 3,
-		Yellow = 4,
-		Cyan = 5,
 	}
 }

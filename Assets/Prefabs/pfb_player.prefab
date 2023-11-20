@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _color: 0
-  _recolorThis: 1
+  _visual: {fileID: 0}
 --- !u!50 &8424365026050101140
 Rigidbody2D:
   serializedVersion: 4

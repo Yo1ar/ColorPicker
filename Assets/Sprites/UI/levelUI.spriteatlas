@@ -55,8 +55,6 @@ SpriteAtlas:
     - d7bf9331840cd784d88340df60fa6ba0: 21300000
     - 40ec5f7439393754f96aca6ccdfb201a: 21300000
     - c6ac4765d4da8174693b006b31e6c356: 21300000
-    - b8cb2a3691fd18f499a49d7bebce6e04: -259906253
-    - b8cb2a3691fd18f499a49d7bebce6e04: -1826634459
     - 9b4bbbdaa07ea064cbc5babd8b9f6f65: 21300000
     - 510049fd72c63e446a2114d55e636fdd: 21300000
     - 3a70efaeffe64d840b109783d15697ff: 21300000
@@ -69,8 +67,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: d7bf9331840cd784d88340df60fa6ba0, type: 3}
   - {fileID: 21300000, guid: 40ec5f7439393754f96aca6ccdfb201a, type: 3}
   - {fileID: 21300000, guid: c6ac4765d4da8174693b006b31e6c356, type: 3}
-  - {fileID: -259906253, guid: b8cb2a3691fd18f499a49d7bebce6e04, type: 3}
-  - {fileID: -1826634459, guid: b8cb2a3691fd18f499a49d7bebce6e04, type: 3}
   - {fileID: 21300000, guid: 9b4bbbdaa07ea064cbc5babd8b9f6f65, type: 3}
   - {fileID: 21300000, guid: 510049fd72c63e446a2114d55e636fdd, type: 3}
   - {fileID: 21300000, guid: 3a70efaeffe64d840b109783d15697ff, type: 3}
@@ -82,8 +78,6 @@ SpriteAtlas:
   - spr_fireballFull
   - spr_pencilEmpty
   - spr_counterBg
-  - spr_hp_0
-  - spr_hp_1
   - spr_eraserFull
   - spr_eraserEmpty
   - spr_bgLevel

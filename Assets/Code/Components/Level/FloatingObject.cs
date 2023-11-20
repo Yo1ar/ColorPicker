@@ -7,9 +7,9 @@ namespace Components.Level
 {
 	public class FloatingObject : MonoBehaviour
 	{
-		private const float FloatHeight = 0.5f;
-		private const float FloatSpeed = 1f;
-		private const Ease Ease = DG.Tweening.Ease.InOutSine;
+		private const float FLOAT_HEIGHT = 0.5f;
+		private const float FLOAT_SPEED = 1f;
+		private const Ease EASE = Ease.InOutSine;
 
 		private Sequence _sequence;
 		private float _topBoarder;
@@ -25,7 +25,7 @@ namespace Components.Level
 			_sequence = PlayTweenSequence();
 
 		private void SetTopBoarder() =>
-			_topBoarder = _bottomBoarder + FloatHeight;
+			_topBoarder = _bottomBoarder + FLOAT_HEIGHT;
 
 		private Sequence PlayTweenSequence() =>
 			DOTween.Sequence()
@@ -38,6 +38,6 @@ namespace Components.Level
 			_sequence.Kill();
 
 		private TweenerCore<Vector3, Vector3, VectorOptions> TweenY(float boarder) =>
-			transform.DOMoveY(boarder, FloatSpeed).SetEase(Ease);
+			transform.DOMoveY(boarder, FLOAT_SPEED).SetEase(EASE);
 	}
 }

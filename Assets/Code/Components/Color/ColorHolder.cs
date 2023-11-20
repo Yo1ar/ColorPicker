@@ -1,9 +1,16 @@
+using UnityEngine;
 using Utils.Constants;
 
 namespace Components.Color
 {
-	public sealed class ColorHolder : Colorer
+	[ExecuteInEditMode]
+	public sealed class ColorHolder : MonoBehaviour
 	{
-		public EColors color => _color;
+		[SerializeField] private EColors _color;
+		[SerializeField] private SpriteRenderer _visual;
+		public EColors Color => _color;
+
+		public void Recolor() =>
+			_visual.color = Colors.GetColor(_color);
 	}
 }
