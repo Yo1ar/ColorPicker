@@ -2,7 +2,7 @@ using Cinemachine;
 using GameCore.GameServices;
 using UnityEngine;
 
-namespace Components.Level
+namespace Level
 {
 	public class CinemachineSetup : MonoBehaviour
 	{

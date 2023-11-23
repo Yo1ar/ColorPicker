@@ -14,7 +14,7 @@ namespace Utils.Constants
 		public static readonly Color Blue = new(0.2509804f, 0.8156863f, 1f, 1f);
 		public static readonly Color BlueT = new(0.2509804f, 0.8156863f, 1f, 0.5f);
 
-		public static Color GetColor(EColors color) =>
+		public static UnityEngine.Color GetColor(EColors color) =>
 			color switch
 			{
 				EColors.White => White,

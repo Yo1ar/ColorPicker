@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Components.Eraser;
 using GameCore.Events;
 using UnityEngine;
 using UnityEngine.Events;
@@ -10,8 +9,9 @@ namespace GameCore.GameServices
 {
 	public sealed class FactoryService : ServiceBase
 	{
+		private readonly ProjectilePool _fireballPool;
 		private AssetService _assetService;
-
+		
 		public GameObject Player { get; private set; }
 		public List<IErasable> Erasables { get; } = new();
 
@@ -20,11 +20,9 @@ namespace GameCore.GameServices
 		public FactoryService(AssetService assetService)
 		{
 			_assetService = assetService;
+			_fireballPool = new ProjectilePool(_assetService.FireballProjectile);
 			GlobalEventManager.OnLevelUnloaded.AddListener(RemovePlayer);
 		}
-
-		private void RemovePlayer() =>
-			Object.DestroyImmediate(Player);
 
 		public override Task InitService()
 		{
@@ -40,6 +38,9 @@ namespace GameCore.GameServices
 			OnPlayerCreated?.Invoke();
 		}
 
+		public void CreateFireball(Vector3 position, Vector2 direction, Vector3 rotation) =>
+			_fireballPool.LaunchProjectile(position, direction, rotation);
+
 		public void AddErasable(IErasable erasable) =>
 			Erasables.Add(erasable);
 
@@ -48,6 +49,9 @@ namespace GameCore.GameServices
 
 		public void ClearErasables() =>
 			Erasables.Clear();
+
+		private void RemovePlayer() =>
+			Object.DestroyImmediate(Player);
 
 		~FactoryService() =>
 			GlobalEventManager.OnLevelUnloaded.RemoveListener(RemovePlayer);

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Components.Characters.Player
+namespace Characters.Player
 {
 	public class PlayerSkills : MonoBehaviour
 	{

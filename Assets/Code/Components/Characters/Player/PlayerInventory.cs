@@ -2,7 +2,7 @@ using GameCore;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Components.Characters.Player
+namespace Characters.Player
 {
 	public class PlayerInventory : MonoBehaviour
 	{

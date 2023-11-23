@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Components.Characters
+namespace Characters
 {
 	public class MoveComponent : MonoBehaviour
 	{

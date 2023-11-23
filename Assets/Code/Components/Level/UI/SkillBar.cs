@@ -1,75 +1,69 @@
 using System;
-using Components.Characters.Player;
-using Components.Player;
-using GameCore.Events;
+using Characters.Player;
 using GameCore.GameServices;
 using GameCore.GameUI;
 using UnityEngine;
+using Utils.Constants;
 
-namespace Components.Level.UI
+namespace Level.UI
 {
 	public class SkillBar : MonoBehaviour
 	{
-		[SerializeField] private LevelUIButton _eraserBtn;
-		[SerializeField] private LevelUIButton _fireballBtn;
-		[SerializeField] private JumpButtonStateSwitch _jumpBtnStateSwitch;
+		[SerializeField] private LevelUIButton _jumpButton;
+		[SerializeField] private LevelUIButton _fireballButton;
+		[SerializeField] private LevelUIButton _eraserButton;
+		[SerializeField] private LevelUIButton _speedUpButton;
 
 		private FactoryService _factoryService;
-		private PlayerJump _playerJump;
-		private PlayerInventory _playerInventory;
-		private PlayerSkillsOld _playerSkillsOld;
-		private GroundCheck _playerGroundCheck;
+		private IWildColorContainer _wildColorContainer;
+		private IPlayerSkills _playerSkills;
+		private ColorHolderBase _playerColorHolder;
 
 		private void Awake()
 		{
 			_factoryService = Services.FactoryService;
 
-			if (_factoryService.Player != null)
-				InitPLayer();
-			else
-				_factoryService.OnPlayerCreated.AddListener(InitPLayer);
+			if (_factoryService.Player)
+				ConnectEvents();
+			
+			Services.FactoryService.OnPlayerCreated.AddListener(ConnectEvents);
 		}
 
-		private void OnEnable()
+		private void ConnectEvents()
 		{
-			PlayerEventManager.OnErase.AddListener(OnEraserTap);
-			PlayerEventManager.OnShoot.AddListener(OnFireballTap);
+			_wildColorContainer = Services.FactoryService.Player.GetComponent<IWildColorContainer>();
+			_playerColorHolder = Services.FactoryService.Player.GetComponent<ColorHolderBase>();
+			ChangePlayerSkill(_playerColorHolder.ColorToCheck);
+			
+			_playerColorHolder.OnColorChanged += ChangePlayerSkill;
 		}
 
-		private void OnDisable()
+		private void ChangePlayerSkill(EColors color)
 		{
-			_factoryService.OnPlayerCreated.RemoveListener(InitPLayer);
-			PlayerEventManager.OnErase.RemoveListener(OnEraserTap);
-			PlayerEventManager.OnShoot.RemoveListener(OnFireballTap);
+			_fireballButton.gameObject.SetActive(false);
+			_eraserButton.gameObject.SetActive(false);
+			_speedUpButton.gameObject.SetActive(false);
+			
+			if (_jumpButton.TryGetComponent(out ColorHolderBase holder))
+				holder.SetColor(EColors.White);
+
+			switch (color)
+			{
+				case EColors.White:
+					_eraserButton.gameObject.SetActive(true);
+					break;
+				case EColors.Red:
+					_fireballButton.gameObject.SetActive(true);
+					break;
+				case EColors.Green:
+					holder.SetColor(EColors.Green);
+					break;
+				case EColors.Blue:
+					_speedUpButton.gameObject.SetActive(true);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(color), color, null);
+			}
 		}
-
-		private void InitPLayer()
-		{
-			GetPlayerComponents();
-			SubscribeToPlayerActions();
-		}
-
-		private void GetPlayerComponents()
-		{
-			_playerInventory = _factoryService.Player.GetComponent<PlayerInventory>();
-			_playerSkillsOld = _factoryService.Player.GetComponent<PlayerSkillsOld>();
-			_playerJump = _factoryService.Player.GetComponent<PlayerJump>();
-		}
-
-		private void SubscribeToPlayerActions()
-		{
-			_eraserBtn.SetCounterValue(_playerInventory.Erasers);
-			_fireballBtn.SetCounterValue(_playerInventory.Fireballs);
-
-			_playerInventory.OnEraserCountModified.AddListener(_eraserBtn.SetCounterValue);
-			_playerInventory.OnFireballsCountModified.AddListener(_fireballBtn.SetCounterValue);
-			_playerJump.CanJump.AddListener(_jumpBtnStateSwitch.SetState);
-		}
-
-		private void OnEraserTap() =>
-			_playerSkillsOld.SwitchErasableMode();
-
-		private void OnFireballTap() =>
-			_playerSkillsOld.TryLaunchFireball();
 	}
 }

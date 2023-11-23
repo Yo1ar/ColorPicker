@@ -1,7 +1,7 @@
 using UnityEngine;
 using Utils.Constants;
 
-namespace Components.Enemies
+namespace Enemies.Attack
 {
 	[RequireComponent(typeof(EnemyBehavior))]
 	public sealed class EnemyAttackHandy : EnemyAttackBase, IAttackBehavior

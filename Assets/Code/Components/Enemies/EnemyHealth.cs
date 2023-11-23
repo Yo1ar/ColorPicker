@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Components.Enemies
+namespace Enemies
 {
 	public class EnemyHealth : MonoBehaviour, IHealth
 	{

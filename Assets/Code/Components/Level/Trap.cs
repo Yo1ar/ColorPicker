@@ -1,11 +1,9 @@
 using System.Collections;
 using Characters.Player;
-using Components.Characters.Player;
-using Components.Player;
 using UnityEngine;
 using Utils;
 
-namespace Components.Level
+namespace Level
 {
 	public class Trap : MonoBehaviour
 	{

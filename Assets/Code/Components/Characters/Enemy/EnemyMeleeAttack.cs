@@ -3,7 +3,7 @@ using UnityEngine;
 using Utils.Constants;
 using Cooldown = Utils.Cooldown;
 
-namespace Components.Characters.Enemy
+namespace Characters.Enemy
 {
 	public class EnemyMeleeAttack : MonoBehaviour
 	{

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5050539757425916920}
   - component: {fileID: 5050539757425916902}
   - component: {fileID: 5050539757425916901}
+  - component: {fileID: 3157706766415107121}
   m_Layer: 0
   m_Name: pfb_trap
   m_TagString: Untagged
@@ -47,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _reloadTime: 1
+  _loadedSprite: {fileID: 0}
+  _triggeredSprite: {fileID: 0}
 --- !u!58 &5050539757425916901
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -57,12 +60,45 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &3157706766415107121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050539757425916922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57261fc900f042c0a6691184fa96df84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _eraserAbove: {fileID: 0}
+  _eraserAboveOffset: 0
 --- !u!1 &5050539758205875132
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +171,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1316641445
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -2092439555, guid: 8cfb8fca4f22cc84dafe4c448e1e725a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

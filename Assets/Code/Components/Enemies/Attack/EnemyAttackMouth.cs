@@ -4,7 +4,7 @@ using UnityEngine;
 using Utils;
 using Utils.Constants;
 
-namespace Components.Enemies
+namespace Enemies.Attack
 {
 	public class EnemyAttackMouth : EnemyAttackBase, IAttackBehavior
 	{

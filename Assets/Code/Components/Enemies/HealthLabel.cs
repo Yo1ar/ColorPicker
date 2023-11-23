@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Components.Enemies
+namespace Enemies
 {
 	public class HealthLabel : MonoBehaviour
 	{

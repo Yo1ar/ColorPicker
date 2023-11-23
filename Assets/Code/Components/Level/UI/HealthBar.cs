@@ -1,16 +1,13 @@
 using Characters.Player;
-using Components.Characters.Player;
-using Components.Player;
-using GameCore.GameServices;
 using DG.Tweening;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using GameCore.GameServices;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Components.Level.UI
+namespace Level.UI
 {
-	using UnityEngine;
-
 	public class HealthBar : MonoBehaviour
 	{
 		[SerializeField] private Image _back;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Components.Level.UI
+namespace Level.UI
 {
 	public class SetCanvasCamera : MonoBehaviour
 	{

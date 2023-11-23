@@ -3,13 +3,13 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
-namespace Components.Level
+namespace Level
 {
 	public class FloatingObject : MonoBehaviour
 	{
-		private const float FLOAT_HEIGHT = 0.5f;
-		private const float FLOAT_SPEED = 1f;
-		private const Ease EASE = Ease.InOutSine;
+		[SerializeField] private float _floatHeight = 0.5f;
+		[SerializeField] private float _floatSpeed = 1f;
+		[SerializeField] private Ease _ease = Ease.InOutSine;
 
 		private Sequence _sequence;
 		private float _topBoarder;
@@ -25,7 +25,7 @@ namespace Components.Level
 			_sequence = PlayTweenSequence();
 
 		private void SetTopBoarder() =>
-			_topBoarder = _bottomBoarder + FLOAT_HEIGHT;
+			_topBoarder = _bottomBoarder + _floatHeight;
 
 		private Sequence PlayTweenSequence() =>
 			DOTween.Sequence()
@@ -38,6 +38,6 @@ namespace Components.Level
 			_sequence.Kill();
 
 		private TweenerCore<Vector3, Vector3, VectorOptions> TweenY(float boarder) =>
-			transform.DOMoveY(boarder, FLOAT_SPEED).SetEase(EASE);
+			transform.DOMoveY(boarder, _floatSpeed).SetEase(_ease);
 	}
 }

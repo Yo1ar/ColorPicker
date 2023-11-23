@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/placeholder.unity
     guid: 8a04ee4d777dd5d43b6edb8d28ce62bc
+  - enabled: 1
+    path: Assets/Scenes/_new_LevelUI.unity
+    guid: 84dc881069d6e4146a08638c408e17e5
   m_configObjects: {}

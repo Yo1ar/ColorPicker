@@ -8,5 +8,6 @@ namespace GameCore.Events
 		public static readonly UnityEvent OnJump = new();
 		public static readonly UnityEvent OnShoot = new();
 		public static readonly UnityEvent OnErase = new();
+		public static readonly UnityEvent OnSpeedUp = new();
 	}
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 using Utils;
 using Random = UnityEngine.Random;
 
-namespace Components.CustomAnimator
+namespace CustomAnimator
 {
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class SpriteAnimation : MonoBehaviour

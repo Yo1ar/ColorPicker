@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Components.Enemies
+namespace Enemies
 {
 	[RequireComponent(typeof(Animator))]
 	public sealed class EnemyBehavior : MonoBehaviour

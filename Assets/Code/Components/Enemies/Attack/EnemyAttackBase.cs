@@ -3,7 +3,7 @@ using UnityEngine;
 using Utils;
 using Utils.Constants;
 
-namespace Components.Enemies
+namespace Enemies.Attack
 {
 	[RequireComponent(typeof(EnemyBehavior))]
 	[AddComponentMenu("")]

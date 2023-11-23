@@ -2,7 +2,7 @@ using GameCore.GameServices;
 using UnityEngine;
 using Utils.Constants;
 
-namespace Components.Enemies
+namespace Enemies
 {
 	[RequireComponent(typeof(EnemyMove))]
 	public class EnemyChasePlayer : MonoBehaviour

@@ -1,11 +1,9 @@
 using Characters.Player;
-using Components.Characters.Player;
-using Components.Player;
 using UnityEngine;
 using UnityEngine.Events;
 using Utils;
 
-namespace Components.Level
+namespace Level
 {
     public class DamagePlayerTrigger : MonoBehaviour
     {

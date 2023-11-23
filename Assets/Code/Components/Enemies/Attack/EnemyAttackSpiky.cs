@@ -2,7 +2,7 @@
 using UnityEngine;
 using Utils;
 
-namespace Components.Enemies
+namespace Enemies.Attack
 {
 	public sealed class EnemyAttackSpiky : EnemyAttackBase, IAttackBehavior
 	{

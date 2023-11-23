@@ -2,7 +2,7 @@ using UnityEngine;
 using Utils;
 using Utils.Constants;
 
-namespace Components.Characters.Enemy
+namespace Characters.Enemy
 {
 	public class ChaseComponent : MonoBehaviour
 	{

@@ -37,6 +37,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SpeedUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""337f6edf-82ca-491c-99e8-585ad28a35ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""1836a7fa-9953-4f9f-a4e3-03a16b364ebb"",
@@ -258,6 +267,17 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6a8c787-f975-48ce-a142-d9f0497fcd09"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SpeedUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -267,6 +287,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
+        m_Main_SpeedUp = m_Main.FindAction("SpeedUp", throwIfNotFound: true);
         m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_LaunchFireball = m_Main.FindAction("LaunchFireball", throwIfNotFound: true);
         m_Main_Erase = m_Main.FindAction("Erase", throwIfNotFound: true);
@@ -334,6 +355,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Main;
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
     private readonly InputAction m_Main_Jump;
+    private readonly InputAction m_Main_SpeedUp;
     private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_LaunchFireball;
     private readonly InputAction m_Main_Erase;
@@ -344,6 +366,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         private @PlayerActions m_Wrapper;
         public MainActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
+        public InputAction @SpeedUp => m_Wrapper.m_Main_SpeedUp;
         public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @LaunchFireball => m_Wrapper.m_Main_LaunchFireball;
         public InputAction @Erase => m_Wrapper.m_Main_Erase;
@@ -361,6 +384,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @SpeedUp.started += instance.OnSpeedUp;
+            @SpeedUp.performed += instance.OnSpeedUp;
+            @SpeedUp.canceled += instance.OnSpeedUp;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -383,6 +409,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @SpeedUp.started -= instance.OnSpeedUp;
+            @SpeedUp.performed -= instance.OnSpeedUp;
+            @SpeedUp.canceled -= instance.OnSpeedUp;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -418,6 +447,7 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public interface IMainActions
     {
         void OnJump(InputAction.CallbackContext context);
+        void OnSpeedUp(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLaunchFireball(InputAction.CallbackContext context);
         void OnErase(InputAction.CallbackContext context);

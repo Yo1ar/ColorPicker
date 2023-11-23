@@ -9,14 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5279511358240781350}
+  - component: {fileID: 2080684323383769659}
   - component: {fileID: 3661616756891886790}
   - component: {fileID: 8449106032054834022}
-  - component: {fileID: 4570310566595987674}
   - component: {fileID: 8065912492017014535}
   - component: {fileID: 8511154825518782144}
-  - component: {fileID: 3238991589662096315}
-  - component: {fileID: 6763522338752808644}
   - component: {fileID: 4641390146595884343}
+  - component: {fileID: 4570310566595987674}
   - component: {fileID: 8424365026050101140}
   - component: {fileID: 7005361148815369023}
   - component: {fileID: 8675970964754068602}
@@ -42,8 +41,21 @@ Transform:
   m_Children:
   - {fileID: 1929459248275977457}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2080684323383769659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2964221795828227578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb8f70c442d49ed90deac4055aa4351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireballShootRecharge: 1
 --- !u!114 &3661616756891886790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,22 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1265caedb861e42a066cb3157df9dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: 7
-  CanJump:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4570310566595987674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2964221795828227578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 858de86b0bc3887429752756e81e14fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _jumpForce: 7
 --- !u!114 &8065912492017014535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,6 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3
+  _speedUpSpeed: 5
+  _speedUpTime: 3
+  _speedUpRechargeTime: 10
 --- !u!114 &8511154825518782144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,36 +123,6 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3238991589662096315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2964221795828227578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0409434ef9d5e2c4a81c725e97c5318f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnFireballsCountModified:
-    m_PersistentCalls:
-      m_Calls: []
-  OnEraserCountModified:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &6763522338752808644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2964221795828227578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d9b1a478e9643a9a00f72538b7e7db8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4641390146595884343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,8 +135,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0486e1236a349e3be729147d4f07cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _color: 0
-  _view: {fileID: 3875705760434397336}
+  Color: 0
+  View: {fileID: 3875705760434397336}
+  _image: {fileID: 0}
+--- !u!114 &4570310566595987674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2964221795828227578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858de86b0bc3887429752756e81e14fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &8424365026050101140
 Rigidbody2D:
   serializedVersion: 4

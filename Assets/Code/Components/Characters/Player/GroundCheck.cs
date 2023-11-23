@@ -1,7 +1,7 @@
-namespace Components.Player
-{
-	using UnityEngine;
+using UnityEngine;
 
+namespace Characters.Player
+{
 	public class GroundCheck : MonoBehaviour
 	{
 		[SerializeField] private LayerMask _groundLayers;

@@ -1,28 +1,63 @@
-using Components.Characters.Player;
+using System.Collections;
 using GameCore.Events;
 using UnityEngine;
+using Utils;
 
-namespace Components.Player
+namespace Characters.Player
 {
 	public class PlayerMove : MonoBehaviour
 	{
-		[SerializeField] private float _speed;
-
+		[SerializeField] private int _speed;
+		[SerializeField] private int _speedUpSpeed;
+		[SerializeField] private float _speedUpTime;
+		[SerializeField] private float _speedUpRechargeTime;
+		
 		private Rigidbody2D _rigidbody2D;
 		private Transform _transform;
-		private PlayerSkillsOld _playerSkillsOld;
+		private PlayerController _playerController;
+		private IWildColorContainer _wildColorContainer;
 		
+		public Cooldown SpeedUpCooldown { get; private set; }
 		public float Direction { get; private set; }
 
 		private void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
-			_playerSkillsOld = GetComponent<PlayerSkillsOld>();
+			_playerController = GetComponent<PlayerController>();
 			_transform = transform;
+			_wildColorContainer = GetComponent<IWildColorContainer>();
+			SpeedUpCooldown = new Cooldown(_speedUpRechargeTime);
 		}
 
-		private void OnEnable() =>
+		private void OnEnable()
+		{
 			PlayerEventManager.OnMove.AddListener(SetMoveDirection);
+			PlayerEventManager.OnSpeedUp.AddListener(SpeedUpPlayer);
+		}
+
+		private void FixedUpdate() =>
+			Move();
+
+		private void SpeedUpPlayer() =>
+			StartCoroutine(SpeedUp());
+
+		private IEnumerator SpeedUp()
+		{
+			if (_speed == _speedUpSpeed)
+				yield break;
+
+			if (!SpeedUpCooldown.IsReady)
+				yield break;
+
+			SpeedUpCooldown.Reset();
+			
+			int normalSpeed = _speed;
+			_speed = _speedUpSpeed;
+
+			yield return new WaitForSeconds(_speedUpTime);
+
+			_speed = normalSpeed;
+		}
 
 		private void SetMoveDirection(float direction)
 		{
@@ -38,12 +73,9 @@ namespace Components.Player
 				_transform.localScale = new Vector3(1, 1, 1);
 		}
 
-		private void FixedUpdate() =>
-			Move();
-
 		private void Move()
 		{
-			if (_playerSkillsOld.IsAttacking)
+			if (_playerController.IsAttacking)
 				_rigidbody2D.velocity = Vector2.zero;
 
 			_rigidbody2D.velocity = NewVelocity();

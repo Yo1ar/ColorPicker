@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Components.CustomAnimator
+namespace CustomAnimator
 {
 	[RequireComponent(typeof(SpriteRenderer))]
 	public class SpriteStateAnimation : MonoBehaviour

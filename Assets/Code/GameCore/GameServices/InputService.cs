@@ -27,15 +27,15 @@ namespace GameCore.GameServices
 
 			_actions.Main.Jump.started += InvokePlayerJump;
 
+			_actions.Main.SpeedUp.started += InvokePlayerSpeedUp;
+
 			_actions.Main.Erase.started += InvokePlayerErase;
 
 			_actions.Main.LaunchFireball.started += InvokeLaunchFireball;
 
 			_actions.Main.OnScreenTap.started += InvokeOnScreenTap;
 
-			// _actions.Main.Back.started += InvokeBack;
 			_backInputCaller.OnBackPressed += InvokeBack;
-			Game.GameLogger.GameLog("Initialized", this);
 			return Task.CompletedTask;
 		}
 
@@ -43,43 +43,25 @@ namespace GameCore.GameServices
 		{
 			var moveVector = obj.ReadValue<Vector2>();
 			PlayerEventManager.OnMove?.Invoke(moveVector.x);
-
-			if (obj.started)
-				Game.GameLogger.InputLog("Move started", this);
-
-			if (obj.canceled)
-				Game.GameLogger.InputLog("Move canceled", this);
 		}
 
-		private void InvokePlayerJump(InputAction.CallbackContext obj)
-		{
+		private void InvokePlayerJump(InputAction.CallbackContext obj) =>
 			PlayerEventManager.OnJump?.Invoke();
-			Game.GameLogger.InputLog("Jump started", this);
-		}
 
-		private void InvokePlayerErase(InputAction.CallbackContext obj)
-		{
+		private void InvokePlayerSpeedUp(InputAction.CallbackContext obj) =>
+			PlayerEventManager.OnSpeedUp?.Invoke();
+
+		private void InvokePlayerErase(InputAction.CallbackContext obj) =>
 			PlayerEventManager.OnErase?.Invoke();
-			Game.GameLogger.InputLog("Erase started", this);
-		}
 
-		private void InvokeLaunchFireball(InputAction.CallbackContext obj)
-		{
+		private void InvokeLaunchFireball(InputAction.CallbackContext obj) =>
 			PlayerEventManager.OnShoot?.Invoke();
-			Game.GameLogger.InputLog("Fireball started", this);
-		}
 
-		private void InvokeOnScreenTap(InputAction.CallbackContext obj)
-		{
+		private void InvokeOnScreenTap(InputAction.CallbackContext obj) =>
 			GlobalEventManager.OnScreenTap?.Invoke();
-			Game.GameLogger.InputLog("OnScreenTap started", this);
-		}
 
-		private void InvokeBack()
-		{
+		private void InvokeBack() =>
 			GlobalEventManager.OnBackPressed?.Invoke();
-			Game.GameLogger.InputLog("Back pressed", this);
-		}
 
 		~InputService()
 		{

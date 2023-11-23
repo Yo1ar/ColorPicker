@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Components.Enemies
+namespace Enemies
 {
 	public interface IAttackBehavior
 	{

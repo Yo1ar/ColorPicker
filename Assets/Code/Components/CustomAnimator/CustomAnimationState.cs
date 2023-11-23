@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Components.CustomAnimator
+namespace CustomAnimator
 {
 	[Serializable]
 	public sealed class CustomAnimationState

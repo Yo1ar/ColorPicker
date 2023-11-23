@@ -3,7 +3,7 @@ using UnityEngine;
 using Utils;
 using Utils.Constants;
 
-namespace Components.Level
+namespace Level
 {
 	public class LevelEnder : MonoBehaviour
 	{

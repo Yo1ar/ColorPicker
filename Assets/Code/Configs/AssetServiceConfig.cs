@@ -1,5 +1,4 @@
-﻿using Components;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Configs
 {

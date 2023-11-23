@@ -1,35 +1,33 @@
-using Characters.Player;
-using Components.Characters.Player;
 using UnityEngine;
 
-namespace Components.Player
+namespace Characters.Player
 {
 	public class PlayerAnimation : MonoBehaviour
 	{
 		private Animator _animator;
 		private GroundCheck _groundCheck;
 		private Rigidbody2D _rigidbody2D;
-		private PlayerSkillsOld _playerSkillsOld;
+		private PlayerController _playerController;
 		private PlayerMove _playerMove;
 		private PlayerHealth _playerHealth;
 		private int _currentClip;
 		private bool _cantPlayClips;
 		private bool _damageClipPlaying;
 	
-		private static readonly int RunHash = Animator.StringToHash("anim_hero_run");
-		private static readonly int IdleHash = Animator.StringToHash("anim_hero_idle");
-		private static readonly int JumpHash = Animator.StringToHash("anim_hero_jump");
-		private static readonly int FallHash = Animator.StringToHash("anim_hero_fall");
-		private static readonly int PreAttackHash = Animator.StringToHash("anim_hero_preAttack");
-		private static readonly int AttackHash = Animator.StringToHash("anim_hero_attack");
-		private static readonly int DamagedHash = Animator.StringToHash("anim_hero_damaged");
+		private static readonly int _runHash = Animator.StringToHash("anim_hero_run");
+		private static readonly int _idleHash = Animator.StringToHash("anim_hero_idle");
+		private static readonly int _jumpHash = Animator.StringToHash("anim_hero_jump");
+		private static readonly int _fallHash = Animator.StringToHash("anim_hero_fall");
+		private static readonly int _preAttackHash = Animator.StringToHash("anim_hero_preAttack");
+		private static readonly int _attackHash = Animator.StringToHash("anim_hero_attack");
+		private static readonly int _damagedHash = Animator.StringToHash("anim_hero_damaged");
 
 		private void Awake()
 		{
 			_animator = GetComponent<Animator>();
 			_groundCheck = GetComponent<GroundCheck>();
 			_rigidbody2D = GetComponent<Rigidbody2D>();
-			_playerSkillsOld = GetComponent<PlayerSkillsOld>();
+			_playerController = GetComponent<PlayerController>();
 			_playerMove = GetComponent<PlayerMove>();
 			_playerHealth = GetComponent<PlayerHealth>();
 		}
@@ -42,7 +40,7 @@ namespace Components.Player
 			if (_damageClipPlaying)
 				return;
 
-			if (_playerSkillsOld.IsAttacking)
+			if (_playerController.IsAttacking)
 				return;
 
 			PlayMovementAnimations();
@@ -73,30 +71,30 @@ namespace Components.Player
 		}
 
 		public void AnimatePreAttack() =>
-			PlayClip(_groundCheck.IsGrounded ? PreAttackHash : AttackHash);
+			PlayClip(_groundCheck.IsGrounded ? _preAttackHash : _attackHash);
 
 		public void AnimateAttack() =>
-			PlayClip(AttackHash);
+			PlayClip(_attackHash);
 
 		public void DamageAnimFinished() =>
 			_damageClipPlaying = false;
 
 		private void AnimateJump() =>
-			PlayClip(JumpHash);
+			PlayClip(_jumpHash);
 
 		private void AnimateFall() =>
-			PlayClip(FallHash);
+			PlayClip(_fallHash);
 
 		private void AnimateRun() =>
-			PlayClip(RunHash);
+			PlayClip(_runHash);
 
 		private void AnimateIdle() =>
-			PlayClip(IdleHash);
+			PlayClip(_idleHash);
 
 		private void AnimateDamage()
 		{
 			_damageClipPlaying = true;
-			PlayClip(DamagedHash);
+			PlayClip(_damagedHash);
 		}
 
 		private void PlayClip(int clipHash)

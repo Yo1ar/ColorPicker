@@ -1,8 +1,5 @@
-namespace Components.Eraser
+public interface IErasable
 {
-	public interface IErasable
-	{
-		void Erase();
-		void Highlight(bool value);
-	}
+	void Erase();
+	void Highlight(bool value);
 }

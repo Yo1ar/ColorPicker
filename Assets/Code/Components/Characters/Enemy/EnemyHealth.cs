@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Components.Characters.Enemy
+namespace Characters.Enemy
 {
 	public class EnemyHealth: MonoBehaviour, IHealth
 	{
