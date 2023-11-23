@@ -7,7 +7,7 @@ namespace Characters.Player
 		private Animator _animator;
 		private GroundCheck _groundCheck;
 		private Rigidbody2D _rigidbody2D;
-		private PlayerController _playerController;
+		private IPlayerSkills _playerSkills;
 		private PlayerMove _playerMove;
 		private PlayerHealth _playerHealth;
 		private int _currentClip;
@@ -21,13 +21,14 @@ namespace Characters.Player
 		private static readonly int _preAttackHash = Animator.StringToHash("anim_hero_preAttack");
 		private static readonly int _attackHash = Animator.StringToHash("anim_hero_attack");
 		private static readonly int _damagedHash = Animator.StringToHash("anim_hero_damaged");
-
+		private static readonly int _invulHash = Animator.StringToHash("anim_hero_invul");
+		
 		private void Awake()
 		{
 			_animator = GetComponent<Animator>();
 			_groundCheck = GetComponent<GroundCheck>();
 			_rigidbody2D = GetComponent<Rigidbody2D>();
-			_playerController = GetComponent<PlayerController>();
+			_playerSkills = GetComponent<IPlayerSkills>();
 			_playerMove = GetComponent<PlayerMove>();
 			_playerHealth = GetComponent<PlayerHealth>();
 		}
@@ -40,12 +41,18 @@ namespace Characters.Player
 			if (_damageClipPlaying)
 				return;
 
-			if (_playerController.IsAttacking)
+			if (_playerSkills.IsAttacking)
 				return;
 
 			PlayMovementAnimations();
 		}
 
+		public void Anim_DamageFinished() =>
+			_damageClipPlaying = false;
+		
+		public void AnimateAttack() =>
+			PlayClip(_attackHash);
+		
 		private void PlayMovementAnimations()
 		{
 			if (_groundCheck.IsGrounded)
@@ -73,12 +80,6 @@ namespace Characters.Player
 		public void AnimatePreAttack() =>
 			PlayClip(_groundCheck.IsGrounded ? _preAttackHash : _attackHash);
 
-		public void AnimateAttack() =>
-			PlayClip(_attackHash);
-
-		public void DamageAnimFinished() =>
-			_damageClipPlaying = false;
-
 		private void AnimateJump() =>
 			PlayClip(_jumpHash);
 
@@ -95,13 +96,14 @@ namespace Characters.Player
 		{
 			_damageClipPlaying = true;
 			PlayClip(_damagedHash);
+			PlayClip(_invulHash);
 		}
 
 		private void PlayClip(int clipHash)
 		{
 			if (_currentClip == clipHash)
 				return;
-
+			
 			_animator.Play(clipHash);
 			_currentClip = clipHash;
 		}

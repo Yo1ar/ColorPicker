@@ -49,7 +49,7 @@ namespace Level.UI
 
 			switch (color)
 			{
-				case EColors.White:
+				case EColors.Gray:
 					_eraserButton.gameObject.SetActive(true);
 					break;
 				case EColors.Red:

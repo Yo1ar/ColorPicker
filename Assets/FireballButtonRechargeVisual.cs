@@ -19,7 +19,7 @@ public sealed class FireballButtonRechargeVisual : MonoBehaviour
 	}
 
 	private void GetFireballCooldown() =>
-		_fireballCooldown = Services.FactoryService.Player.GetComponent<PlayerController>().FireballCooldown;
+		_fireballCooldown = Services.FactoryService.Player.GetComponent<IPlayerSkills>().FireballCooldown;
 
 	private void LateUpdate()
 	{

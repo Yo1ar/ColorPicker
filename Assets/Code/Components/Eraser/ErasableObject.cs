@@ -6,8 +6,17 @@ using Utils.Constants;
 public class ErasableObject : MonoBehaviour, IErasable
 {
 	[SerializeField] private GameObject _eraserAbove;
-	[SerializeField] private float _eraserAboveOffset;
+	[SerializeField] private float _eraserAboveOffset = 1;
 	private FactoryService _factoryService;
+
+	private void Reset()
+	{
+		if (!TryGetComponent(out Collider2D colliderComponent))
+			Debug.LogWarning("ErasableObject requires Collider2D component");
+
+		if (LayerMask.LayerToName(gameObject.layer) != "Erasable")
+			Debug.LogWarning("Erasable must be on the \"Erasable\" Collision Layer");
+	}
 
 	private void Awake()
 	{

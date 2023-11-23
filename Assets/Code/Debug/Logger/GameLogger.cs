@@ -13,7 +13,7 @@ namespace Logger
 		{
 			_gameLogEvent = new LogEvent("GameCore", EColors.Red);
 			_gameLoopLogEvent = new LogEvent("Gameplay", EColors.Blue);
-			_inputLogEvent = new LogEvent("Input", EColors.White);
+			_inputLogEvent = new LogEvent("Input", EColors.Gray);
 			_uiLogEvent = new LogEvent("UI", EColors.Green);
 		}
 

@@ -14,7 +14,7 @@ namespace Characters.Player
 		
 		private Rigidbody2D _rigidbody2D;
 		private Transform _transform;
-		private PlayerController _playerController;
+		private IPlayerSkills _playerSkills;
 		private IWildColorContainer _wildColorContainer;
 		
 		public Cooldown SpeedUpCooldown { get; private set; }
@@ -23,7 +23,7 @@ namespace Characters.Player
 		private void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
-			_playerController = GetComponent<PlayerController>();
+			_playerSkills = GetComponent<IPlayerSkills>();
 			_transform = transform;
 			_wildColorContainer = GetComponent<IWildColorContainer>();
 			SpeedUpCooldown = new Cooldown(_speedUpRechargeTime);
@@ -75,7 +75,7 @@ namespace Characters.Player
 
 		private void Move()
 		{
-			if (_playerController.IsAttacking)
+			if (_playerSkills.IsAttacking)
 				_rigidbody2D.velocity = Vector2.zero;
 
 			_rigidbody2D.velocity = NewVelocity();

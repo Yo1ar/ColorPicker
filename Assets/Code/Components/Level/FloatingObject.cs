@@ -11,6 +11,7 @@ namespace Level
 		[SerializeField] private float _floatSpeed = 1f;
 		[SerializeField] private Ease _ease = Ease.InOutSine;
 
+		private Vector2 _startPosition;
 		private Sequence _sequence;
 		private float _topBoarder;
 		private float _bottomBoarder;
@@ -18,14 +19,17 @@ namespace Level
 		private void Awake()
 		{
 			_bottomBoarder = transform.position.y;
-			SetTopBoarder();
+			_topBoarder = _bottomBoarder + _floatHeight;
 		}
 
-		private void Start() => 
+		private void OnEnable() =>
 			_sequence = PlayTweenSequence();
 
-		private void SetTopBoarder() =>
-			_topBoarder = _bottomBoarder + _floatHeight;
+		private void OnDisable()
+		{
+			_sequence.Kill();
+			transform.position = new Vector3(transform.position.x, _bottomBoarder);
+		}
 
 		private Sequence PlayTweenSequence() =>
 			DOTween.Sequence()
@@ -33,9 +37,6 @@ namespace Level
 				.Append(TweenY(_topBoarder))
 				.Append(TweenY(_bottomBoarder))
 				.Play();
-
-		private void OnDisable() => 
-			_sequence.Kill();
 
 		private TweenerCore<Vector3, Vector3, VectorOptions> TweenY(float boarder) =>
 			transform.DOMoveY(boarder, _floatSpeed).SetEase(_ease);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Characters.Player;
 using GameCore.GameServices;
@@ -6,8 +7,7 @@ using Utils;
 
 public sealed class ColoredTrap : ColorCheckerBase
 {
-	[Header("Trap")]
-	[SerializeField] private float _reloadTime = 2;
+	[Header("Trap")] [SerializeField] private float _reloadTime = 2.1f;
 	[SerializeField] private Sprite _reloadedSprite;
 	[SerializeField] private Sprite _hitSprite;
 	private PlayerHealth _playerHealth;
@@ -16,10 +16,10 @@ public sealed class ColoredTrap : ColorCheckerBase
 	protected override void Awake()
 	{
 		base.Awake();
-		
+
 		if (Services.FactoryService.Player)
 			SetPlayerHealth();
-		
+
 		Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerHealth);
 	}
 
@@ -29,7 +29,7 @@ public sealed class ColoredTrap : ColorCheckerBase
 		_isReloaded = true;
 	}
 
-	private void OnTriggerEnter2D(Collider2D other)
+	private void OnTriggerStay2D(Collider2D other)
 	{
 		if (!other.IsPlayer())
 			return;

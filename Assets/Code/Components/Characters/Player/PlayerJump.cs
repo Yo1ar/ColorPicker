@@ -37,6 +37,7 @@ namespace Characters.Player
 
 			if (CanDoubleJump())
 			{
+				_canDoubleJump = false;
 				AddJumpForce();
 			}
 		}
@@ -55,13 +56,9 @@ namespace Characters.Player
 			if (_colorHolder.ColorToCheck != EColors.Green)
 				return false;
 
-			if (_wildColorContainer.TrySpendWildColorBonus())
-				return false;
-
 			if (!_canDoubleJump)
 				return false;
 			
-			_canDoubleJump = false;
 			return true;
 		}
 	}

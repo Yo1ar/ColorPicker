@@ -21,9 +21,9 @@ namespace Enemies
 			_currentLives = Mathf.Max(0, --_currentLives);
 			
 			OnDamaged?.Invoke(_currentLives);
-			
+
 			if (_currentLives == 0)
-				gameObject.SetActive(false);
+				Kill();
 		}
 
 		public void Heal()
@@ -31,5 +31,8 @@ namespace Enemies
 			_currentLives = Mathf.Min(_maxLives, ++_currentLives);
 			OnHealed?.Invoke(_currentLives);
 		}
+
+		public void Kill() =>
+			gameObject.SetActive(false);
 	}
 }

@@ -25,6 +25,7 @@ namespace Level.UI
 		{
 			_playerHealth = _factoryService.Player.GetComponent<PlayerHealth>();
 			_playerHealth.OnDamage.AddListener(SetupHealthUI);
+			_playerHealth.OnHeal.AddListener(SetupHealthUI);
 		
 			SetupHealthUI();
 		}

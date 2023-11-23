@@ -1,4 +1,3 @@
-using Characters.Player;
 using GameCore.GameServices;
 using GameCore.GameUI;
 using UnityEngine;
@@ -21,7 +20,7 @@ namespace Level.UI
 		private readonly int _collapseTriggerHash = Animator.StringToHash("collapse");
 		private ColorHolderBase _playerColorHolder;
 		private FactoryService _factoryService;
-		private PlayerController _playerController;
+		private IWildColorContainer _wildColorContainer;
 
 		private void Awake()
 		{
@@ -37,7 +36,7 @@ namespace Level.UI
 		private void ConnectPlayerColorHolder()
 		{
 			_playerColorHolder = _factoryService.Player.GetComponent<ColorHolderBase>();
-			_playerController = _factoryService.Player.GetComponent<PlayerController>();
+			_wildColorContainer = _factoryService.Player.GetComponent<IWildColorContainer>();
 		}
 
 		private void OnEnable()
@@ -59,7 +58,7 @@ namespace Level.UI
 
 		private void ExpandColors()
 		{
-			if (!_playerController.TrySpendWildColorBonus())
+			if (!_wildColorContainer.TryUseWildColorBonus())
 				return;
 
 			_animator.Play(_expandTriggerHash);
@@ -70,7 +69,7 @@ namespace Level.UI
 
 		private void SetPlayerWhite()
 		{
-			_playerColorHolder.SetColor(EColors.White);
+			_playerColorHolder.SetColor(EColors.Gray);
 		}
 
 		private void SetPlayerRed() =>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using Utils.Constants;
 
 public sealed class ColoredTorch : ColorCheckerBase
 {
@@ -13,7 +14,7 @@ public sealed class ColoredTorch : ColorCheckerBase
 
 	private void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag("Enemy"))
+		if (other.CompareTag(Tags.ENEMY))
 			return;
 
 		if (!other.TryGetComponent(out ColorHolderBase colorHolder))
