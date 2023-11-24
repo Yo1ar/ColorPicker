@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils.Constants;
 
-[ExecuteInEditMode]
 public class ColorHolderBase : MonoBehaviour
 {
 	[Header("Coloring")]
@@ -18,6 +17,9 @@ public class ColorHolderBase : MonoBehaviour
 
 	public void SetColor(EColors color)
 	{
+		if (name == "chase")
+			Debug.Log("Set color to " + color.ToString());
+		
 		Color = color;
 		Recolor();
 	}
