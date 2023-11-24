@@ -1,49 +1,70 @@
-using System;
 using UnityEngine;
-using Utils.Constants;
+using Utils;
 using Cooldown = Utils.Cooldown;
 
 namespace Characters.Enemy
 {
 	public class EnemyMeleeAttack : MonoBehaviour
 	{
-		[SerializeField] private GameTag _targetTag;
+		[SerializeField] private ColorCheckerBase _colorChecker;
+		[SerializeField] private Animator _animator;
 		[SerializeField] private float _attackCooldownTime;
 		private Cooldown _cooldown;
-		public event Action OnAttack;
+		private ColorHolderBase _playerColorHolder;
+		private IHealth _playerHealth;
+		private readonly int _attackHash = Animator.StringToHash("enemy_ghost_attack");
 
 		private void Awake() =>
-			SetupCooldown();
+			_cooldown = new Cooldown(_attackCooldownTime);
 
-		private void OnEnable() =>
-			OnAttack += _cooldown.Reset;
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			if (!other.IsPlayer())
+				return;
+			
+			if (!other.TryGetComponent(out _playerColorHolder)||
+			    !_colorChecker.IsSameColor(_playerColorHolder) )
+				return;
+			
+			if (!other.TryGetComponent(out _playerHealth))
+				return;
+			
+			if (!_cooldown.IsReady)
+				return;
 
-		private void OnDisable() =>
-			OnAttack -= _cooldown.Reset;
+			_animator.Play(_attackHash);
+		}
 
 		private void OnTriggerStay2D(Collider2D other)
 		{
-			PerformAttack(other.gameObject);
-		}
-
-		private void SetupCooldown()
-		{
-			_cooldown = new Cooldown(_attackCooldownTime);
-			_cooldown.Reset();
-		}
-	
-		public void PerformAttack(GameObject target)
-		{
-			if (!ReadyToAttack(target))
+			if (!other.IsPlayer())
 				return;
 
-			if (target.TryGetComponent(out IHealth health))
-				health.Damage();
+			if (!_colorChecker.IsSameColor(_playerColorHolder))
+				return;
 
-			OnAttack?.Invoke();
+			if (_playerHealth == null)
+				return;
+
+			if (_cooldown.IsReady)
+				_animator.Play(_attackHash);
 		}
 
-		private bool ReadyToAttack(GameObject target) =>
-			_cooldown.IsReady && target.CompareTag(_targetTag.ToString());
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (!other.IsPlayer())
+				return;
+
+			_playerHealth = null;
+		}
+
+		private void Anim_Attack()
+		{
+			if (_playerHealth != null)
+			{
+				_playerHealth.Damage();
+				_cooldown.Reset();
+			}
+		}
 	}
 }

@@ -2,104 +2,92 @@ using UnityEngine;
 using Utils;
 using Utils.Constants;
 
-public sealed class ColoredChasePlayer : ColorCheckerBase
+namespace Characters.Enemy
 {
-	[Header("Chase")] [SerializeField] private EnemyMoveBehaviour _enemyMoveBehaviour;
-	[SerializeField] private float _targetReachedDistance = 1f;
-
-	private Vector2 _startingPoint;
-	private bool _isChasing = false;
-	private Transform _target = null;
-
-	protected override void Awake()
+	public sealed class ColoredChasePlayer : MonoBehaviour
 	{
-		base.Awake();
-		_startingPoint = transform.position;
-	}
+		[Header("Chase")] [SerializeField] private EnemyMoveBehaviour _enemyMoveBehaviour;
+		[SerializeField] private float _targetReachedDistance = 1f;
+		[SerializeField] private ColorCheckerBase _colorChecker;
 
-	private void OnTriggerEnter2D(Collider2D other)
-	{
-		if (!CanChase(other))
-			return;
+		private Vector2 _startingPoint;
+		private bool _isChasing = false;
+		private ColorHolderBase _colorHolder = null;
 
-		SetCanChase();
-		
-		PlayerColorHolder.OnColorChanged += SetColor;
-	}
+		private void Awake() =>
+			_startingPoint = transform.position;
 
-	private void OnTriggerStay2D(Collider2D other)
-	{
-		if (!other.IsPlayer())
-			return;
-
-		if (IsSameColor(PlayerColorHolder))
-			SetCanChase();
-		else
-			SetStopChase();
-	}
-
-	private void OnTriggerExit2D(Collider2D other)
-	{
-		if (!other.IsPlayer())
-			return;
-
-		SetStopChase();
-		PlayerColorHolder.OnColorChanged -= SetColor;
-	}
-
-	private void Update()
-	{
-		if (_isChasing)
+		private void OnTriggerEnter2D(Collider2D other)
 		{
-			Vector3 direction = GetDirection(to: _target.position);
+			if (!other.IsPlayer())
+				return;
 
-			_enemyMoveBehaviour.SetDirection(
-				TargetReached(direction.magnitude) 
-					? Vector3.zero 
-					: direction.normalized);
+			if (!other.TryGetComponent(out _colorHolder))
+				return;
+
+			if (!_colorChecker.IsSameColor(_colorHolder))
+				return;
+
+			_isChasing = true;
+			_colorHolder.OnColorChanged += _colorChecker.SetColor;
 		}
-		else
+
+		private void OnTriggerStay2D(Collider2D other)
 		{
-			Vector3 direction = GetDirection(to: _startingPoint);
+			if (!other.IsPlayer())
+				return;
 
-			_enemyMoveBehaviour.SetDirection(
-				TargetReached(direction.magnitude, 0.1f)
-					? Vector3.zero
-					: direction.normalized);
+			_isChasing = _colorChecker.IsSameColor(_colorHolder);
 		}
-	}
 
-	private void SetCanChase()
-	{
-		_target = PlayerColorHolder.transform;
-		_isChasing = true;
-	}
+		private void OnTriggerExit2D(Collider2D other)
+		{
+			if (!other.IsPlayer())
+				return;
 
-	private void SetStopChase()
-	{
-		_isChasing = false;
-		_target = null;
-	}
+			_isChasing = false;
+			_colorHolder.OnColorChanged -= _colorChecker.SetColor;
+		}
 
-	private bool TargetReached(float distanceToTarget, float overrideReachedDistance = 0f)
-	{
-		if (overrideReachedDistance == 0)
-			return distanceToTarget <= _targetReachedDistance;
-		else
-			return distanceToTarget <= overrideReachedDistance;
-	}
+		private void Update()
+		{
+			if (_isChasing)
+			{
+				Vector3 direction = GetDirection(to: _colorHolder.transform.position);
 
-	private bool CanChase(Collider2D other) =>
-		other.IsPlayer() && IsSameColor(PlayerColorHolder);
+				_enemyMoveBehaviour.SetDirection(
+					TargetReached(direction.magnitude)
+						? Vector3.zero
+						: direction.normalized);
+			}
+			else
+			{
+				Vector3 direction = GetDirection(to: _startingPoint);
 
-	private Vector3 GetDirection(Vector3 to) =>
-		to - transform.position;
+				_enemyMoveBehaviour.SetDirection(
+					TargetReached(direction.magnitude, 0.1f)
+						? Vector3.zero
+						: direction.normalized);
+			}
+		}
+
+		private bool TargetReached(float distanceToTarget, float overrideReachedDistance = 0f)
+		{
+			if (overrideReachedDistance == 0)
+				return distanceToTarget <= _targetReachedDistance;
+			else
+				return distanceToTarget <= overrideReachedDistance;
+		}
+
+		private Vector3 GetDirection(Vector3 to) =>
+			to - transform.position;
 
 	#if UNITY_EDITOR
-	private void OnDrawGizmosSelected()
-	{
-		Gizmos.color = Colors.GetColor(Color);
-		Gizmos.DrawWireSphere(transform.position, _targetReachedDistance);
-	}
+		private void OnDrawGizmosSelected()
+		{
+			Gizmos.color = Colors.GetColor(EColors.White);
+			Gizmos.DrawWireSphere(transform.position, _targetReachedDistance);
+		}
 	#endif
+	}
 }

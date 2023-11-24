@@ -24,6 +24,9 @@ public class ColorHolderEditor : UnityEditor.Editor
 	private void SetSpriteRendererColor()
 	{
 		foreach (Object obj in targets)
-			((ColorHolderBase)obj).Recolor();
+		{
+			if (obj is ColorHolderBase colorHolder)
+				colorHolder.Recolor();
+		}
 	}
 }

@@ -15,6 +15,6 @@ public class ColorCheckerBase : ColorHolderBase
 	private void SetPlayerColorHolder() =>
 		PlayerColorHolder = Services.FactoryService.Player.GetComponent<ColorHolderBase>();
 	
-	protected bool IsSameColor(ColorHolderBase @as) =>
+	public bool IsSameColor(ColorHolderBase @as) =>
 		@as.ColorToCheck == Color;
 }
