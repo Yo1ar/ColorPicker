@@ -6,7 +6,7 @@ namespace Characters.Enemy
 {
 	public sealed class ColoredChasePlayer : MonoBehaviour
 	{
-		[Header("Chase")] [SerializeField] private EnemyMoveBehaviour _enemyMoveBehaviour;
+		[SerializeField] private EnemyMoveBehaviour _enemyMoveBehaviour;
 		[SerializeField] private float _targetReachedDistance = 1f;
 		[SerializeField] private ColorCheckerBase _colorChecker;
 

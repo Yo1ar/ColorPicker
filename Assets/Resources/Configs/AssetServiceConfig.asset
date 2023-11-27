@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 2964221795828227578, guid: 109644af05039a04d9e1026631d078a0, type: 3}
   FireballProjectile: {fileID: 3294491875932010576, guid: 5c8927b2a470cfa4ca7d8a39620f1d22, type: 3}
-  PencilProjectile: {fileID: 2098551445703266756, guid: 57741ed8c02b69a4e95d6e8f11bd8052, type: 3}
+  DropProjectile: {fileID: 5921120689193124894, guid: 6c7c9ae751fc1f24b83e5dd426ee05fc, type: 3}
   PortalAttack: {fileID: 5808296107523959640, guid: c82387553414d3b4e89519248b5e3889, type: 3}
+  AudioSourcesController: {fileID: 8359596561320265374, guid: 99033ba75fb23f24ba3571196478abc1, type: 3}

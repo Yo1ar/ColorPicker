@@ -21,7 +21,6 @@ namespace GameCore.GameUI
 		private void Awake() =>
 			_canvasGroup = GetComponent<CanvasGroup>();
 
-		[ContextMenu("Show")]
 		public void Show()
 		{
 			if (_tween.IsActive())
@@ -30,7 +29,6 @@ namespace GameCore.GameUI
 				ShowAction();
 		}
 
-		[ContextMenu("Hide")]
 		public void Hide()
 		{
 			if (_tween.IsActive())
@@ -87,5 +85,26 @@ namespace GameCore.GameUI
 
 		private void SetInteractable(bool value) =>
 			_canvasGroup.interactable = value;
+
+		[ContextMenu("Show")]
+		private void ContextShow()
+		{
+			if (!_canvasGroup)
+				_canvasGroup = GetComponent<CanvasGroup>();
+			
+			_canvasGroup.alpha = 1;
+			SetInteractable(true);
+			SetBlockRaycasts(true);
+		}
+		[ContextMenu("Hide")]
+		private void ContextHide()
+		{
+			if (!_canvasGroup)
+				_canvasGroup = GetComponent<CanvasGroup>();
+			
+			_canvasGroup.alpha = 0;
+			SetInteractable(false);
+			SetBlockRaycasts(false);
+		}
 	}
 }

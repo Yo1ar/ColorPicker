@@ -10,8 +10,9 @@ namespace GameCore.GameServices
 	public sealed class FactoryService : ServiceBase
 	{
 		private readonly ProjectilePool _fireballPool;
+		private readonly ProjectilePool _dropPool;
 		private AssetService _assetService;
-		
+
 		public GameObject Player { get; private set; }
 		public List<IErasable> Erasables { get; } = new();
 
@@ -21,6 +22,7 @@ namespace GameCore.GameServices
 		{
 			_assetService = assetService;
 			_fireballPool = new ProjectilePool(_assetService.FireballProjectile);
+			_dropPool = new ProjectilePool(_assetService.DropProjectile);
 			GlobalEventManager.OnLevelUnloaded.AddListener(RemovePlayer);
 		}
 
@@ -40,6 +42,9 @@ namespace GameCore.GameServices
 
 		public void CreateFireball(Vector3 position, Vector2 direction, Vector3 rotation) =>
 			_fireballPool.LaunchProjectile(position, direction, rotation);
+
+		public void CreateDrop(Vector3 position, Vector3 direction, Vector3 rotation) =>
+			_dropPool.LaunchProjectile(position, direction, rotation);
 
 		public void AddErasable(IErasable erasable) =>
 			Erasables.Add(erasable);

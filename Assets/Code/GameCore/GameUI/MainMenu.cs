@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using GameCore.GameServices;
 using GameCore.StateMachine;
 using UnityEngine;
@@ -46,37 +44,25 @@ namespace GameCore.GameUI
 			_exitButton.OnClick.RemoveListener(ExitAction);
 		}
 
-		private async void PlayAction() =>
-			await UnderlineWithDelayButton(_playButton, LoadLevel);
+		private void PlayAction() =>
+			LoadLevel();
 
-		private async void SettingsAction() =>
-			await UnderlineWithDelayButton(_settingsButton, ShowSettings);
+		private void SettingsAction() =>
+			ShowSettings();
 
-		private async void CreditsAction() =>
-			await UnderlineWithDelayButton(_creditsButton, ShowCredits);
+		private void CreditsAction() =>
+			ShowCredits();
 
-		private async void ExitAction() =>
-			await UnderlineWithDelayButton(_exitButton, Game.Quit);
+		private void ExitAction() =>
+			Game.Quit();
 
 		private void LoadLevel() =>
 			GameStateMachine.Instance.EnterLoadLevelState(_progressService.SavedSceneSet);
 
-		private void ShowSettings() =>
-			UnityEngine.Debug.Log("Settings");
+		private void ShowSettings() {}
 
-		private void ShowCredits() =>
-			UnityEngine.Debug.Log("Created by: Yolar Games\n" +
-			          "Developer: Nikita Ivanin\n" +
-			          "With inspiration from his lovely wife Margarita Wise");
-
-		private async Task UnderlineWithDelayButton(GameMenuButton button, Action afterDelay)
-		{
-			button.Underline();
-			button.enabled = false;
-
-			await Task.Delay(500);
-			afterDelay?.Invoke();
-		}
+		private void ShowCredits(){}
+		
 
 		private void SetPlayText() =>
 			_playButton.SetText("Play");

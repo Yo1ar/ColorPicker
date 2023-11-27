@@ -7,6 +7,7 @@ namespace GameCore.GameServices
 		public static ConfigService ConfigService { get; private set; }
 		public static ProgressService ProgressService { get; private set; }
 		public static AssetService AssetService { get; private set; }
+		public static AudioService AudioService { get; private set; }
 		public static FactoryService FactoryService { get; private set; }
 		public static InputService InputService { get; private set; }
 
@@ -26,6 +27,9 @@ namespace GameCore.GameServices
 
 			FactoryService = new FactoryService(AssetService);
 			await FactoryService.InitService();
+
+			AudioService = new AudioService(AssetService);
+			await AudioService.InitService();
 			
 			Game.GameLogger.GameLog("Services initialized", this);
 		}

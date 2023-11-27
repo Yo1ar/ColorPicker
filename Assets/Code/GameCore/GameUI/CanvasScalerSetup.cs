@@ -1,3 +1,4 @@
+using System;
 using Configs;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,9 @@ namespace GameCore.GameUI
 
 		private void Awake() =>
 			_canvasScaler = GetComponent<CanvasScaler>();
+
+		private void Start() =>
+			ApplyValues();
 
 		private void Setup()
 		{

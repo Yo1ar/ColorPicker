@@ -12,7 +12,7 @@ namespace Characters.Enemy
 		private Cooldown _cooldown;
 		private ColorHolderBase _playerColorHolder;
 		private IHealth _playerHealth;
-		private readonly int _attackHash = Animator.StringToHash("enemy_ghost_attack");
+		private readonly int _attackHash = Animator.StringToHash("attack");
 
 		private void Awake() =>
 			_cooldown = new Cooldown(_attackCooldownTime);

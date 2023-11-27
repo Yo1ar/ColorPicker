@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameCore.GameServices;
+using UnityEngine;
 
 namespace Configs
 {
@@ -7,7 +8,7 @@ namespace Configs
 	{
 		public GameObject Player;
 		public Projectile FireballProjectile;
-		public Projectile PencilProjectile;
-		public Transform PortalAttack;
+		public Projectile DropProjectile;
+		public AudioSourcesController AudioSourcesController;
 	}
 }

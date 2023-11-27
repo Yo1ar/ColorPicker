@@ -6,11 +6,11 @@ namespace GameCore.GameServices
 {
 	public class AssetService : ServiceBase
 	{
-		private AssetServiceConfig _assetServiceConfig;
+		private readonly AssetServiceConfig _assetServiceConfig;
 		public Object Player => _assetServiceConfig.Player;
 		public Projectile FireballProjectile => _assetServiceConfig.FireballProjectile;
-		public Projectile PencilProjectile => _assetServiceConfig.PencilProjectile;
-		public Transform PortalAttack => _assetServiceConfig.PortalAttack;
+		public Projectile DropProjectile => _assetServiceConfig.DropProjectile;
+		public AudioSourcesController AudioSourcesController => _assetServiceConfig.AudioSourcesController;
 
 		public AssetService(AssetServiceConfig assetServiceConfig) =>
 			_assetServiceConfig = assetServiceConfig;

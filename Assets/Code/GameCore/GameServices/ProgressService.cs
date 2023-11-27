@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Utils;
@@ -7,8 +8,8 @@ namespace GameCore.GameServices
 {
 	public class ProgressService : ServiceBase
 	{
-		private const string LEVEL_CONTAINER_STRING_KEY = "levelContainer";
-		private const string SETTINGS_STRING_KEY = "settings";
+		private const string LEVEL_CONTAINER_KEY_STRING = "levelContainer";
+		private const string SETTINGS_KEY_STRING = "settings";
 
 		public SettingsData SettingsData { get; private set; }
 		public SceneSets SavedSceneSet { get; private set; }
@@ -20,10 +21,13 @@ namespace GameCore.GameServices
 		}
 
 		public bool HasLevelProgress() =>
-			PlayerPrefs.HasKey(LEVEL_CONTAINER_STRING_KEY);
+			PlayerPrefs.HasKey(LEVEL_CONTAINER_KEY_STRING);
 
+		public void SaveLevel(SceneSets sceneSets) =>
+			PlayerPrefs.SetString(LEVEL_CONTAINER_KEY_STRING, MakeDataJson(sceneSets));
+		
 		public void SaveSettings(SettingsData settings) =>
-			PlayerPrefs.SetString(SETTINGS_STRING_KEY, MakeDataJson(settings));
+			PlayerPrefs.SetString(SETTINGS_KEY_STRING, MakeDataJson(settings));
 
 		public void LoadProgress()
 		{
@@ -31,45 +35,47 @@ namespace GameCore.GameServices
 			LoadLevel();
 		}
 
-		private void LoadLevel()
-		{
-			string savedSet = PlayerPrefs.GetString(LEVEL_CONTAINER_STRING_KEY);
-			SavedSceneSet = savedSet.IsEmpty()
-				? SceneSets.Level1
-				: MakeDataFromJson<SceneSets>(savedSet);
-		}
-
 		private void LoadSettings()
 		{
-			string savedSettings = PlayerPrefs.GetString(SETTINGS_STRING_KEY);
+			string savedSettings = PlayerPrefs.GetString(SETTINGS_KEY_STRING);
 
 			SettingsData = savedSettings.IsEmpty()
-				? new SettingsData(1, 1)
-				: MakeDataFromJson<SettingsData>(savedSettings);
+				? new SettingsData(0.8f, 0.8f, false, false)
+				: FromJson<SettingsData>(savedSettings);
 		}
 
-		public void SaveLevel(SceneSets sceneSets) =>
-			PlayerPrefs.SetString(LEVEL_CONTAINER_STRING_KEY, MakeDataJson(sceneSets));
+		private void LoadLevel()
+		{
+			string savedSet = PlayerPrefs.GetString(LEVEL_CONTAINER_KEY_STRING);
+			SavedSceneSet = savedSet.IsEmpty()
+				? SceneSets.Level1
+				: FromJson<SceneSets>(savedSet);
+		}
 
-		private string MakeDataJson<T>(T data) =>
-			JsonUtility.ToJson(data);
+		private string MakeDataJson<T>(T data)
+		{
+			string json = JsonUtility.ToJson(data);
+			return json;
+		}
 
-		private T MakeDataFromJson<T>(string json) =>
+		private T FromJson<T>(string json) =>
 			JsonUtility.FromJson<T>(json);
 	}
 
-	public readonly struct SettingsData
+	[Serializable]
+	public class SettingsData
 	{
-		private readonly float _musicVolume;
-		private readonly float _soundVolume;
-
-		public float MusicVolume => _musicVolume;
-		public float SoundVolume => _soundVolume;
-
-		public SettingsData(float musicVolume, float soundVolume)
+		public float MusicVolume;
+		public float SoundVolume;
+		public bool MusicMute;
+		public bool SoundMute;
+		
+		public SettingsData(float musicVolume, float soundVolume, bool musicMute, bool soundMute)
 		{
-			_musicVolume = musicVolume;
-			_soundVolume = soundVolume;
+			MusicVolume = musicVolume;
+			SoundVolume = soundVolume;
+			MusicMute = musicMute;
+			SoundMute = soundMute;
 		}
 	}
 }
