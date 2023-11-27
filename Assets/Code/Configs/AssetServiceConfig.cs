@@ -10,5 +10,6 @@ namespace Configs
 		public Projectile FireballProjectile;
 		public Projectile DropProjectile;
 		public AudioSourcesController AudioSourcesController;
+		public SoundsConfig SoundsConfig;
 	}
 }

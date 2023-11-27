@@ -11,6 +11,7 @@ namespace GameCore.GameServices
 		public Projectile FireballProjectile => _assetServiceConfig.FireballProjectile;
 		public Projectile DropProjectile => _assetServiceConfig.DropProjectile;
 		public AudioSourcesController AudioSourcesController => _assetServiceConfig.AudioSourcesController;
+		public SoundsConfig SoundsConfig => _assetServiceConfig.SoundsConfig;
 
 		public AssetService(AssetServiceConfig assetServiceConfig) =>
 			_assetServiceConfig = assetServiceConfig;

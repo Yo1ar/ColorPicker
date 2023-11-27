@@ -1,5 +1,6 @@
 using System.Collections;
 using GameCore.Events;
+using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 
@@ -11,21 +12,23 @@ namespace Characters.Player
 		[SerializeField] private int _speedUpSpeed;
 		[SerializeField] private float _speedUpTime;
 		[SerializeField] private float _speedUpRechargeTime;
-		
+
+		private AudioSourcesController _audioSourcesController;
+		private AudioClip _speedUpSound;
 		private Rigidbody2D _rigidbody2D;
 		private Transform _transform;
 		private IPlayerSkills _playerSkills;
-		private IWildColorContainer _wildColorContainer;
 		
 		public Cooldown SpeedUpCooldown { get; private set; }
 		public float Direction { get; private set; }
 
 		private void Awake()
 		{
+			_audioSourcesController = Services.AudioService.AudioSourcesController;
+			_speedUpSound = Services.AssetService.SoundsConfig.SpeedUpClip;
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_playerSkills = GetComponent<IPlayerSkills>();
 			_transform = transform;
-			_wildColorContainer = GetComponent<IWildColorContainer>();
 			SpeedUpCooldown = new Cooldown(_speedUpRechargeTime);
 		}
 
@@ -38,8 +41,11 @@ namespace Characters.Player
 		private void FixedUpdate() =>
 			Move();
 
-		private void SpeedUpPlayer() =>
+		private void SpeedUpPlayer()
+		{
+			_audioSourcesController.PlaySoundOneShot(_speedUpSound);
 			StartCoroutine(SpeedUp());
+		}
 
 		private IEnumerator SpeedUp()
 		{

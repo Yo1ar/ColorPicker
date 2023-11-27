@@ -1,27 +1,27 @@
 using GameCore.GameServices;
 using UnityEngine;
 using Utils;
-using Cooldown = Utils.Cooldown;
 
 namespace Characters.Enemy
 {
-	public class EnemyMeleeAttack : MonoBehaviour
+	public sealed class EnemyRangedAttack : MonoBehaviour
 	{
 		[SerializeField] private ColorCheckerBase _colorChecker;
 		[SerializeField] private Animator _animator;
 		[SerializeField] private float _attackCooldownTime;
-		
+
 		private readonly int _attackHash = Animator.StringToHash("attack");
 		private Cooldown _cooldown;
 		private ColorHolderBase _playerColorHolder;
-		private IHealth _playerHealth;
+		private FactoryService _factoryService;
 		private AudioSourcesController _audioSourcesController;
-		private AudioClip _explosionSound;
-		
+		private AudioClip _dropSound;
+
 		private void Awake()
 		{
 			_audioSourcesController = Services.AudioService.AudioSourcesController;
-			_explosionSound = Services.AssetService.SoundsConfig.ExplosionClip;
+			_dropSound = Services.AssetService.SoundsConfig.DropClip;
+			_factoryService = Services.FactoryService;
 			_cooldown = new Cooldown(_attackCooldownTime);
 		}
 
@@ -29,18 +29,15 @@ namespace Characters.Enemy
 		{
 			if (!other.IsPlayer())
 				return;
-			
-			if (!other.TryGetComponent(out _playerColorHolder)||
-			    !_colorChecker.IsSameColor(_playerColorHolder) )
+
+			if (!other.TryGetComponent(out _playerColorHolder) || !_colorChecker.IsSameColor(_playerColorHolder))
 				return;
-			
-			if (!other.TryGetComponent(out _playerHealth))
-				return;
-			
+
 			if (!_cooldown.IsReady)
 				return;
 
 			_animator.Play(_attackHash);
+			_cooldown.Reset();
 		}
 
 		private void OnTriggerStay2D(Collider2D other)
@@ -51,30 +48,17 @@ namespace Characters.Enemy
 			if (!_colorChecker.IsSameColor(_playerColorHolder))
 				return;
 
-			if (_playerHealth == null)
+			if (!_cooldown.IsReady)
 				return;
-
-			if (_cooldown.IsReady)
-				_animator.Play(_attackHash);
-		}
-
-		private void OnTriggerExit2D(Collider2D other)
-		{
-			if (!other.IsPlayer())
-				return;
-
-			_playerHealth = null;
+		
+			_animator.Play(_attackHash);
+			_cooldown.Reset();
 		}
 
 		private void Anim_Attack()
 		{
-			if (_playerHealth != null)
-			{
-				_audioSourcesController.PlaySoundOneShot(_explosionSound);
-				
-				_playerHealth.Damage();
-				_cooldown.Reset();
-			}
+			_audioSourcesController.PlaySoundOneShot(_dropSound);
+			_factoryService.CreateDrop(transform.position, Vector2.down, Vector3.zero);
 		}
 	}
 }

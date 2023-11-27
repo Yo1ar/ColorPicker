@@ -12,6 +12,9 @@ namespace GameCore.GameServices
 		private const string SOUND_VOLUME_PARAMETER = "soundVolume";
 		private const float DB_LOW_MARGIN = 60f;
 
+		private void Awake() =>
+			_musicSource.clip = Services.AssetService.SoundsConfig.BackgroundMusic;
+
 		public void ToggleMuteMusic(bool value) =>
 			_musicSource.mute = value;
 

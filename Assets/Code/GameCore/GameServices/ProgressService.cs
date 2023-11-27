@@ -40,7 +40,7 @@ namespace GameCore.GameServices
 			string savedSettings = PlayerPrefs.GetString(SETTINGS_KEY_STRING);
 
 			SettingsData = savedSettings.IsEmpty()
-				? new SettingsData(0.8f, 0.8f, false, false)
+				? new SettingsData()
 				: FromJson<SettingsData>(savedSettings);
 		}
 
@@ -70,7 +70,7 @@ namespace GameCore.GameServices
 		public bool MusicMute;
 		public bool SoundMute;
 		
-		public SettingsData(float musicVolume, float soundVolume, bool musicMute, bool soundMute)
+		public SettingsData(float musicVolume = 0.5f, float soundVolume = 0.5f, bool musicMute = false, bool soundMute = false)
 		{
 			MusicVolume = musicVolume;
 			SoundVolume = soundVolume;

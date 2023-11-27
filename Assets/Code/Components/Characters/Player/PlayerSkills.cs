@@ -14,6 +14,9 @@ namespace Characters.Player
 		private FactoryService _factoryService;
 		private PlayerAnimation _playerAnimation;
 		private ColorHolderBase _playerColorHolder;
+		private AudioClip _fireSound;
+		private AudioClip _eraseSound;
+		private AudioSourcesController _audioController;
 		private Camera _camera;
 
 		public Cooldown FireballCooldown { get; private set; }
@@ -23,6 +26,9 @@ namespace Characters.Player
 
 		private void Awake()
 		{
+			_audioController = Services.AudioService.AudioSourcesController;
+			_fireSound = Services.AssetService.SoundsConfig.FireClip;
+			_eraseSound = Services.AssetService.SoundsConfig.EraseClip;
 			_factoryService = Services.FactoryService;
 			_playerAnimation = GetComponent<PlayerAnimation>();
 			_playerColorHolder = GetComponent<ColorHolderBase>();
@@ -77,6 +83,8 @@ namespace Characters.Player
 			if (!hit || !hit.transform.TryGetComponent(out IErasable erasable))
 				return;
 
+			_audioController.PlaySoundOneShot(_eraseSound);
+			
 			erasable.Erase();
 			SwitchErasableMode();
 			EraserCooldown.Reset();
@@ -94,6 +102,7 @@ namespace Characters.Player
 
 		public void LaunchFireball()
 		{
+			_audioController.PlaySoundOneShot(_fireSound);
 			_factoryService.CreateFireball(
 				position: transform.position,
 				direction: GetShootDirection(),

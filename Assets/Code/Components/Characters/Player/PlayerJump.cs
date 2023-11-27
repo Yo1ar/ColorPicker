@@ -1,4 +1,5 @@
 using GameCore.Events;
+using GameCore.GameServices;
 using UnityEngine;
 using Utils.Constants;
 
@@ -11,16 +12,20 @@ namespace Characters.Player
 		
 		private Rigidbody2D _rigidbody2D;
 		private GroundCheck _groundCheck;
-		private IWildColorContainer _wildColorContainer;
 		private ColorHolderBase _colorHolder;
 		private bool _canDoubleJump;
+		private AudioClip _jumpSound;
+		private AudioClip _jumpSound2;
+		private AudioSourcesController _audioController;
 
 		private void Awake()
 		{
+			_audioController = Services.AudioService.AudioSourcesController;
+			_jumpSound = Services.AssetService.SoundsConfig.JumpClip;
+			_jumpSound2 = Services.AssetService.SoundsConfig.JumpClip2;
 			_colorHolder = GetComponent<ColorHolderBase>();
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_groundCheck = GetComponent<GroundCheck>();
-			_wildColorContainer = GetComponent<IWildColorContainer>();
 		}
 
 		private void OnEnable() =>
@@ -30,6 +35,7 @@ namespace Characters.Player
 		{
 			if (CanJump())
 			{
+				_audioController.PlaySoundOneShot(_jumpSound);
 				_canDoubleJump = true;
 				AddJumpForce();
 				return;
@@ -37,6 +43,7 @@ namespace Characters.Player
 
 			if (CanDoubleJump())
 			{
+				_audioController.PlaySoundOneShot(_jumpSound2);
 				_canDoubleJump = false;
 				AddJumpForce();
 			}

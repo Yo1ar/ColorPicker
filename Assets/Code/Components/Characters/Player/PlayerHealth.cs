@@ -1,3 +1,4 @@
+using GameCore.GameServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,16 +7,24 @@ namespace Characters.Player
 	public class PlayerHealth : MonoBehaviour, IHealth
 	{
 		private const int MAX_HEALTH = 3;
-		public int CurrentHealth { get; private set; }
-		public bool IsFullHealth => CurrentHealth == MAX_HEALTH;
+		private bool _isInvul;
+		private AudioSourcesController _audioSourcesController;
+		private AudioClip _hurtSound;
 
 		public UnityEvent OnDamage;
 		public UnityEvent OnHeal;
 		public UnityEvent OnDeath;
-		private bool _isInvul;
 
-		private void Awake() =>
+		public bool IsFullHealth => CurrentHealth == MAX_HEALTH;
+		public int CurrentHealth { get; private set; }
+		
+		private void Awake()
+		{
+			_audioSourcesController = Services.AudioService.AudioSourcesController;
+			_hurtSound = Services.AssetService.SoundsConfig.HurtClip;
+			
 			CurrentHealth = MAX_HEALTH;
+		}
 
 		public void Anim_InvulOff() =>
 			_isInvul = false;
@@ -27,7 +36,8 @@ namespace Characters.Player
 		{
 			if (_isInvul)
 				return;
-			
+
+			_audioSourcesController.PlaySoundOneShot(_hurtSound);
 			CalculateDamage();
 			OnDamage?.Invoke();
 		}
@@ -44,7 +54,6 @@ namespace Characters.Player
 				Kill();
 			else
 				CurrentHealth--;
-
 		}
 
 		private void CalculateHeal()
@@ -64,7 +73,6 @@ namespace Characters.Player
 			OnDeath?.Invoke();
 			Destroy(gameObject);
 		}
-
 
 		[ContextMenu("Invoke Damage")]
 		private void InvokeDamage() =>
