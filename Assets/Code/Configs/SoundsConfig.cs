@@ -5,7 +5,9 @@ namespace Configs
 	[CreateAssetMenu(fileName = "SoundsConfig", menuName = "Configs/Sounds config")]
 	public class SoundsConfig: ScriptableObject
 	{
+		[Header("Music")]
 		public AudioClip BackgroundMusic;
+		[Header("SFX")]
 		public AudioClip ClickClip;
 		public AudioClip JumpClip;
 		public AudioClip JumpClip2;
