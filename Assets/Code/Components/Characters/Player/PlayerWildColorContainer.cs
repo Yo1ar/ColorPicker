@@ -5,7 +5,7 @@ namespace Characters.Player
 {
 	public class PlayerWildColorContainer : MonoBehaviour, IWildColorContainer
 	{
-		public int WildColorBonusCount { get; private set; } = 5;
+		public int WildColorBonusCount { get; private set; } = 0;
 
 		public void SetWldColorBonus(int value) =>
 			WildColorBonusCount = value;
