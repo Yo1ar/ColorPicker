@@ -1,4 +1,5 @@
 using GameCore.GameServices;
+using Utils.Constants;
 
 public class ColorCheckerBase : ColorHolderBase
 {
@@ -15,6 +16,11 @@ public class ColorCheckerBase : ColorHolderBase
 	private void SetPlayerColorHolder() =>
 		PlayerColorHolder = Services.FactoryService.Player.GetComponent<ColorHolderBase>();
 	
-	public bool IsSameColor(ColorHolderBase @as) =>
-		@as.ColorToCheck == Color;
+	public bool IsSameColor(ColorHolderBase @as)
+	{
+		if (@as.ColorToCheck == EColors.White)
+			return true;
+		
+		return @as.ColorToCheck == Color;
+	}
 }

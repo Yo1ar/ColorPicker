@@ -44,7 +44,7 @@ namespace Level.UI
 			_activationButton.OnTap += ExpandColors;
 
 			_white.OnTap += CollapseColors;
-			_white.OnTap += SetPlayerWhite;
+			_white.OnTap += SetPlayerGray;
 
 			_red.OnTap += CollapseColors;
 			_red.OnTap += SetPlayerRed;
@@ -58,7 +58,7 @@ namespace Level.UI
 
 		private void ExpandColors()
 		{
-			if (!_wildColorContainer.TryUseWildColorBonus())
+			if (!_wildColorContainer.CanUseWildColorBonus())
 				return;
 
 			_animator.Play(_expandTriggerHash);
@@ -67,18 +67,40 @@ namespace Level.UI
 		private void CollapseColors() =>
 			_animator.Play(_collapseTriggerHash);
 
-		private void SetPlayerWhite()
+		private void SetPlayerGray()
 		{
-			_playerColorHolder.SetColor(EColors.Gray);
+			if (_playerColorHolder.ColorToCheck == EColors.Gray)
+				return;
+
+			if (_wildColorContainer.TryUseWildColorBonus())
+				_playerColorHolder.SetColor(EColors.Gray);
 		}
 
-		private void SetPlayerRed() =>
-			_playerColorHolder.SetColor(EColors.Red);
+		private void SetPlayerRed()
+		{
+			if (_playerColorHolder.ColorToCheck == EColors.Red)
+				return;
 
-		private void SetPlayerGreen() =>
-			_playerColorHolder.SetColor(EColors.Green);
+			if (_wildColorContainer.TryUseWildColorBonus())
+				_playerColorHolder.SetColor(EColors.Red);
+		}
 
-		private void SetPlayerBlue() =>
-			_playerColorHolder.SetColor(EColors.Blue);
+		private void SetPlayerGreen()
+		{
+			if (_playerColorHolder.ColorToCheck == EColors.Green)
+				return;
+
+			if (_wildColorContainer.TryUseWildColorBonus())
+				_playerColorHolder.SetColor(EColors.Green);
+		}
+
+		private void SetPlayerBlue()
+		{
+			if (_playerColorHolder.ColorToCheck == EColors.Blue)
+				return;
+
+			if (_wildColorContainer.TryUseWildColorBonus())
+				_playerColorHolder.SetColor(EColors.Blue);
+		}
 	}
 }

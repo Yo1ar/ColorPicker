@@ -6,13 +6,14 @@ using Utils;
 namespace Level
 {
 	[RequireComponent(typeof(CircleCollider2D))]
-	public sealed class HealthBonus : MonoBehaviour
+	public sealed class HealthBonus : ColorCheckerBase
 	{
 		private AudioSourcesController _audioSourcesController;
 		private AudioClip _healSound;
 
-		private void Awake()
+		protected override void Awake()
 		{
+			base.Awake();
 			_audioSourcesController = Services.AudioService.AudioSourcesController;
 			_healSound = Services.AssetService.SoundsConfig.GetBonusClip;
 		}
@@ -27,7 +28,7 @@ namespace Level
 
 			if (playerHealth.IsFullHealth)
 				return;
-			
+
 			_audioSourcesController.PlaySoundOneShot(_healSound);
 			playerHealth.Heal();
 			gameObject.SetActive(false);

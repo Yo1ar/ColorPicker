@@ -1,27 +1,34 @@
+using System;
 using UnityEngine;
 
 namespace Characters.Player
 {
 	public class PlayerWildColorContainer : MonoBehaviour, IWildColorContainer
 	{
-		public int WildColorBonus { get; private set; } = 5;
+		public int WildColorBonusCount { get; private set; } = 5;
 
 		public void SetWldColorBonus(int value) =>
-			WildColorBonus = value;
+			WildColorBonusCount = value;
 
-		public void AddWildColorBonus() =>
-			WildColorBonus++;
+		public event Action<int> OnCountChange;
+
+		public void AddWildColorBonus()
+		{
+			WildColorBonusCount++;
+			OnCountChange?.Invoke(WildColorBonusCount);
+		}
 
 		public bool TryUseWildColorBonus()
 		{
-			if (WildColorBonus - 1 < 0)
+			if (WildColorBonusCount - 1 < 0)
 				return false;
 
-			WildColorBonus--;
+			WildColorBonusCount--;
+			OnCountChange?.Invoke(WildColorBonusCount);
 			return true;
 		}
 
 		public bool CanUseWildColorBonus() =>
-			WildColorBonus >= 1;
+			WildColorBonusCount >= 1;
 	}
 }
