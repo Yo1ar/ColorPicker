@@ -56,12 +56,12 @@ namespace Characters.Player
 		private void PlayMovementAnimations()
 		{
 			if (_groundCheck.IsGrounded)
-				PlayRunIdleAnimation();
+				PlayRunGroundedAnimation();
 			else
 				PlayJumpFallAnimation();
 		}
 
-		private void PlayRunIdleAnimation()
+		private void PlayRunGroundedAnimation()
 		{
 			if (_playerMove.Direction == 0)
 				AnimateIdle();

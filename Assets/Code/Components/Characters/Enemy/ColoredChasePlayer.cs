@@ -9,10 +9,11 @@ namespace Characters.Enemy
 		[SerializeField] private EnemyMoveBehaviour _enemyMoveBehaviour;
 		[SerializeField] private float _targetReachedDistance = 1f;
 		[SerializeField] private ColorCheckerBase _colorChecker;
-
+		[SerializeField] private bool _followTargetColor;
+		
 		private Vector2 _startingPoint;
-		private bool _isChasing = false;
-		private ColorHolderBase _colorHolder = null;
+		private bool _isChasing;
+		private ColorHolderBase _colorHolder;
 
 		private void Awake() =>
 			_startingPoint = transform.position;
@@ -29,7 +30,9 @@ namespace Characters.Enemy
 				return;
 
 			_isChasing = true;
-			_colorHolder.OnColorChanged += _colorChecker.SetColor;
+
+			if (_followTargetColor)
+				_colorHolder.OnColorChanged += _colorChecker.SetColor;
 		}
 
 		private void OnTriggerStay2D(Collider2D other)
@@ -46,7 +49,9 @@ namespace Characters.Enemy
 				return;
 
 			_isChasing = false;
-			_colorHolder.OnColorChanged -= _colorChecker.SetColor;
+
+			if (_followTargetColor)
+				_colorHolder.OnColorChanged -= _colorChecker.SetColor;
 		}
 
 		private void Update()

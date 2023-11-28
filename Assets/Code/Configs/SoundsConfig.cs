@@ -18,5 +18,10 @@ namespace Configs
 		public AudioClip DropClip;
 		public AudioClip ExplosionClip;
 		public AudioClip HurtClip;
+		public AudioClip DoorOpenClip;
+		public AudioClip DoorCloseClip;
+		public AudioClip TorchBurnClip;
+		public AudioClip TrapClip;
+		public AudioClip MarkerClip;
 	}
 }

@@ -23,3 +23,8 @@ MonoBehaviour:
   DropClip: {fileID: 8300000, guid: b44568d5ba3484b439ff5e43c5e94780, type: 3}
   ExplosionClip: {fileID: 8300000, guid: 828c52bb4f62a3a4e9fbdb5027bc8b36, type: 3}
   HurtClip: {fileID: 8300000, guid: 280d7d58dafddfe44846855a68c8c479, type: 3}
+  DoorOpenClip: {fileID: 8300000, guid: 2e793afafd268d64a9220f883ed9bc16, type: 3}
+  DoorCloseClip: {fileID: 8300000, guid: 949a04d769fe27241978464122c60a64, type: 3}
+  TorchBurnClip: {fileID: 8300000, guid: 00c27dcdbaf2c9b41a59038f1a6cae3f, type: 3}
+  TrapClip: {fileID: 8300000, guid: e18c8d6b2fa04b2489d1b90303cb56aa, type: 3}
+  MarkerClip: {fileID: 8300000, guid: 94c55d99712523e4eba88b634e04f667, type: 3}

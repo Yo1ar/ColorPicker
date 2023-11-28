@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Characters.Player;
 using GameCore.GameServices;
@@ -12,11 +11,16 @@ public sealed class ColoredTrap : ColorCheckerBase
 	[SerializeField] private Sprite _hitSprite;
 	private PlayerHealth _playerHealth;
 	private bool _isReloaded;
-
+	private AudioSourcesController _audioSourcesController;
+	private AudioClip _trapSound;
+	
 	protected override void Awake()
 	{
 		base.Awake();
-
+		
+		_audioSourcesController = Services.AudioService.AudioSourcesController;
+		_trapSound = Services.AssetService.SoundsConfig.TrapClip;
+		
 		if (Services.FactoryService.Player)
 			SetPlayerHealth();
 
@@ -36,6 +40,7 @@ public sealed class ColoredTrap : ColorCheckerBase
 
 		if (IsSameColor(@as: PlayerColorHolder) && _isReloaded)
 		{
+			_audioSourcesController.PlaySoundOneShot(_trapSound);
 			_playerHealth.Damage();
 			SetSprite(_hitSprite);
 			StartCoroutine(ReloadRoutine());
