@@ -4,6 +4,7 @@ using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 
+[SelectionBase]
 public sealed class ColoredTrap : ColorCheckerBase
 {
 	[Header("Trap")] [SerializeField] private float _reloadTime = 2.1f;

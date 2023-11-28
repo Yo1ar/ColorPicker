@@ -3,6 +3,7 @@ using GameCore.GameServices;
 using UnityEngine;
 using Utils;
 
+[SelectionBase]
 public sealed class WildBonus : MonoBehaviour
 {
 	[SerializeField] private float _rotationTime;

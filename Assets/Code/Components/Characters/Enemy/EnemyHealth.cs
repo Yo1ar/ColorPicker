@@ -2,11 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Enemies
+namespace Characters.Enemy
 {
 	public class EnemyHealth : MonoBehaviour, IHealth
 	{
-		[SerializeField] private int _maxLives;
+		private const int MAX_LIVES = 1;
 		private int _currentLives;
 		private TMP_Text _text;
 		
@@ -14,7 +14,7 @@ namespace Enemies
 		public UnityEvent<int> OnHealed;
 		
 		private void Start() =>
-			_currentLives = _maxLives;
+			_currentLives = MAX_LIVES;
 
 		public void Damage()
 		{
@@ -28,7 +28,7 @@ namespace Enemies
 
 		public void Heal()
 		{
-			_currentLives = Mathf.Min(_maxLives, ++_currentLives);
+			_currentLives = Mathf.Min(MAX_LIVES, ++_currentLives);
 			OnHealed?.Invoke(_currentLives);
 		}
 

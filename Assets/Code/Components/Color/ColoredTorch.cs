@@ -2,6 +2,7 @@ using GameCore.GameServices;
 using UnityEngine;
 using UnityEngine.Events;
 
+[SelectionBase]
 public sealed class ColoredTorch : ColorCheckerBase
 {
 	[Header("Torch")] 
