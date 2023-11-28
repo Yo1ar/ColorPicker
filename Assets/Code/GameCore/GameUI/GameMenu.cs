@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using GameCore.Events;
 using GameCore.StateMachine;
 using UnityEngine;
@@ -17,6 +15,9 @@ namespace GameCore.GameUI
 		private void Awake() =>
 			_showHideCanvas = GetComponent<ShowHideCanvasGroup>();
 
+		private void Start() =>
+			Hide();
+
 		private void OnEnable()
 		{
 			GlobalEventManager.OnBackPressed.AddListener(ShowHideGameMenu);
@@ -24,9 +25,6 @@ namespace GameCore.GameUI
 			_resumeButton.OnClick.AddListener(ResumeAction);
 			_resumeButton.OnClick.AddListener(ShowHideGameMenu);
 
-			_settingsButton.OnClick.AddListener(SettingsAction);
-			_settingsButton.OnClick.AddListener(ShowHideGameMenu);
-			
 			_goToMainButton.OnClick.AddListener(MainMenuAction);
 			_goToMainButton.OnClick.AddListener(ShowHideGameMenu);
 		}
@@ -38,9 +36,6 @@ namespace GameCore.GameUI
 			_resumeButton.OnClick.RemoveListener(ResumeAction);
 			_resumeButton.OnClick.RemoveListener(ShowHideGameMenu);
 
-			_settingsButton.OnClick.RemoveListener(SettingsAction);
-			_settingsButton.OnClick.RemoveListener(ShowHideGameMenu);
-			
 			_goToMainButton.OnClick.RemoveListener(MainMenuAction);
 			_goToMainButton.OnClick.RemoveListener(ShowHideGameMenu);
 		}
@@ -72,28 +67,12 @@ namespace GameCore.GameUI
 			MakeTextsNormal();
 		}
 
-		private async void ResumeAction() =>
-			await UnderlineWithDelay(_resumeButton, Hide);
+		private void ResumeAction() =>
+			Hide();
 
-		private async void SettingsAction() => 
-			await UnderlineWithDelay(_settingsButton, ShowSettings);
-
-		private async void MainMenuAction() => 
-			await UnderlineWithDelay(_goToMainButton, GoToMainMenu);
-
-		private async Task UnderlineWithDelay(GameMenuButton button, Action afterDelay)
-		{
-			button.Underline();
-			await Task.Delay(500);
-			afterDelay?.Invoke();
-		}
-
-		private void ShowSettings() =>
-			UnityEngine.Debug.Log("Settings");
-
-		private void GoToMainMenu() => 
+		private void MainMenuAction() =>
 			GameStateMachine.Instance.EnterLoadLevelState(SceneSets.MainMenu);
-		
+
 		private void MakeTextsNormal()
 		{
 			_resumeButton.MakeTextNormal();

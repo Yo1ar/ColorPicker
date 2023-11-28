@@ -1,4 +1,5 @@
-﻿using Characters.Player;
+﻿using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using Utils.Constants;
 
@@ -6,18 +7,36 @@ namespace Utils
 {
 	public static class ClassExtensions
 	{
-		public static bool IsInLayer(this GameObject gameObject, LayerMask layer) =>
-			layer == (layer | 1 << gameObject.layer);
-
-		public static bool TryGetHealth(this GameObject gameObject, out PlayerHealth playerHealth) =>
-			gameObject.TryGetComponent(out playerHealth);
-
 		public static bool IsPlayer(this Collider2D collider) =>
 			collider.gameObject.CompareTag(Tags.PLAYER);
 
 		public static int SecAsMillisec(this float value) =>
 			(int)(value * 1000);
 
+		public static Vector3 AddY(this Vector3 vector3, float addedY) =>
+			new(vector3.x, vector3.y + addedY);
+
+		public static IEnumerable<Transform> Children(this Transform transform)
+		{
+			foreach (Transform child in transform)
+				yield return child;
+		}
+
+		public static Transform GetChild(this Transform transform, int index)
+		{
+			int i = 0;
+			foreach (Transform child in transform.Children())
+			{
+				if (i == index)
+					return child;
+				
+				i++;
+			}
+
+			return null;
+		}
+		
+		
 		#region STRINGS
 
 		public static bool IsEmpty(this string value) =>
@@ -34,23 +53,25 @@ namespace Utils
 
 		#endregion
 
-		#region VECTORS
+#region Tween
 
-		public static Vector2 ToVector2(this Vector3 vector3) =>
-			new(vector3.x, vector3.y);
+		public static void DoPop(this Transform transform, float scaleValue = 1.3f, float time1 = 0.1f, float time2 = 0.3f, int repeatTimes = 1)
+		{
+			Vector3 oldScale = transform.localScale;
+			var newScale = new Vector3(scaleValue, scaleValue, scaleValue);
+			Sequence sequence = DOTween.Sequence()
+				.SetLoops(repeatTimes)
+				.Append(SetNewScale())
+				.Append(SetOldScale())
+				.Play();
 
-		public static Vector3 ToVector3(this Vector2 vector2) =>
-			new(vector2.x, vector2.y);
+			Tween SetNewScale() =>
+				transform.DOScale(newScale, time1);
 
-		public static Vector3 AddX(this Vector3 vector3, float addedX) =>
-			new(vector3.x + addedX, vector3.y);
+			Tween SetOldScale() =>
+				transform.DOScale(oldScale, time2);
+		}
 
-		public static Vector3 AddY(this Vector3 vector3, float addedY) =>
-			new(vector3.x, vector3.y + addedY);
-
-		public static Vector3 Add(this Vector3 vector3, Vector3 offset) =>
-			new(vector3.x + offset.x, vector3.y + offset.y, vector3.z + offset.z);
-
-		#endregion
+#endregion
 	}
 }

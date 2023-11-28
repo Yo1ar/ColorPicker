@@ -5,9 +5,8 @@ using Utils.Constants;
 
 public sealed class ColorBonusCreator : ColorCheckerBase
 {
-	[Header("Color Creator")] [SerializeField]
-	private WildBonus _wildBonusPrefab;
-
+	[Header("Color Creator")]
+	[SerializeField] private WildBonus _wildBonusPrefab;
 	[SerializeField] private TMP_Text _text;
 	private const string NO_PROBLEM = "No problem take one more and change your color to Red";
 	private const string PICK_BONUS = "Pick the Wild Color Bonus and change your color to Red";

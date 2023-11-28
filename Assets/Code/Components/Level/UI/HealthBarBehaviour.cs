@@ -2,6 +2,7 @@ using Characters.Player;
 using GameCore.GameServices;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 namespace Level.UI
 {
@@ -36,7 +37,12 @@ namespace Level.UI
 				image.enabled = false;
 
 			for (int i = 1; i <= _playerHealth.CurrentHealth; i++)
-				_healthViews[i - 1].enabled = true;
+			{
+				var view = _healthViews[i - 1];
+				
+				view.enabled = true;
+				view.transform.DoPop(scaleValue: 1.5f, repeatTimes: 1);
+			}
 		}
 	}
 }
