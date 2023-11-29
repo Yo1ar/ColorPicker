@@ -9,18 +9,27 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/GameUI.unity
-    guid: 17f574a601754b449a7ddaab19b37493
-  - enabled: 1
-    path: Assets/Scenes/MainMenuUI.unity
+    path: Assets/Scenes/ui_mainMenu.unity
     guid: 00095b987db09b643bb61e6a0358f74c
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
+    path: Assets/Scenes/level_1.unity
     guid: 2fd67ea39b5e6bb4cb32f127ca48e3f7
   - enabled: 1
-    path: Assets/Scenes/Level2.unity
+    path: Assets/Scenes/level_2.unity
     guid: d9802699e34f1c741b6566bc3c7d797b
   - enabled: 1
-    path: Assets/Scenes/LevelUI.unity
-    guid: 8784da887ce21004bb10c9e1fce84a89
+    path: Assets/Scenes/level_3.unity
+    guid: 9794e77c20ad7bf44ba1f4110ae7261c
+  - enabled: 1
+    path: Assets/Scenes/level_4.unity
+    guid: 123f1d422a289c24d8d18dfe946a7407
+  - enabled: 1
+    path: Assets/Scenes/level_5.unity
+    guid: 3d16dcec617bb8d4dabd71dbd12bc78d
+  - enabled: 1
+    path: Assets/Scenes/ui_level.unity
+    guid: 84dc881069d6e4146a08638c408e17e5
+  - enabled: 1
+    path: Assets/Scenes/_placeholder.unity
+    guid: 8a04ee4d777dd5d43b6edb8d28ce62bc
   m_configObjects: {}

@@ -9,39 +9,47 @@ namespace Editor
 	[InitializeOnLoad]
 	public static class EditorToolbar
 	{
-		private static bool BootstrapEnabled;
+		private static bool _bootstrapEnabled;
 
-		private static bool bootstrapEnabled
+		private static bool BootstrapEnabled
 		{
-			get => BootstrapEnabled;
+			get => _bootstrapEnabled;
 			set
 			{
-				BootstrapEnabled = value;
+				_bootstrapEnabled = value;
 				EditorSceneManager.playModeStartScene = LoadBootstrapSceneAsset(
-					BootstrapEnabled
-						? Scenes.Bootstrap
-						: Scenes.activeScene);
+					_bootstrapEnabled
+						? Scenes.BOOTSTRAP_SCENE
+						: Scenes.ActiveScene);
 			}
 		}
 
 		static EditorToolbar()
 		{
 			ToolbarExtender.LeftToolbarGUI.Add(DrawLeftGUI);
-			bootstrapEnabled = true;
+			ToolbarExtender.RightToolbarGUI.Add(DrawRightGUI);
+			BootstrapEnabled = true;
 		}
-
+		
 		private static void DrawLeftGUI()
 		{
 			GUILayout.FlexibleSpace();
 
-			if (GUILayout.Button("Focus on Player"))
-				FocusOnPlayer();
-
 			GUI.changed = false;
 
-			GUILayout.Toggle(BootstrapEnabled, "Bootstrap");
+			GUILayout.Toggle(_bootstrapEnabled, "Start with Bootstrap");
 			if (GUI.changed)
-				bootstrapEnabled = !bootstrapEnabled;
+				BootstrapEnabled = !BootstrapEnabled;
+		}
+
+		private static void DrawRightGUI()
+		{
+			GUILayout.FlexibleSpace();
+			
+			if (GUILayout.Button("Focus on Player"))
+				FocusOnPlayer();
+			
+			GUILayout.Space(250);
 		}
 
 		private static SceneAsset LoadBootstrapSceneAsset(string sceneName) =>
