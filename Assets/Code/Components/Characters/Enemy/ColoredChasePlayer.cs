@@ -10,7 +10,7 @@ namespace Characters.Enemy
 		[SerializeField] private float _targetReachedDistance = 1f;
 		[SerializeField] private ColorCheckerBase _colorChecker;
 		[SerializeField] private bool _followTargetColor;
-		
+
 		private Vector2 _startingPoint;
 		private bool _isChasing;
 		private ColorHolderBase _colorHolder;
@@ -56,7 +56,7 @@ namespace Characters.Enemy
 
 		private void Update()
 		{
-			if (_isChasing)
+			if (_isChasing && _colorHolder)
 			{
 				Vector3 direction = GetDirection(to: _colorHolder.transform.position);
 

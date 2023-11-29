@@ -513,4 +513,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floatHeight: 0.5
   _floatSpeed: 1
+  _floatHeightRandom: 0.5
+  _floatSpeedRandom: 1
   _ease: 4

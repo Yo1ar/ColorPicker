@@ -10,7 +10,7 @@ namespace Characters.Player
 	{
 		[SerializeField] private float _fireballShootRecharge = 1f;
 		[SerializeField] private float _eraserRecharge = 5;
-		
+
 		private FactoryService _factoryService;
 		private PlayerAnimation _playerAnimation;
 		private ColorHolderBase _playerColorHolder;
@@ -58,7 +58,10 @@ namespace Characters.Player
 				foreach (IErasable erasable in _factoryService.Erasables)
 					erasable.Highlight(true);
 
-				GlobalEventManager.OnScreenTap.AddListener(UseEraser);
+				if (SystemInfo.deviceType == DeviceType.Desktop)
+					UseEraserDesktop();
+				else
+					GlobalEventManager.OnScreenTap.AddListener(UseEraser);
 
 				return;
 			}
@@ -84,10 +87,36 @@ namespace Characters.Player
 				return;
 
 			_audioController.PlaySoundOneShot(_eraseSound);
-			
 			erasable.Erase();
 			SwitchErasableMode();
 			EraserCooldown.Reset();
+		}
+
+		private void UseEraserDesktop()
+		{
+			IErasable erasable = null;
+			float distance = 300;
+
+			foreach (IErasable e in _factoryService.Erasables)
+			{
+				float newDistance = Vector3.Distance(transform.position, e.Position);
+
+				Debug.Log(newDistance);
+
+				if (distance > newDistance)
+				{
+					distance = newDistance;
+					erasable = e;
+				}
+			}
+
+			if (erasable != null)
+			{
+				_audioController.PlaySoundOneShot(_eraseSound);
+				erasable.Erase();
+				SwitchErasableMode();
+				EraserCooldown.Reset();
+			}
 		}
 
 		public void ShootFireball()
@@ -114,10 +143,10 @@ namespace Characters.Player
 
 		private Vector2 GetShootDirection() =>
 			new(transform.localScale.x, 0);
-		
+
 		private bool CanLaunchFireball() =>
 			_playerColorHolder.ColorToCheck == EColors.Red && FireballCooldown.IsReady;
-		
+
 		private bool CanErase() =>
 			_playerColorHolder.ColorToCheck == EColors.Gray && !ErasableMode && EraserCooldown.IsReady;
 	}

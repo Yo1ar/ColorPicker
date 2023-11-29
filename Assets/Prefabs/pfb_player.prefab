@@ -68,8 +68,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce10b94267244dd9ae321fa52591c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireballShootRecharge: 1
-  _eraserRecharge: 5
+  _fireballShootRecharge: 10
+  _eraserRecharge: 10
 --- !u!114 &3661616756891886790
 MonoBehaviour:
   m_ObjectHideFlags: 0
