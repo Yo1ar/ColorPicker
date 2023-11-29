@@ -1088,7 +1088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 865280038086874145, guid: 1e5640123d0f32041bdaa104c0cfd3a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.2822306
+      value: 5.82
       objectReference: {fileID: 0}
     - target: {fileID: 865280038086874145, guid: 1e5640123d0f32041bdaa104c0cfd3a1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1166,13 +1166,17 @@ PrefabInstance:
       propertyPath: _onFireUp.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 2616555807657802037, guid: 1e5640123d0f32041bdaa104c0cfd3a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6672629425642946338, guid: 1e5640123d0f32041bdaa104c0cfd3a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.61
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6672629425642946338, guid: 1e5640123d0f32041bdaa104c0cfd3a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

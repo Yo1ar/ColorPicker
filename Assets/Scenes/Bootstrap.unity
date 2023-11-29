@@ -1631,7 +1631,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _showTime: 0.3
   _hideTime: 0.5
-  _unscaled: 0
+  _unscaled: 1
   OnShown:
     m_PersistentCalls:
       m_Calls: []
