@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42325b752e01407bb2ead6487d558f7d, type: 3}
+  m_Name: SoundsConfig
+  m_EditorClassIdentifier: Assembly-CSharp::SoundsConfigSo
+  BackgroundMusic: {fileID: 8300000, guid: a74a50890a60cff429423e308467f58a, type: 3}
+  ClickClip: {fileID: 8300000, guid: c5e5fe81e10715f46bdd9773277e1762, type: 3}
+  JumpClip: {fileID: 8300000, guid: 40b06de3046219042922557f1307d4d7, type: 3}
+  JumpClip2: {fileID: 8300000, guid: 6f7eb47a61301e8408d043c2d769e710, type: 3}
+  FireClip: {fileID: 8300000, guid: 088d387d801a47e448ac7d3ff2148d88, type: 3}
+  EraseClip: {fileID: 8300000, guid: a9b3d3e776fb2854b90854fbff2411ac, type: 3}
+  SpeedUpClip: {fileID: 8300000, guid: 95bb269385afb46439265be5f4ecb32e, type: 3}
+  GetBonusClip: {fileID: 8300000, guid: dd3145635a67ab64e9c4fa21019adb3f, type: 3}
+  DropClip: {fileID: 8300000, guid: b44568d5ba3484b439ff5e43c5e94780, type: 3}
+  ExplosionClip: {fileID: 8300000, guid: 828c52bb4f62a3a4e9fbdb5027bc8b36, type: 3}
+  HurtClip: {fileID: 8300000, guid: 280d7d58dafddfe44846855a68c8c479, type: 3}
+  DoorOpenClip: {fileID: 8300000, guid: 2e793afafd268d64a9220f883ed9bc16, type: 3}
+  DoorCloseClip: {fileID: 8300000, guid: 949a04d769fe27241978464122c60a64, type: 3}
+  TorchBurnClip: {fileID: 8300000, guid: 00c27dcdbaf2c9b41a59038f1a6cae3f, type: 3}
+  TrapClip: {fileID: 8300000, guid: e18c8d6b2fa04b2489d1b90303cb56aa, type: 3}
+  MarkerClip: {fileID: 8300000, guid: 94c55d99712523e4eba88b634e04f667, type: 3}

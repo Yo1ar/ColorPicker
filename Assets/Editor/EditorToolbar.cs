@@ -19,7 +19,7 @@ namespace Editor
 				_bootstrapEnabled = value;
 				EditorSceneManager.playModeStartScene = LoadBootstrapSceneAsset(
 					_bootstrapEnabled
-						? Scenes.Bootstrap
+						? Scenes.BOOTSTRAP_SCENE
 						: Scenes.ActiveScene);
 			}
 		}

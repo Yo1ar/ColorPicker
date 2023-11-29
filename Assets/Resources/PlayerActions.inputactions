@@ -15,13 +15,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OnScreenTap",
+                    "name": "SpeedUp",
                     "type": "Button",
-                    "id": "f54b4d27-bcc3-4cc3-9af5-58a7280a7308",
+                    "id": "337f6edf-82ca-491c-99e8-585ad28a35ba",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "1836a7fa-9953-4f9f-a4e3-03a16b364ebb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LaunchFireball",
@@ -43,7 +52,7 @@
                 },
                 {
                     "name": "Back",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "71b4e93c-8a63-4c74-8d56-5326b2b55f00",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -51,27 +60,16 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "1836a7fa-9953-4f9f-a4e3-03a16b364ebb",
-                    "expectedControlType": "Vector2",
+                    "name": "OnScreenTap",
+                    "type": "Button",
+                    "id": "f54b4d27-bcc3-4cc3-9af5-58a7280a7308",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "c51a328b-c949-414b-8398-36fbc590fbfc",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "fb2a5688-7ab0-4389-95c5-148184ef5f5c",
@@ -80,17 +78,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2e747959-29e0-45bc-a419-9b9163b3dbf8",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OnScreenTap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -107,56 +94,12 @@
                 },
                 {
                     "name": "",
-                    "id": "397ac20d-f606-485f-8465-05b605ee2cab",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LaunchFireball",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1efbadf8-4547-44a0-8d69-2ac279e1ade4",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Erase",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2f7850cb-8b13-49fc-a686-b279931f75e6",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Erase",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "745e9e13-0c35-4665-850f-64dd86c6613c",
-                    "path": "*/{Menu}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8906f24d-5016-401c-bac2-6e35e8b09379",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -183,7 +126,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
+                    "name": "Up",
                     "id": "65858bc7-e8e2-4c51-9577-cfa4bd46ff3e",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -194,19 +137,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
+                    "name": "Down",
                     "id": "d30937f4-ddfb-40e9-b1fc-9dfd337925a9",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "b5d7415c-fd54-493a-ac13-b84446497e5b",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -216,8 +148,19 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "41fa2456-bd79-4ee5-a72d-9959b7135548",
+                    "name": "Left",
+                    "id": "86e900d4-a8e7-4ba2-8a01-7a3df9f31178",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "dfc348ae-ef2a-4658-93ec-dbdb180e9e0c",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -280,6 +223,39 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "2e747959-29e0-45bc-a419-9b9163b3dbf8",
+                    "path": "<Touchscreen>/primaryTouch/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnScreenTap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5bc76b27-aadc-47bc-9f64-ddd4324a4e04",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6a8c787-f975-48ce-a142-d9f0497fcd09",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpeedUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
