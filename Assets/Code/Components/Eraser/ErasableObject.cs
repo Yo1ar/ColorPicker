@@ -8,6 +8,7 @@ public class ErasableObject : MonoBehaviour, IErasable
 	[SerializeField] private GameObject _eraserAbove;
 	[SerializeField] private float _eraserAboveOffset = 1;
 	private FactoryService _factoryService;
+	public Vector3 Position { get; private set; }
 
 	private void Reset()
 	{
@@ -28,6 +29,9 @@ public class ErasableObject : MonoBehaviour, IErasable
 
 	private void Start() =>
 		_factoryService.AddErasable(this);
+
+	private void Update() =>
+		Position = transform.position;
 
 	public void Erase()
 	{
