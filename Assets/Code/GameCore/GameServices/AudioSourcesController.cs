@@ -27,8 +27,11 @@ namespace GameCore.GameServices
 		public void SetSoundVolume(float value) =>
 			_mixer.SetFloat(SOUND_VOLUME_PARAMETER, LinearToDb(value));
 
-		public void PlayMusic() =>
-			_musicSource.Play();
+		public void PlayMusic()
+		{
+			if (!_musicSource.isPlaying)
+				_musicSource.Play();
+		}
 
 		public void PlaySoundOneShot(AudioClip clip) =>
 			_soundSource.PlayOneShot(clip);

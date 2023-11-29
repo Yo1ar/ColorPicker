@@ -18,7 +18,7 @@ MonoBehaviour:
       _sceneOB: {fileID: 102900000, guid: 8a04ee4d777dd5d43b6edb8d28ce62bc, type: 3}
       _name: placeholder
       _path: Assets/Scenes/placeholder.unity
-      _buildIndex: 5
+      _buildIndex: 4
     UIScene:
       _sceneOB: {fileID: 102900000, guid: 00095b987db09b643bb61e6a0358f74c, type: 3}
       _name: MainMenuUI
@@ -33,8 +33,8 @@ MonoBehaviour:
     UIScene:
       _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
       _name: _new_LevelUI
-      _path: 
-      _buildIndex: -1
+      _path: Assets/Scenes/_new_LevelUI.unity
+      _buildIndex: 5
   - Set: 2
     MainScene:
       _sceneOB: {fileID: 102900000, guid: d9802699e34f1c741b6566bc3c7d797b, type: 3}
@@ -42,7 +42,40 @@ MonoBehaviour:
       _path: Assets/Scenes/Level2.unity
       _buildIndex: 3
     UIScene:
-      _sceneOB: {fileID: 102900000, guid: 8784da887ce21004bb10c9e1fce84a89, type: 3}
-      _name: LevelUI
-      _path: Assets/Scenes/LevelUI.unity
-      _buildIndex: 4
+      _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
+      _name: _new_LevelUI
+      _path: Assets/Scenes/_new_LevelUI.unity
+      _buildIndex: 5
+  - Set: 3
+    MainScene:
+      _sceneOB: {fileID: 102900000, guid: d9802699e34f1c741b6566bc3c7d797b, type: 3}
+      _name: Level2
+      _path: Assets/Scenes/Level2.unity
+      _buildIndex: 3
+    UIScene:
+      _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
+      _name: _new_LevelUI
+      _path: Assets/Scenes/_new_LevelUI.unity
+      _buildIndex: 5
+  - Set: 4
+    MainScene:
+      _sceneOB: {fileID: 102900000, guid: d9802699e34f1c741b6566bc3c7d797b, type: 3}
+      _name: Level2
+      _path: Assets/Scenes/Level2.unity
+      _buildIndex: 3
+    UIScene:
+      _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
+      _name: _new_LevelUI
+      _path: Assets/Scenes/_new_LevelUI.unity
+      _buildIndex: 5
+  - Set: 5
+    MainScene:
+      _sceneOB: {fileID: 102900000, guid: d9802699e34f1c741b6566bc3c7d797b, type: 3}
+      _name: Level2
+      _path: Assets/Scenes/Level2.unity
+      _buildIndex: 3
+    UIScene:
+      _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
+      _name: _new_LevelUI
+      _path: Assets/Scenes/_new_LevelUI.unity
+      _buildIndex: 5

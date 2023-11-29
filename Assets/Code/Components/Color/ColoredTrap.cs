@@ -21,11 +21,6 @@ public sealed class ColoredTrap : ColorCheckerBase
 		
 		_audioSourcesController = Services.AudioService.AudioSourcesController;
 		_trapSound = Services.AssetService.SoundsConfig.TrapClip;
-		
-		if (Services.FactoryService.Player)
-			SetPlayerHealth();
-
-		Services.FactoryService.OnPlayerCreated.AddListener(SetPlayerHealth);
 	}
 
 	private void Start()
@@ -36,13 +31,14 @@ public sealed class ColoredTrap : ColorCheckerBase
 
 	private void OnTriggerStay2D(Collider2D other)
 	{
-		if (!other.IsPlayer())
+		if (!other.TryGetComponent(out ColorHolderBase colorHolder) || 
+		    !other.TryGetComponent(out IHealth health))
 			return;
 
-		if (IsSameColor(@as: PlayerColorHolder) && _isReloaded)
+		if (IsSameColor(@as: colorHolder) && _isReloaded)
 		{
 			_audioSourcesController.PlaySoundOneShot(_trapSound);
-			_playerHealth.Damage();
+			health.Damage();
 			SetSprite(_hitSprite);
 			StartCoroutine(ReloadRoutine());
 		}
@@ -59,9 +55,6 @@ public sealed class ColoredTrap : ColorCheckerBase
 		SetSprite(_reloadedSprite);
 		_isReloaded = true;
 	}
-
-	private void SetPlayerHealth() =>
-		_playerHealth = Services.FactoryService.Player.GetComponent<PlayerHealth>();
 
 	private void SetSprite(Sprite newSprite) =>
 		View.sprite = newSprite;
