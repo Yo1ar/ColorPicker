@@ -25,7 +25,13 @@ namespace Level
 			_playerHealth.OnDeath.AddListener(ReloadLevel);
 		}
 
-		public void ReloadLevel() =>
+		private void ReloadLevel() =>
 			GameStateMachine.Instance.EnterLoadLevelState(_reloadScene);
+
+		public void KillPlayer()
+		{
+			if (_playerHealth != null)
+				_playerHealth.Kill();
+		}
 	}
 }
