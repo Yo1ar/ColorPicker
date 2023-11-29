@@ -2351,7 +2351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51cb2468ff9e35c4c895d15afe0da49e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnTime: 1
+  _reloadScene: 1
 --- !u!1001 &8386613785123352909
 PrefabInstance:
   m_ObjectHideFlags: 0

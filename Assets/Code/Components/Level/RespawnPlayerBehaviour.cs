@@ -1,14 +1,14 @@
-using System.Threading.Tasks;
 using Characters.Player;
 using GameCore.GameServices;
+using GameCore.StateMachine;
 using UnityEngine;
-using Utils;
+using Utils.Constants;
 
 namespace Level
 {
 	public class RespawnPlayerBehaviour : MonoBehaviour
 	{
-		[SerializeField] private float _respawnTime;
+		[SerializeField] private SceneSets _reloadScene;
 		private FactoryService _factoryService;
 		private PlayerHealth _playerHealth;
 
@@ -22,16 +22,10 @@ namespace Level
 		{
 			_factoryService.CreatePlayer(transform.position);
 			_playerHealth = _factoryService.Player.GetComponent<PlayerHealth>();
-			_playerHealth.OnDeath.AddListener(CreatePlayerDelayed);
+			_playerHealth.OnDeath.AddListener(ReloadLevel);
 		}
 
-		private async void CreatePlayerDelayed()
-		{
-			await Task.Delay(_respawnTime.SecAsMillisec());
-
-			_factoryService.CreatePlayer(transform.position);
-			_playerHealth = _factoryService.Player.GetComponent<PlayerHealth>();
-			_playerHealth.OnDeath.AddListener(CreatePlayerDelayed);
-		}
+		private void ReloadLevel() =>
+			GameStateMachine.Instance.EnterLoadLevelState(_reloadScene);
 	}
 }
