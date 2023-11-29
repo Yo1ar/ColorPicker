@@ -2,7 +2,6 @@ using System.Collections;
 using Characters.Player;
 using GameCore.GameServices;
 using UnityEngine;
-using Utils;
 
 [SelectionBase]
 public sealed class ColoredTrap : ColorCheckerBase

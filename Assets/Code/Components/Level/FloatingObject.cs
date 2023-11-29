@@ -9,6 +9,8 @@ namespace Level
 	{
 		[SerializeField] private float _floatHeight = 0.5f;
 		[SerializeField] private float _floatSpeed = 1f;
+		[SerializeField] private float _floatHeightRandom;
+		[SerializeField] private float _floatSpeedRandom;
 		[SerializeField] private Ease _ease = Ease.InOutSine;
 
 		private Vector2 _startPosition;
@@ -19,7 +21,7 @@ namespace Level
 		private void Awake()
 		{
 			_bottomBoarder = transform.position.y;
-			_topBoarder = _bottomBoarder + _floatHeight;
+			_topBoarder = _bottomBoarder + _floatHeight + Random.Range(0, _floatHeightRandom);
 		}
 
 		private void OnEnable() =>
@@ -39,6 +41,6 @@ namespace Level
 				.Play();
 
 		private TweenerCore<Vector3, Vector3, VectorOptions> TweenY(float boarder) =>
-			transform.DOMoveY(boarder, _floatSpeed).SetEase(_ease);
+			transform.DOMoveY(boarder, _floatSpeed + Random.Range(0, _floatSpeedRandom)).SetEase(_ease);
 	}
 }
