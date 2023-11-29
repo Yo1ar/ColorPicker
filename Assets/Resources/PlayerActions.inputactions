@@ -6,6 +6,15 @@
             "id": "1b5f3ad5-4b4b-4736-8500-22baca512137",
             "actions": [
                 {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "1836a7fa-9953-4f9f-a4e3-03a16b364ebb",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Jump",
                     "type": "Button",
                     "id": "ca7737e7-e699-4619-9a96-958386a42c45",
@@ -24,18 +33,54 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "1836a7fa-9953-4f9f-a4e3-03a16b364ebb",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "LaunchFireball",
                     "type": "Button",
                     "id": "22501348-7371-4bce-8f40-3df1281c3037",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PickColor",
+                    "type": "Button",
+                    "id": "1bafa68c-ddec-41f1-836b-4cc1e289ddfb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GrayColor",
+                    "type": "Button",
+                    "id": "7a0c1f7b-91dd-452e-9fa5-a3c029556ff5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RedColor",
+                    "type": "Button",
+                    "id": "41c3e5be-2b05-482a-914f-c3acfa13cabc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "GreenColor",
+                    "type": "Button",
+                    "id": "4a3724b1-a529-4f2e-952a-22e78f1299b4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BlueColor",
+                    "type": "Button",
+                    "id": "3cadcd20-3e01-4fe4-a5f3-189c7afdfbaf",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -70,17 +115,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "fb2a5688-7ab0-4389-95c5-148184ef5f5c",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "e91e7d75-1701-4a98-934f-90107e229747",
@@ -254,6 +288,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "SpeedUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb2a5688-7ab0-4389-95c5-148184ef5f5c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c56033c7-9cff-4425-904c-fc3845927c45",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickColor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "628734d9-6d56-47eb-aa14-931ae110d746",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GrayColor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9376fe5-2fba-44d3-a855-6be8bddce37f",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RedColor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b14e22c-2e50-4c85-865a-53d4546b43a2",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "GreenColor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b7acf30-778f-4475-9c33-e1b1937b7259",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BlueColor",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

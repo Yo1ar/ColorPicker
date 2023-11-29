@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Reflection;
 using GameCore.Events;
 using GameCore.GameServices;
 using UnityEngine;
 using Utils;
+using Utils.Constants;
 
 namespace Characters.Player
 {
@@ -18,12 +20,14 @@ namespace Characters.Player
 		private Rigidbody2D _rigidbody2D;
 		private Transform _transform;
 		private IPlayerSkills _playerSkills;
-		
+		private ColorHolderBase _playerColorHolder;
+
 		public Cooldown SpeedUpCooldown { get; private set; }
 		public float Direction { get; private set; }
 
 		private void Awake()
 		{
+			_playerColorHolder = GetComponent<ColorHolderBase>();
 			_audioSourcesController = Services.AudioService.AudioSourcesController;
 			_speedUpSound = Services.AssetService.SoundsConfig.SpeedUpClip;
 			_rigidbody2D = GetComponent<Rigidbody2D>();
@@ -43,6 +47,9 @@ namespace Characters.Player
 
 		private void SpeedUpPlayer()
 		{
+			if (_playerColorHolder.ColorToCheck != EColors.Blue)
+				return;
+			
 			_audioSourcesController.PlaySoundOneShot(_speedUpSound);
 			StartCoroutine(SpeedUp());
 		}

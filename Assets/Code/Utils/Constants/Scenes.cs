@@ -6,7 +6,7 @@ namespace Utils.Constants
 	{
 		private const string SCENE_PATH = "Assets/Scenes/";
 		private const string SCENE_FORMAT = ".unity";
-		public const string BOOTSTRAP_SCENE = "Bootstrap";
+		public const string BOOTSTRAP_SCENE = "bootstrap";
 
 		public static string ActiveScene => SceneManager.GetActiveScene().name;
 

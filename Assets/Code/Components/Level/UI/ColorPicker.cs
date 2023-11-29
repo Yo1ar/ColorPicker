@@ -1,5 +1,5 @@
+using GameCore.Events;
 using GameCore.GameServices;
-using GameCore.GameUI;
 using UnityEngine;
 using Utils.Constants;
 
@@ -8,19 +8,14 @@ namespace Level.UI
 	public class ColorPicker : MonoBehaviour
 	{
 		[SerializeField] private Animator _animator;
-		[SerializeField] private LevelUIButton _activationButton;
-
-		[Header("Color Buttons")]
-		[SerializeField] private LevelUIButton _red;
-		[SerializeField] private LevelUIButton _green;
-		[SerializeField] private LevelUIButton _blue;
-		[SerializeField] private LevelUIButton _white;
+		[SerializeField] private CanvasGroup[] _hints;
 
 		private readonly int _expandTriggerHash = Animator.StringToHash("expand");
 		private readonly int _collapseTriggerHash = Animator.StringToHash("collapse");
 		private ColorHolderBase _playerColorHolder;
 		private FactoryService _factoryService;
 		private IWildColorContainer _wildColorContainer;
+		private bool _canPickColor;
 
 		private void Awake()
 		{
@@ -41,31 +36,44 @@ namespace Level.UI
 
 		private void OnEnable()
 		{
-			_activationButton.OnTap += ExpandColors;
+			GlobalEventManager.OnColorPick.AddListener(ExpandColors);
 
-			_white.OnTap += CollapseColors;
-			_white.OnTap += SetPlayerGray;
+			GlobalEventManager.OnGrayColor.AddListener(CollapseColors);
+			GlobalEventManager.OnGrayColor.AddListener(SetPlayerGray);
 
-			_red.OnTap += CollapseColors;
-			_red.OnTap += SetPlayerRed;
+			GlobalEventManager.OnRedColor.AddListener(CollapseColors);
+			GlobalEventManager.OnRedColor.AddListener(SetPlayerRed);
 
-			_green.OnTap += CollapseColors;
-			_green.OnTap += SetPlayerGreen;
+			GlobalEventManager.OnGreenColor.AddListener(CollapseColors);
+			GlobalEventManager.OnGreenColor.AddListener(SetPlayerGreen);
 
-			_blue.OnTap += CollapseColors;
-			_blue.OnTap += SetPlayerBlue;
+			GlobalEventManager.OnBlueColor.AddListener(CollapseColors);
+			GlobalEventManager.OnBlueColor.AddListener(SetPlayerBlue);
 		}
 
 		private void ExpandColors()
 		{
+			if (_canPickColor)
+			{
+				CollapseColors();
+				_canPickColor = false;
+				return;
+			}
+
 			if (!_wildColorContainer.CanUseWildColorBonus())
 				return;
 
+			_canPickColor = true;
+
 			_animator.Play(_expandTriggerHash);
+			SetHintsActive(true);
 		}
 
-		private void CollapseColors() =>
+		private void CollapseColors()
+		{
 			_animator.Play(_collapseTriggerHash);
+			SetHintsActive(false);
+		}
 
 		private void SetPlayerGray()
 		{
@@ -74,6 +82,8 @@ namespace Level.UI
 
 			if (_wildColorContainer.TryUseWildColorBonus())
 				_playerColorHolder.SetColor(EColors.Gray);
+
+			_canPickColor = false;
 		}
 
 		private void SetPlayerRed()
@@ -83,6 +93,8 @@ namespace Level.UI
 
 			if (_wildColorContainer.TryUseWildColorBonus())
 				_playerColorHolder.SetColor(EColors.Red);
+
+			_canPickColor = false;
 		}
 
 		private void SetPlayerGreen()
@@ -92,6 +104,8 @@ namespace Level.UI
 
 			if (_wildColorContainer.TryUseWildColorBonus())
 				_playerColorHolder.SetColor(EColors.Green);
+
+			_canPickColor = false;
 		}
 
 		private void SetPlayerBlue()
@@ -101,6 +115,14 @@ namespace Level.UI
 
 			if (_wildColorContainer.TryUseWildColorBonus())
 				_playerColorHolder.SetColor(EColors.Blue);
+
+			_canPickColor = false;
+		}
+
+		private void SetHintsActive(bool value)
+		{
+			foreach (CanvasGroup hint in _hints)
+				hint.alpha = value ? 1 : 0;
 		}
 	}
 }

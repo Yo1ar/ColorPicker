@@ -890,6 +890,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8331765953689024016, guid: 4b6515fe17f50484f81088302194c2be, type: 3}
+      propertyPath: _sceneSetToLoad
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8331765953689024018, guid: 4b6515fe17f50484f81088302194c2be, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2263,6 +2267,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3625601720397555245, guid: a766d2fe8368bba4e979a0fb1b6aecc1, type: 3}
+      propertyPath: _reloadScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6959276891713472937, guid: a766d2fe8368bba4e979a0fb1b6aecc1, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2308,16 +2316,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8405517019733508773, guid: a766d2fe8368bba4e979a0fb1b6aecc1, type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
-    - target: {fileID: 8405517019733508773, guid: a766d2fe8368bba4e979a0fb1b6aecc1, type: 3}
       propertyPath: m_Name
       value: pfb_respawn
-      objectReference: {fileID: 0}
-    - target: {fileID: 8405517019733508773, guid: a766d2fe8368bba4e979a0fb1b6aecc1, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

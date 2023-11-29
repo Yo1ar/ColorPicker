@@ -28,6 +28,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             ""id"": ""1b5f3ad5-4b4b-4736-8500-22baca512137"",
             ""actions"": [
                 {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""1836a7fa-9953-4f9f-a4e3-03a16b364ebb"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""ca7737e7-e699-4619-9a96-958386a42c45"",
@@ -46,18 +55,54 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""1836a7fa-9953-4f9f-a4e3-03a16b364ebb"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""LaunchFireball"",
                     ""type"": ""Button"",
                     ""id"": ""22501348-7371-4bce-8f40-3df1281c3037"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PickColor"",
+                    ""type"": ""Button"",
+                    ""id"": ""1bafa68c-ddec-41f1-836b-4cc1e289ddfb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GrayColor"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a0c1f7b-91dd-452e-9fa5-a3c029556ff5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RedColor"",
+                    ""type"": ""Button"",
+                    ""id"": ""41c3e5be-2b05-482a-914f-c3acfa13cabc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GreenColor"",
+                    ""type"": ""Button"",
+                    ""id"": ""4a3724b1-a529-4f2e-952a-22e78f1299b4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""BlueColor"",
+                    ""type"": ""Button"",
+                    ""id"": ""3cadcd20-3e01-4fe4-a5f3-189c7afdfbaf"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -92,17 +137,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""fb2a5688-7ab0-4389-95c5-148184ef5f5c"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""e91e7d75-1701-4a98-934f-90107e229747"",
@@ -278,6 +312,72 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""action"": ""SpeedUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fb2a5688-7ab0-4389-95c5-148184ef5f5c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c56033c7-9cff-4425-904c-fc3845927c45"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickColor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""628734d9-6d56-47eb-aa14-931ae110d746"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GrayColor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9376fe5-2fba-44d3-a855-6be8bddce37f"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RedColor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b14e22c-2e50-4c85-865a-53d4546b43a2"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GreenColor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b7acf30-778f-4475-9c33-e1b1937b7259"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""BlueColor"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -286,10 +386,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
 }");
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
+        m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
         m_Main_SpeedUp = m_Main.FindAction("SpeedUp", throwIfNotFound: true);
-        m_Main_Move = m_Main.FindAction("Move", throwIfNotFound: true);
         m_Main_LaunchFireball = m_Main.FindAction("LaunchFireball", throwIfNotFound: true);
+        m_Main_PickColor = m_Main.FindAction("PickColor", throwIfNotFound: true);
+        m_Main_GrayColor = m_Main.FindAction("GrayColor", throwIfNotFound: true);
+        m_Main_RedColor = m_Main.FindAction("RedColor", throwIfNotFound: true);
+        m_Main_GreenColor = m_Main.FindAction("GreenColor", throwIfNotFound: true);
+        m_Main_BlueColor = m_Main.FindAction("BlueColor", throwIfNotFound: true);
         m_Main_Erase = m_Main.FindAction("Erase", throwIfNotFound: true);
         m_Main_Back = m_Main.FindAction("Back", throwIfNotFound: true);
         m_Main_OnScreenTap = m_Main.FindAction("OnScreenTap", throwIfNotFound: true);
@@ -354,10 +459,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     // Main
     private readonly InputActionMap m_Main;
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
+    private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_Jump;
     private readonly InputAction m_Main_SpeedUp;
-    private readonly InputAction m_Main_Move;
     private readonly InputAction m_Main_LaunchFireball;
+    private readonly InputAction m_Main_PickColor;
+    private readonly InputAction m_Main_GrayColor;
+    private readonly InputAction m_Main_RedColor;
+    private readonly InputAction m_Main_GreenColor;
+    private readonly InputAction m_Main_BlueColor;
     private readonly InputAction m_Main_Erase;
     private readonly InputAction m_Main_Back;
     private readonly InputAction m_Main_OnScreenTap;
@@ -365,10 +475,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     {
         private @PlayerActions m_Wrapper;
         public MainActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
         public InputAction @SpeedUp => m_Wrapper.m_Main_SpeedUp;
-        public InputAction @Move => m_Wrapper.m_Main_Move;
         public InputAction @LaunchFireball => m_Wrapper.m_Main_LaunchFireball;
+        public InputAction @PickColor => m_Wrapper.m_Main_PickColor;
+        public InputAction @GrayColor => m_Wrapper.m_Main_GrayColor;
+        public InputAction @RedColor => m_Wrapper.m_Main_RedColor;
+        public InputAction @GreenColor => m_Wrapper.m_Main_GreenColor;
+        public InputAction @BlueColor => m_Wrapper.m_Main_BlueColor;
         public InputAction @Erase => m_Wrapper.m_Main_Erase;
         public InputAction @Back => m_Wrapper.m_Main_Back;
         public InputAction @OnScreenTap => m_Wrapper.m_Main_OnScreenTap;
@@ -381,18 +496,33 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MainActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MainActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
             @SpeedUp.started += instance.OnSpeedUp;
             @SpeedUp.performed += instance.OnSpeedUp;
             @SpeedUp.canceled += instance.OnSpeedUp;
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
             @LaunchFireball.started += instance.OnLaunchFireball;
             @LaunchFireball.performed += instance.OnLaunchFireball;
             @LaunchFireball.canceled += instance.OnLaunchFireball;
+            @PickColor.started += instance.OnPickColor;
+            @PickColor.performed += instance.OnPickColor;
+            @PickColor.canceled += instance.OnPickColor;
+            @GrayColor.started += instance.OnGrayColor;
+            @GrayColor.performed += instance.OnGrayColor;
+            @GrayColor.canceled += instance.OnGrayColor;
+            @RedColor.started += instance.OnRedColor;
+            @RedColor.performed += instance.OnRedColor;
+            @RedColor.canceled += instance.OnRedColor;
+            @GreenColor.started += instance.OnGreenColor;
+            @GreenColor.performed += instance.OnGreenColor;
+            @GreenColor.canceled += instance.OnGreenColor;
+            @BlueColor.started += instance.OnBlueColor;
+            @BlueColor.performed += instance.OnBlueColor;
+            @BlueColor.canceled += instance.OnBlueColor;
             @Erase.started += instance.OnErase;
             @Erase.performed += instance.OnErase;
             @Erase.canceled += instance.OnErase;
@@ -406,18 +536,33 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IMainActions instance)
         {
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
             @SpeedUp.started -= instance.OnSpeedUp;
             @SpeedUp.performed -= instance.OnSpeedUp;
             @SpeedUp.canceled -= instance.OnSpeedUp;
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
             @LaunchFireball.started -= instance.OnLaunchFireball;
             @LaunchFireball.performed -= instance.OnLaunchFireball;
             @LaunchFireball.canceled -= instance.OnLaunchFireball;
+            @PickColor.started -= instance.OnPickColor;
+            @PickColor.performed -= instance.OnPickColor;
+            @PickColor.canceled -= instance.OnPickColor;
+            @GrayColor.started -= instance.OnGrayColor;
+            @GrayColor.performed -= instance.OnGrayColor;
+            @GrayColor.canceled -= instance.OnGrayColor;
+            @RedColor.started -= instance.OnRedColor;
+            @RedColor.performed -= instance.OnRedColor;
+            @RedColor.canceled -= instance.OnRedColor;
+            @GreenColor.started -= instance.OnGreenColor;
+            @GreenColor.performed -= instance.OnGreenColor;
+            @GreenColor.canceled -= instance.OnGreenColor;
+            @BlueColor.started -= instance.OnBlueColor;
+            @BlueColor.performed -= instance.OnBlueColor;
+            @BlueColor.canceled -= instance.OnBlueColor;
             @Erase.started -= instance.OnErase;
             @Erase.performed -= instance.OnErase;
             @Erase.canceled -= instance.OnErase;
@@ -446,10 +591,15 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public MainActions @Main => new MainActions(this);
     public interface IMainActions
     {
+        void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSpeedUp(InputAction.CallbackContext context);
-        void OnMove(InputAction.CallbackContext context);
         void OnLaunchFireball(InputAction.CallbackContext context);
+        void OnPickColor(InputAction.CallbackContext context);
+        void OnGrayColor(InputAction.CallbackContext context);
+        void OnRedColor(InputAction.CallbackContext context);
+        void OnGreenColor(InputAction.CallbackContext context);
+        void OnBlueColor(InputAction.CallbackContext context);
         void OnErase(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
         void OnOnScreenTap(InputAction.CallbackContext context);

@@ -14,6 +14,7 @@ namespace Utils.Constants
 		public static readonly Color GreenT = new(0.3372549f, 1f, 0.2509804f, 0.5f);
 		public static readonly Color Blue = new(0.2509804f, 0.8156863f, 1f, 1f);
 		public static readonly Color BlueT = new(0.2509804f, 0.8156863f, 1f, 0.5f);
+		public static readonly Color Transparent = new(0, 0, 0, 0);
 
 		public static Color GetColor(EColors color) =>
 			color switch
