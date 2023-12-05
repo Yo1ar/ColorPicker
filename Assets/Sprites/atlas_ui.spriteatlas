@@ -6,7 +6,7 @@ SpriteAtlas:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: gameUI
+  m_Name: atlas_ui
   m_EditorData:
     serializedVersion: 2
     textureSettings:
@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings: []
     packingSettings:
       serializedVersion: 2
-      padding: 8
+      padding: 2
       blockOffset: 1
       allowAlphaSplitting: 0
       enableRotation: 0
@@ -32,26 +32,50 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
-    - {fileID: 102900000, guid: a17f4a75900ad314288ed46bc640e8e3, type: 3}
+    - {fileID: 102900000, guid: b4641ad9a4d48994e8730481d7731806, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
+    - 240de7f0b2d6021478925ee5c23ab321: 21300000
     - d2aaf531529fdf241959a46628b21d93: 21300000
+    - 0f224fa281b73bb4cba34843464aaa77: 21300000
     - 8be6ca246ae164f47958718aa25a84cc: 21300000
     - ed55e7d5c351a8645b5edfb74cdb36fa: 21300000
+    - 0c77a9f814b39f04eac4ae1b8e860a69: 21300000
+    - 4b6af00a50c99244eb72d25f70e5506a: 21300000
+    - 4c1f945a4c641f84b9fc7bafd48545f6: 21300000
     - 0a926ffddddc6a941af3afa3f00cf6d5: 21300000
+    - 78237dae5d154314fad8f1a15b882013: 21300000
+    - a36cfacefe9a92f48a5774fc0c5a7487: 21300000
+    - 6062372fe426c48499f14e02fca1f80d: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 240de7f0b2d6021478925ee5c23ab321, type: 3}
   - {fileID: 21300000, guid: d2aaf531529fdf241959a46628b21d93, type: 3}
+  - {fileID: 21300000, guid: 0f224fa281b73bb4cba34843464aaa77, type: 3}
   - {fileID: 21300000, guid: 8be6ca246ae164f47958718aa25a84cc, type: 3}
   - {fileID: 21300000, guid: ed55e7d5c351a8645b5edfb74cdb36fa, type: 3}
+  - {fileID: 21300000, guid: 0c77a9f814b39f04eac4ae1b8e860a69, type: 3}
+  - {fileID: 21300000, guid: 4b6af00a50c99244eb72d25f70e5506a, type: 3}
+  - {fileID: 21300000, guid: 4c1f945a4c641f84b9fc7bafd48545f6, type: 3}
   - {fileID: 21300000, guid: 0a926ffddddc6a941af3afa3f00cf6d5, type: 3}
+  - {fileID: 21300000, guid: 78237dae5d154314fad8f1a15b882013, type: 3}
+  - {fileID: 21300000, guid: a36cfacefe9a92f48a5774fc0c5a7487, type: 3}
+  - {fileID: 21300000, guid: 6062372fe426c48499f14e02fca1f80d, type: 3}
   m_PackedSpriteNamesToIndex:
-  - spr_marker
+  - SidebarWindowHandle
+  - spr_marker_ui
+  - spr_road
   - spr_woodenDesk
   - spr_tornSheet
+  - spr_pencilFull
+  - SidebarWindow
+  - spr_button_empty
   - spr_handGive
+  - spr_button_label
+  - spr_road_white
+  - spr_scrap1
   m_RenderDataMap: {}
-  m_Tag: gameUI
+  m_Tag: atlas_ui
   m_IsVariant: 0

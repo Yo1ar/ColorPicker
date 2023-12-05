@@ -6,7 +6,7 @@ namespace GameCore.GameServices
 {
 	public class AudioService : ServiceBase
 	{
-		private AssetService _assetService;
+		private readonly AssetService _assetService;
 		private AudioMixer _mixer;
 		
 		public AudioSourcesController AudioSourcesController { get; private set; }
