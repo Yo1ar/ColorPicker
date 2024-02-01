@@ -18,12 +18,12 @@ MonoBehaviour:
       _sceneOB: {fileID: 102900000, guid: 8a04ee4d777dd5d43b6edb8d28ce62bc, type: 3}
       _name: _placeholder
       _path: Assets/Scenes/_placeholder.unity
-      _buildIndex: 4
+      _buildIndex: 8
     UIScene:
-      _sceneOB: {fileID: 102900000, guid: 00095b987db09b643bb61e6a0358f74c, type: 3}
-      _name: ui_mainMenu
-      _path: Assets/Scenes/ui_mainMenu.unity
-      _buildIndex: 1
+      _sceneOB: {fileID: 102900000, guid: 181cb1ad86e61f94bb298f2eabcdb5f4, type: 3}
+      _name: ui_mainMenu2
+      _path: 
+      _buildIndex: -1
   - Set: 1
     MainScene:
       _sceneOB: {fileID: 102900000, guid: 2fd67ea39b5e6bb4cb32f127ca48e3f7, type: 3}
@@ -34,7 +34,7 @@ MonoBehaviour:
       _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
       _name: ui_level
       _path: Assets/Scenes/ui_level.unity
-      _buildIndex: 5
+      _buildIndex: 7
   - Set: 2
     MainScene:
       _sceneOB: {fileID: 102900000, guid: d9802699e34f1c741b6566bc3c7d797b, type: 3}
@@ -45,37 +45,37 @@ MonoBehaviour:
       _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
       _name: ui_level
       _path: Assets/Scenes/ui_level.unity
-      _buildIndex: 5
+      _buildIndex: 7
   - Set: 3
     MainScene:
       _sceneOB: {fileID: 102900000, guid: 9794e77c20ad7bf44ba1f4110ae7261c, type: 3}
       _name: level_3
-      _path: 
-      _buildIndex: -1
+      _path: Assets/Scenes/level_3.unity
+      _buildIndex: 4
     UIScene:
       _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
       _name: ui_level
       _path: Assets/Scenes/ui_level.unity
-      _buildIndex: 5
+      _buildIndex: 7
   - Set: 4
     MainScene:
       _sceneOB: {fileID: 102900000, guid: 123f1d422a289c24d8d18dfe946a7407, type: 3}
       _name: level_4
-      _path: 
-      _buildIndex: -1
+      _path: Assets/Scenes/level_4.unity
+      _buildIndex: 5
     UIScene:
       _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
       _name: ui_level
       _path: Assets/Scenes/ui_level.unity
-      _buildIndex: 5
+      _buildIndex: 7
   - Set: 5
     MainScene:
       _sceneOB: {fileID: 102900000, guid: 3d16dcec617bb8d4dabd71dbd12bc78d, type: 3}
       _name: level_5
-      _path: 
-      _buildIndex: -1
+      _path: Assets/Scenes/level_5.unity
+      _buildIndex: 6
     UIScene:
       _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
       _name: ui_level
       _path: Assets/Scenes/ui_level.unity
-      _buildIndex: 5
+      _buildIndex: 7

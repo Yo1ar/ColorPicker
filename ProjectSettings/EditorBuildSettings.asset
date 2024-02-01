@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_placeholder.unity
     guid: 8a04ee4d777dd5d43b6edb8d28ce62bc
+  - enabled: 1
+    path: Assets/Scenes/ui_mainMenu2.unity
+    guid: 181cb1ad86e61f94bb298f2eabcdb5f4
   m_configObjects: {}

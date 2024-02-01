@@ -1,0 +1,100 @@
+.opacity-0 {
+    opacity: 0;
+}
+
+.marker-size {
+    width: 150px;
+    height: 500px;
+}
+
+.marker-texture {
+    background-image: url('project://database/Assets/Sprites/UI/spr_marker_ui.png?fileID=2800000&guid=d2aaf531529fdf241959a46628b21d93&type=3#spr_marker_ui');
+}
+
+.flex-grow1 {
+    flex-grow: 1;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.size-100p {
+    width: 100%;
+    height: 100%;
+}
+
+.sheet-size {
+    background-image: url('project://database/Assets/Sprites/UI/spr_tornSheet.png?fileID=2800000&guid=ed55e7d5c351a8645b5edfb74cdb36fa&type=3#spr_tornSheet');
+    width: 800px;
+    height: 950px;
+}
+
+.text-font-cheve {
+    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/Cheveuxdange.ttf?fileID=12800000&guid=9812e968786e25840bafa3863f49689a&type=3#Cheveuxdange');
+    -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Fonts/Cheveuxdange%20SDF%20UIToolkit.asset?fileID=11400000&guid=c0781e1a3ad3418489aa833514bf14c0&type=2#Cheveuxdange SDF UIToolkit');
+}
+
+.text-size-150 {
+    font-size: 150px;
+}
+
+.text-size-120 {
+    font-size: 120px;
+}
+
+.text-aligh-center {
+    -unity-text-align: middle-center;
+}
+
+.button-transparent {
+    background-color: rgba(188, 188, 188, 0);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+.margin-padding-0 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.menu-container {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    margin: 100px;
+}
+
+.transition-opacity-03 {
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+
+.unity-base-slider__dragger {
+    top: 0;
+    border-width: 0;
+    margin: 0;
+    background-color: rgba(0,0,0,0);
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Sprites/UI/spr_button_label.png?fileID=2800000&guid=78237dae5d154314fad8f1a15b882013&type=3#spr_button_label');
+}
+
+.unity-base-slider__tracker{
+    border-width: 0;
+    border-radius: 25;
+    height: 30px;
+    margin-left: 10;
+    margin-right: 10;
+    background-color: rgba(0,0,0,0);
+    background-image: url('project://database/Assets/Sprites/UI/spr_road_white.png?fileID=2800000&guid=a36cfacefe9a92f48a5774fc0c5a7487&type=3#spr_road_white');
+}
