@@ -1,21 +1,18 @@
-using UnityEngine;
-using UnityEngine.UIElements;
-
 namespace UI
 {
-	public sealed class MainMenuNew : MonoBehaviour
+	public sealed class MainMenu : UiElement
 	{
-		[SerializeField] private UIDocument _uiDocument;
-
 		private IMainMenuController _mainMenuController;
 		private ISettingsMenuController _settingsMenuController;
 		private ShowHideUiHandler _showHideUiHandlerSettings;
 		private ShowHideUiHandler _showHideUiHandlerMainMenu;
 
-		private void Awake()
+		protected override void Awake()
 		{
-			_mainMenuController = new MainMenuController(_uiDocument);
-			_settingsMenuController = new SettingsMenuController(_uiDocument);
+			base.Awake();
+
+			_mainMenuController = new MainMenuController(Document);
+			_settingsMenuController = new SettingsMenuController(Document);
 
 			_showHideUiHandlerMainMenu = new ShowHideUiHandler(_mainMenuController.RootElement);
 			_showHideUiHandlerSettings = new ShowHideUiHandler(_settingsMenuController.RootElement);

@@ -1,0 +1,13 @@
+.pencil-container-settings {
+    flex-grow: 0;
+    transform-origin: left top;
+    scale: 0.3 0.3;
+    top: 5%;
+}
+
+.pencil-settings {
+    background-image: url('project://database/Assets/Sprites/UI/spr_pencilFull.png?fileID=2800000&guid=0c77a9f814b39f04eac4ae1b8e860a69&type=3#spr_pencilFull');
+    width: 512px;
+    height: 512px;
+    rotate: -15deg;
+}

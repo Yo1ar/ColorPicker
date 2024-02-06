@@ -3,7 +3,7 @@ using UnityEngine.UIElements;
 
 namespace UI
 {
-	public interface IUiController: IDisposable
+	public interface IUiController : IDisposable
 	{
 		VisualElement RootElement { get; }
 	}

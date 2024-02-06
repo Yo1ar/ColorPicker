@@ -1,0 +1,28 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/uss_global.uss?fileID=7433441132597879392&amp;guid=e826b76f70afd6e4894303d1307a5410&amp;type=3#uss_global" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_skillBar.uss?fileID=7433441132597879392&amp;guid=45dd2f6aaa6313243ab64cad8d9a97df&amp;type=3#uss_skillBar" />
+    <ui:VisualElement class="skillBar-settings text-font-cheve text-size-120">
+        <ui:Button name="btn_fireball" class="skillButton-settings" style="background-image: url(&apos;project://database/Assets/Sprites/spr_fireball.png?fileID=793817306&amp;guid=82bace71a616dbe4cb29642e8e3cfe68&amp;type=3#spr_fireball_1&apos;); -unity-background-image-tint-color: rgb(255, 71, 71);">
+            <ui:VisualElement name="hint" class="position-absolute" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&amp;guid=78237dae5d154314fad8f1a15b882013&amp;type=3#spr_button_label&apos;); width: 110px; height: 110px; left: 200px; top: -10px;">
+                <ui:Label text="F" class="flex-grow1" style="font-size: 60px;" />
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button name="btn_eraser" class="skillButton-settings" style="background-image: url(&apos;project://database/Assets/Sprites/spr_eraser.png?fileID=-1208838511&amp;guid=b55209ee5ac040a4798c2f58e06b2b44&amp;type=3#spr_eraser_1&apos;); -unity-background-image-tint-color: rgb(153, 153, 153); visibility: visible;">
+            <ui:VisualElement name="hint" class="position-absolute" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&amp;guid=78237dae5d154314fad8f1a15b882013&amp;type=3#spr_button_label&apos;); width: 110px; height: 110px; left: 200px; top: -10px;">
+                <ui:Label text="E" class="flex-grow1" style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; font-size: 60px;" />
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button name="btn_speed" class="skillButton-settings" style="background-image: url(&apos;project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&amp;guid=78237dae5d154314fad8f1a15b882013&amp;type=3#spr_button_label&apos;); background-color: rgba(188, 188, 188, 0); -unity-background-image-tint-color: rgb(64, 208, 255); visibility: visible;">
+            <ui:VisualElement class="flex-grow1" style="background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/spr_wind.png?fileID=21300000&amp;guid=38863cc1c3347b04d896947585bb374e&amp;type=3#spr_wind&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.8); margin-left: 20%; margin-right: 80px; margin-top: 30px; margin-bottom: 30px;" />
+            <ui:VisualElement name="hint" class="position-absolute" style="background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&amp;guid=78237dae5d154314fad8f1a15b882013&amp;type=3#spr_button_label&apos;); width: 110px; height: 110px; left: 200px; top: -10px;">
+                <ui:Label text="R" class="flex-grow1" style="font-size: 60px;" />
+            </ui:VisualElement>
+        </ui:Button>
+        <ui:Button name="btn_jump" class="jumpButton-settings">
+            <ui:Label text="Jump" class="flex-grow1" style="font-size: 90px; left: 10px;" />
+            <ui:VisualElement name="hint" class="position-absolute" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&amp;guid=78237dae5d154314fad8f1a15b882013&amp;type=3#spr_button_label&apos;); width: 215px; height: 128px; left: 92px; top: 230px;">
+                <ui:Label tabindex="-1" text="Space" display-tooltip-when-elided="true" class="flex-grow1" style="font-size: 40px; -unity-text-align: middle-center; text-overflow: clip;" />
+            </ui:VisualElement>
+        </ui:Button>
+    </ui:VisualElement>
+</ui:UXML>

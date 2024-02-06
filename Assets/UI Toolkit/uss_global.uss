@@ -2,12 +2,20 @@
     opacity: 0;
 }
 
+.position-absolute {
+    position: absolute;
+}
+
 .flex-grow1 {
     flex-grow: 1;
 }
 
-.position-absolute {
-    position: absolute;
+.flex-row {
+    flex-direction: row;
+}
+
+.align-center {
+    align-items: center;
 }
 
 .size-100p {

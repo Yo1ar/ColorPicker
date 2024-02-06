@@ -1,0 +1,40 @@
+.skillBar-settings {
+    width: 50%;
+    height: 50%;
+    left: 50%;
+    top: 50%;
+}
+
+.skillButton-settings {
+    background-color: rgba(188, 188, 188, 0);
+    margin: 0;
+    padding: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    position: absolute;
+    transform-origin: right top;
+    width: 300px;
+    height: 225px;
+    left: 65%;
+    scale: 1 1;
+    top: -5%;
+}
+
+.jumpButton-settings {
+    background-color: rgba(188, 188, 188, 0);
+    margin: 0;
+    padding: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    position: absolute;
+    transform-origin: right bottom;
+    width: 400px;
+    background-image: url('project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&guid=78237dae5d154314fad8f1a15b882013&type=3#spr_button_label');
+    height: 350px;
+    left: 60%;
+    top: 35%;
+}

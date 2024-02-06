@@ -1,12 +1,11 @@
 ﻿using GameCore.StateMachine;
 using Level;
-using UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utils;
 using Utils.Constants;
 
-namespace GameCore.GameUI
+namespace UI
 {
 	public class GameMenuController : IGameMenuController
 	{
@@ -49,10 +48,5 @@ namespace GameCore.GameUI
 
 		private void OnMainMenuClicked() =>
 			GameStateMachine.Instance.EnterLoadLevelState(SceneSets.MainMenu);
-	}
-
-	public interface IGameMenuController : IMainMenuController
-	{
-		public Button ResumeButton { get; }
 	}
 }

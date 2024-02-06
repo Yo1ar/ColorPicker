@@ -1,29 +1,24 @@
-﻿using GameCore.Events;
-using UI;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using GameCore;
+using GameCore.Events;
 using Utils;
 
-namespace GameCore.GameUI
+namespace UI
 {
-	public sealed class GameMenuNew : MonoBehaviour
+	public sealed class GameMenu : UiElement
 	{
-		[SerializeField] private UIDocument _document;
-
 		private IGameMenuController _gameMainMenuController;
 		private ISettingsMenuController _settingsMenuController;
 		private ShowHideUiHandler _showHideUiHandlerWholeMenu;
 		private ShowHideUiHandler _showHideUiHandlerGameMenu;
 		private ShowHideUiHandler _showHideUiHandlerSettings;
-		private VisualElement _root;
 
-		private void Awake()
+		protected override void Awake()
 		{
-			_root = _document.rootVisualElement.GetVisualElement("root");
-			_gameMainMenuController = new GameMenuController(_document);
-			_settingsMenuController = new SettingsMenuController(_document);
+			base.Awake();
+			_gameMainMenuController = new GameMenuController(Document);
+			_settingsMenuController = new SettingsMenuController(Document);
 
-			_showHideUiHandlerWholeMenu = new ShowHideUiHandler(_root);
+			_showHideUiHandlerWholeMenu = new ShowHideUiHandler(Document.rootVisualElement.GetVisualElement("root"));
 			_showHideUiHandlerGameMenu = new ShowHideUiHandler(_gameMainMenuController.RootElement);
 			_showHideUiHandlerSettings = new ShowHideUiHandler(_settingsMenuController.RootElement);
 

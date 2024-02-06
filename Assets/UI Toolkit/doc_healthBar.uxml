@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/uss_global.uss?fileID=7433441132597879392&amp;guid=e826b76f70afd6e4894303d1307a5410&amp;type=3#uss_global" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_healthBar.uss?fileID=7433441132597879392&amp;guid=17eaeb0d3b4cd7d48a077949c09c80c8&amp;type=3#uss_healthBar" />
+    <ui:VisualElement name="healthBar" class="align-center flex-row pencil-container-settings">
+        <ui:VisualElement name="pen1" class="flex-grow1 pencil-settings" />
+        <ui:VisualElement name="pen2" class="flex-grow1 pencil-settings" style="left: -300px;" />
+        <ui:VisualElement name="pen3" class="flex-grow1 pencil-settings" style="left: -600px;" />
+    </ui:VisualElement>
+</ui:UXML>
