@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="doc_menuButton" src="project://database/Assets/UI%20Toolkit/doc_menuButton.uxml?fileID=9197481963319205126&amp;guid=9f60e056c49888d40b7d49d32a555db8&amp;type=3#doc_menuButton" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_settingsMenu.uss?fileID=7433441132597879392&amp;guid=51d7aba9dd9c2db4ab961dd61d6d3ea0&amp;type=3#uss_settingsMenu" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_global.uss?fileID=7433441132597879392&amp;guid=e826b76f70afd6e4894303d1307a5410&amp;type=3#uss_global" />
+    <ui:VisualElement name="settingsMenu" class="flex-grow1" style="justify-content: space-around;">
+        <ui:VisualElement style="rotate: 6deg; top: -32px; align-items: center;">
+            <ui:Label text="Music" class="text-aligh-center" />
+            <ui:Slider name="sli_music" high-value="1" class="slider-width" />
+        </ui:VisualElement>
+        <ui:VisualElement style="align-items: center; left: -40px; rotate: -5deg;">
+            <ui:Label text="Sounds" class="text-aligh-center" />
+            <ui:Slider name="sli_sfx" high-value="1" class="slider-width" />
+        </ui:VisualElement>
+        <ui:Instance template="doc_menuButton" name="btn_back" />
+    </ui:VisualElement>
+</ui:UXML>

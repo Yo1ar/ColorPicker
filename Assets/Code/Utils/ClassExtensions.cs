@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Utils.Constants;
 
 namespace Utils
@@ -9,9 +10,6 @@ namespace Utils
 	{
 		public static bool IsPlayer(this Collider2D collider) =>
 			collider.gameObject.CompareTag(Tags.PLAYER);
-
-		public static int SecAsMillisec(this float value) =>
-			(int)(value * 1000);
 
 		public static Vector3 AddY(this Vector3 vector3, float addedY) =>
 			new(vector3.x, vector3.y + addedY);
@@ -25,18 +23,24 @@ namespace Utils
 		public static Transform GetChild(this Transform transform, int index)
 		{
 			int i = 0;
+
 			foreach (Transform child in transform.Children())
 			{
 				if (i == index)
 					return child;
-				
+
 				i++;
 			}
 
 			return null;
 		}
-		
-		
+
+		public static VisualElement GetVisualElement(this VisualElement visualElement, string name) =>
+			visualElement.Q<VisualElement>(name);
+
+		public static Button GetButton(this VisualElement visualElement, string name = "btn") =>
+			visualElement.Q<Button>(name);
+
 		#region STRINGS
 
 		public static bool IsEmpty(this string value) =>

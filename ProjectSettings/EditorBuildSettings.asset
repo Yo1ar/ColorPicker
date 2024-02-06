@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/ui_mainMenu.unity
-    guid: 00095b987db09b643bb61e6a0358f74c
-  - enabled: 1
     path: Assets/Scenes/level_1.unity
     guid: 2fd67ea39b5e6bb4cb32f127ca48e3f7
   - enabled: 1
@@ -27,11 +24,17 @@ EditorBuildSettings:
     path: Assets/Scenes/level_5.unity
     guid: 3d16dcec617bb8d4dabd71dbd12bc78d
   - enabled: 1
+    path: Assets/Scenes/_placeholder.unity
+    guid: 8a04ee4d777dd5d43b6edb8d28ce62bc
+  - enabled: 1
     path: Assets/Scenes/ui_level.unity
     guid: 84dc881069d6e4146a08638c408e17e5
   - enabled: 1
-    path: Assets/Scenes/_placeholder.unity
-    guid: 8a04ee4d777dd5d43b6edb8d28ce62bc
+    path: Assets/Scenes/ui_level2.unity
+    guid: 1bca55e83d4fd1745b54dabfcdda5f95
+  - enabled: 1
+    path: Assets/Scenes/ui_mainMenu.unity
+    guid: 00095b987db09b643bb61e6a0358f74c
   - enabled: 1
     path: Assets/Scenes/ui_mainMenu2.unity
     guid: 181cb1ad86e61f94bb298f2eabcdb5f4

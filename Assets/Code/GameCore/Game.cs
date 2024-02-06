@@ -13,22 +13,24 @@ namespace GameCore
 {
 	public sealed class Game
 	{
-		private GameStateMachine _gameStateMachine;
-		private Services _services;
+		public static readonly GameLogger GameLogger = new();
 		private readonly LoadingScreen _loadingScreen;
 		private readonly ICoroutineRunner _coroutineRunner;
-		public static readonly GameLogger GameLogger = new();
+		private GameStateMachine _gameStateMachine;
+		private Services _services;
+
+		public static bool IsPaused { get; private set; }
 
 		public Game(GameSetupParameters parameters, LoadingScreen loadingScreen, ICoroutineRunner coroutineRunner)
 		{
 			SetupCheatWindow(parameters.EnableCheats);
 			SetFrameRate(parameters.Fps.ToString());
-			
+
 			GameLogger.SwitchAllLogActivity(parameters.EnableLogger);
 
 			_coroutineRunner = coroutineRunner;
 			_loadingScreen = loadingScreen;
-		
+
 			StartGameFlow();
 		}
 
@@ -52,8 +54,11 @@ namespace GameCore
 #endif
 		}
 
-		public static void SetPause(bool value) =>
+		public static void SetPause(bool value)
+		{
+			IsPaused = value;
 			Time.timeScale = value ? 0 : 1;
+		}
 
 		private static void SetFrameRate(string value) =>
 			Application.targetFrameRate = value.IsEmpty() ? -1 : Convert.ToInt32(value);

@@ -4,10 +4,10 @@ namespace GameCore.Events
 {
 	public static class PlayerEventManager
 	{
-		public static readonly UnityEvent<float> OnMove = new();
-		public static readonly UnityEvent OnJump = new();
-		public static readonly UnityEvent OnShoot = new();
-		public static readonly UnityEvent OnErase = new();
-		public static readonly UnityEvent OnSpeedUp = new();
+		public static UnityEvent<float> OnMove { get; } = new();
+		public static UnityEvent OnJump { get; } = new();
+		public static UnityEvent OnShoot { get; } = new();
+		public static UnityEvent OnErase { get; } = new();
+		public static UnityEvent OnSpeedUp { get; } = new();
 	}
 }

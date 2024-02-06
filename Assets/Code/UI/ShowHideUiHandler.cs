@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -14,16 +13,18 @@ namespace UI
 		private readonly Action<bool> _onChanged;
 		private bool _isShown = false;
 
-		public ShowHideUiHandler(VisualElement visualElement, MonoBehaviour monoBehaviour, Action<bool> onChanged = null, bool hideImmediate = false)
-		{
-			if (visualElement == null || monoBehaviour == null)
-				Debug.LogError("Can't init members with Null");
+		public bool IsShown => _isShown;
 
+		public ShowHideUiHandler(VisualElement visualElement, Action<bool> onChanged = null)
+		{
+			if (visualElement == null)
+			{
+				Debug.LogError("Can't init visual element with Null");
+				return;
+			}
+			
 			_visualElement = visualElement;
 			_onChanged = onChanged;
-
-			if (hideImmediate)
-				monoBehaviour.StartCoroutine(SetDisplayNone());
 		}
 
 		public async void Show() =>
@@ -32,10 +33,12 @@ namespace UI
 		public async void Hide() =>
 			await HideAwaitable();
 
-		public async Task ShowAwaitable()
-		{
-			DisplayImmediate(true);
+		public async void Toggle() =>
+			await ToggleAwaitable();
 
+		private async Task ShowAwaitable()
+		{
+			_visualElement.BringToFront();
 			_visualElement.RemoveFromClassList(k_opacity0);
 			_visualElement.RegisterCallback<TransitionEndEvent>(OnTransitionEnded);
 
@@ -43,26 +46,17 @@ namespace UI
 				await Task.Yield();
 		}
 
-		public async Task HideAwaitable()
+		private async Task HideAwaitable()
 		{
+			_visualElement.SendToBack();
 			_visualElement.AddToClassList(k_opacity0);
 			_visualElement.RegisterCallback<TransitionEndEvent>(OnTransitionEnded);
 
 			while (_isShown)
 				await Task.Yield();
-
-			DisplayImmediate(false);
 		}
 
-		public async void Toggle()
-		{
-			if (_isShown)
-				await HideAwaitable();
-			else
-				await ShowAwaitable();
-		}
-
-		public async Task ToggleAwaitable()
+		private async Task ToggleAwaitable()
 		{
 			if (_isShown)
 				await HideAwaitable();
@@ -76,15 +70,5 @@ namespace UI
 			_isShown = !_visualElement.ClassListContains(k_opacity0);
 			_onChanged?.Invoke(_isShown);
 		}
-
-		private IEnumerator SetDisplayNone()
-		{
-			yield return null;
-			yield return null;
-			_visualElement.style.display = DisplayStyle.None;
-		}
-
-		private void DisplayImmediate(bool value) =>
-			_visualElement.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
 	}
 }

@@ -1,0 +1,13 @@
+.gameMenus {
+    left: 25%;
+    width: 50%;
+    height: 100%;
+    background-image: url('project://database/Assets/Sprites/UI/spr_tornSheet.png?fileID=2800000&guid=ed55e7d5c351a8645b5edfb74cdb36fa&type=3#spr_tornSheet');
+    rotate: 5deg;
+    scale: 0.9 0.9;
+}
+
+.menu-padding {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}

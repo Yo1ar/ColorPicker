@@ -2,6 +2,7 @@
 using GameCore.GameServices;
 using GameCore.StateMachine;
 using UnityEngine.UIElements;
+using Utils;
 
 namespace UI
 {
@@ -22,17 +23,17 @@ namespace UI
 		private readonly Button _exitButton;
 
 		public Button SettingsButton { get; }
-		public VisualElement VisualElement { get; }
+		public VisualElement RootElement { get; }
 
-		public MainMenuController(UIDocument document, ProgressService progressService)
+		public MainMenuController(UIDocument document)
 		{
-			_progressService = progressService;
-			VisualElement = document.rootVisualElement.Q<VisualElement>(k_mainMenu);
+			_progressService = Services.ProgressService;
+			RootElement = document.rootVisualElement.Q<VisualElement>(k_mainMenu);
 
-			_playButton = VisualElement.Q<Button>(k_playButton);
-			SettingsButton = VisualElement.Q<Button>(k_settingsButton);
-			_creditsButton = VisualElement.Q<Button>(k_creditsButton);
-			_exitButton = VisualElement.Q<Button>(k_exitButton);
+			_playButton = RootElement.GetVisualElement(k_playButton).GetButton();
+			SettingsButton = RootElement.GetVisualElement(k_settingsButton).GetButton();
+			_creditsButton = RootElement.GetVisualElement(k_creditsButton).GetButton();
+			_exitButton = RootElement.GetVisualElement(k_exitButton).GetButton();
 
 			SetPlayButtonInitialText();
 

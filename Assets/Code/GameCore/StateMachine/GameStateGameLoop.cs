@@ -10,9 +10,8 @@ namespace GameCore.StateMachine
 		public GameStateGameLoop(GameStateMachine stateMachine) =>
 			_stateMachine = stateMachine;
 
-		public void Enter()
-		{
-		}
+		public void Enter() =>
+			Game.SetPause(false);
 
 		public void Exit()
 		{

@@ -1,5 +1,3 @@
-using System;
-using GameCore.GameServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,47 +7,48 @@ namespace UI
 	{
 		[SerializeField] private UIDocument _uiDocument;
 
-		private ISettingsMenuController _settingsMenuController;
 		private IMainMenuController _mainMenuController;
+		private ISettingsMenuController _settingsMenuController;
 		private ShowHideUiHandler _showHideUiHandlerSettings;
 		private ShowHideUiHandler _showHideUiHandlerMainMenu;
-		private ProgressService _progressService;
 
 		private void Awake()
 		{
-			_progressService = Services.ProgressService;
+			_mainMenuController = new MainMenuController(_uiDocument);
+			_settingsMenuController = new SettingsMenuController(_uiDocument);
 
-			_mainMenuController = new MainMenuController(_uiDocument, _progressService);
-			_settingsMenuController = new SettingsMenuController(_uiDocument, _progressService);
+			_showHideUiHandlerMainMenu = new ShowHideUiHandler(_mainMenuController.RootElement);
+			_showHideUiHandlerSettings = new ShowHideUiHandler(_settingsMenuController.RootElement);
 
-			_mainMenuController.SettingsButton.RegisterCallback<ClickEvent>(ShowSettings);
-			_settingsMenuController.BackButton.RegisterCallback<ClickEvent>(ShowMainMenu);
-
-			_showHideUiHandlerSettings = new ShowHideUiHandler(_settingsMenuController.VisualElement, this, hideImmediate: true);
-			_showHideUiHandlerMainMenu = new ShowHideUiHandler(_mainMenuController.VisualElement, this);
+			_showHideUiHandlerSettings.Hide();
+			_showHideUiHandlerMainMenu.Show();
 		}
 
-		private void Start()
+		private void OnEnable()
 		{
-			// ShowMainMenu(new ClickEvent());
+			_mainMenuController.SettingsButton.clicked += ShowSettings;
+			_settingsMenuController.BackButton.clicked += ShowMainMenu;
 		}
 
-		private void ShowMainMenu(ClickEvent evt)
+		private void OnDisable()
+		{
+			_mainMenuController.SettingsButton.clicked -= ShowSettings;
+			_settingsMenuController.BackButton.clicked -= ShowMainMenu;
+
+			_mainMenuController.Dispose();
+			_settingsMenuController.Dispose();
+		}
+
+		private void ShowMainMenu()
 		{
 			_showHideUiHandlerSettings.Hide();
 			_showHideUiHandlerMainMenu.Show();
 		}
 
-		private void ShowSettings(ClickEvent evt)
+		private void ShowSettings()
 		{
-			_showHideUiHandlerSettings.Show();
 			_showHideUiHandlerMainMenu.Hide();
-		}
-
-		private void OnDisable()
-		{
-			_mainMenuController.Dispose();
-			_settingsMenuController.Dispose();
+			_showHideUiHandlerSettings.Show();
 		}
 	}
 }

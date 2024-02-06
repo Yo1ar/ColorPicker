@@ -1,30 +1,34 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/doc_mainMenu_uss.uss?fileID=7433441132597879392&amp;guid=4bd70eced53b28943ae9e21934d03103&amp;type=3#doc_mainMenu_uss" />
-    <ui:VisualElement class="flex-grow1 text-font-cheve text-size-150" style="background-image: url(&apos;project://database/Assets/Sprites/UI/spr_woodenDesk.jpg?fileID=2800000&amp;guid=8be6ca246ae164f47958718aa25a84cc&amp;type=3#spr_woodenDesk&apos;);">
+    <ui:Template name="doc_menuButton" src="project://database/Assets/UI%20Toolkit/doc_menuButton.uxml?fileID=9197481963319205126&amp;guid=9f60e056c49888d40b7d49d32a555db8&amp;type=3#doc_menuButton" />
+    <ui:Template name="doc_settingsMenu" src="project://database/Assets/UI%20Toolkit/doc_settingsMenu.uxml?fileID=9197481963319205126&amp;guid=0fdb35c3549bd5f4abd94cff04ac5dd6&amp;type=3#doc_settingsMenu" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_mainMenu.uss?fileID=7433441132597879392&amp;guid=4bd70eced53b28943ae9e21934d03103&amp;type=3#uss_mainMenu" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_global.uss?fileID=7433441132597879392&amp;guid=e826b76f70afd6e4894303d1307a5410&amp;type=3#uss_global" />
+    <ui:VisualElement class="flex-grow1 text-font-cheve text-size-150 bg-image">
         <ui:VisualElement name="markers" class="position-absolute">
-            <ui:VisualElement class="marker-size marker-texture" style="position: absolute; rotate: 35deg;" />
-            <ui:VisualElement class="marker-size marker-texture" style="position: absolute; rotate: 60deg; top: 279px; left: 87px; -unity-background-image-tint-color: rgb(255, 6, 0);" />
-            <ui:VisualElement class="marker-size marker-texture" style="position: absolute; rotate: 25deg; top: 506px; left: 262px; -unity-background-image-tint-color: rgb(56, 255, 0);" />
+            <ui:VisualElement name="blue" class="marker-size marker-texture position-absolute" style="rotate: 35deg;" />
+            <ui:VisualElement name="red" class="marker-size marker-texture position-absolute" style="rotate: 60deg; top: 279px; left: 87px; -unity-background-image-tint-color: rgb(255, 6, 0);" />
+            <ui:VisualElement name="green" class="marker-size marker-texture position-absolute" style="rotate: 25deg; top: 506px; left: 262px; -unity-background-image-tint-color: rgb(56, 255, 0);" />
         </ui:VisualElement>
-        <ui:VisualElement class="flex-grow1 position-absolute sheet-size" style="left: 580px; top: 80px; rotate: 5deg;">
-            <ui:VisualElement class="position-absolute" style="background-image: url(&apos;project://database/Assets/Sprites/UI/spr_handGive.png?fileID=2800000&amp;guid=0a926ffddddc6a941af3afa3f00cf6d5&amp;type=3#spr_handGive&apos;); width: 1200px; height: 900px; top: 185px; left: 551px; rotate: 10deg;" />
-            <ui:VisualElement name="mainMenu" class="flex-grow1 menu-container transition-opacity-03">
-                <ui:Button text="Play" name="btn_play" class="button-transparent margin-padding-0 position-absolute" style="width: 600px; height: 120px; position: absolute; left: 9px; top: 15px; rotate: -14deg;" />
-                <ui:Button text="Settings" name="btn_settings" class="button-transparent margin-padding-0 position-absolute" style="top: 204px; height: 120px; left: 0; rotate: -9deg;" />
-                <ui:Button text="Credits" name="btn_credits" class="button-transparent margin-padding-0 position-absolute" style="rotate: -2deg; top: 400px; height: 120px; left: 33px;" />
-                <ui:Button text="Exit" name="btn_exit" class="button-transparent margin-padding-0 position-absolute" style="top: 580px; rotate: 6deg; height: 120px; left: 160px;" />
+        <ui:VisualElement name="menus" class="flex-grow1 menu-settings">
+            <ui:VisualElement name="mainMenu" class="position-absolute size-100p mainMenu-settings align-justify-spaceAround transition-opacity-03">
+                <ui:Instance template="doc_menuButton" name="btn_play">
+                    <AttributeOverrides element-name="btn" text="Play" />
+                </ui:Instance>
+                <ui:Instance template="doc_menuButton" name="btn_settings">
+                    <AttributeOverrides element-name="btn" text="Settings" />
+                </ui:Instance>
+                <ui:Instance template="doc_menuButton" name="btn_credits">
+                    <AttributeOverrides element-name="btn" text="Credits" />
+                </ui:Instance>
+                <ui:Instance template="doc_menuButton" name="btn_exit">
+                    <AttributeOverrides element-name="btn" text="Exit" />
+                </ui:Instance>
             </ui:VisualElement>
-            <ui:VisualElement name="settingsMenu" class="menu-container flex-grow1 transition-opacity-03 opacity-0" style="justify-content: space-around;">
-                <ui:VisualElement class="text-size-120" style="rotate: 6deg; top: -32px; align-items: center;">
-                    <ui:Label text="Music" class="text-aligh-center" />
-                    <ui:Slider picking-mode="Ignore" name="sli_music" high-value="1" style="width: 70%; top: -5px;" />
-                </ui:VisualElement>
-                <ui:VisualElement class="text-size-120" style="align-items: center; left: -40px; rotate: -5deg;">
-                    <ui:Label text="Sounds" class="text-aligh-center" style="left: -20px; top: -20px;" />
-                    <ui:Slider picking-mode="Ignore" name="sli_sfx" high-value="1" style="width: 70%; top: -5px; left: -20px;" />
-                </ui:VisualElement>
-                <ui:Button text="Back" name="btn_back" class="button-transparent" style="top: 20px;" />
-            </ui:VisualElement>
+            <ui:Instance template="doc_settingsMenu" name="settingsMenu" class="position-absolute size-100p mainMenu-settings transition-opacity-03">
+                <AttributeOverrides element-name="btn_play" text="Exit" />
+                <AttributeOverrides element-name="btn" text="Exit" />
+            </ui:Instance>
         </ui:VisualElement>
+        <ui:VisualElement name="hand" class="position-absolute hand-settings" />
     </ui:VisualElement>
 </ui:UXML>

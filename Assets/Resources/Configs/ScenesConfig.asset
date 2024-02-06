@@ -22,8 +22,8 @@ MonoBehaviour:
     UIScene:
       _sceneOB: {fileID: 102900000, guid: 181cb1ad86e61f94bb298f2eabcdb5f4, type: 3}
       _name: ui_mainMenu2
-      _path: 
-      _buildIndex: -1
+      _path: Assets/Scenes/ui_mainMenu2.unity
+      _buildIndex: 9
   - Set: 1
     MainScene:
       _sceneOB: {fileID: 102900000, guid: 2fd67ea39b5e6bb4cb32f127ca48e3f7, type: 3}
@@ -53,10 +53,10 @@ MonoBehaviour:
       _path: Assets/Scenes/level_3.unity
       _buildIndex: 4
     UIScene:
-      _sceneOB: {fileID: 102900000, guid: 84dc881069d6e4146a08638c408e17e5, type: 3}
-      _name: ui_level
-      _path: Assets/Scenes/ui_level.unity
-      _buildIndex: 7
+      _sceneOB: {fileID: 102900000, guid: 1bca55e83d4fd1745b54dabfcdda5f95, type: 3}
+      _name: ui_level2
+      _path: 
+      _buildIndex: -1
   - Set: 4
     MainScene:
       _sceneOB: {fileID: 102900000, guid: 123f1d422a289c24d8d18dfe946a7407, type: 3}

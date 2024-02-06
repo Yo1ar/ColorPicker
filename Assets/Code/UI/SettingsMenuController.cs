@@ -1,5 +1,6 @@
 using GameCore.GameServices;
 using UnityEngine.UIElements;
+using Utils;
 
 namespace UI
 {
@@ -17,17 +18,17 @@ namespace UI
 		private readonly Button _backButton;
 
 		public Button BackButton => _backButton;
-		public VisualElement VisualElement { get; }
+		public VisualElement RootElement { get; }
 
-		public SettingsMenuController(UIDocument document, ProgressService progressService)
+		public SettingsMenuController(UIDocument document)
 		{
-			_progressService = progressService;
+			_progressService = Services.ProgressService;
 			_audioSourcesController = Services.AudioService.AudioSourcesController;
 
-			VisualElement = document.rootVisualElement.Q<VisualElement>(k_settingsMenu);
-			_musicVolume = VisualElement.Q<Slider>(k_musicVolume);
-			_sfxVolume = VisualElement.Q<Slider>(k_sfxVolume);
-			_backButton = VisualElement.Q<Button>(k_backButton);
+			RootElement = document.rootVisualElement.Q<VisualElement>(k_settingsMenu);
+			_musicVolume = RootElement.Q<Slider>(k_musicVolume);
+			_sfxVolume = RootElement.Q<Slider>(k_sfxVolume);
+			_backButton = RootElement.GetVisualElement(k_backButton).GetButton();
 
 			RegisterCallbacks();
 			LoadSettings();

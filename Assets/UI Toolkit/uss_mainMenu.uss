@@ -1,0 +1,54 @@
+.bg-image {
+    background-image: url('project://database/Assets/Sprites/UI/spr_woodenDesk.jpg?fileID=2800000&guid=8be6ca246ae164f47958718aa25a84cc&type=3#spr_woodenDesk');
+}
+
+.marker-size {
+    width: 150px;
+    height: 500px;
+}
+
+.marker-texture {
+    background-image: url('project://database/Assets/Sprites/UI/spr_marker_ui.png?fileID=2800000&guid=d2aaf531529fdf241959a46628b21d93&type=3#spr_marker_ui');
+}
+
+.sheet-size {
+    width: 850px;
+    height: 900px;
+}
+
+.align-justify-spaceAround {
+    justify-content: space-around;
+}
+
+.hand-settings {
+    top: 300px;
+    left: 1260px;
+    width: 1200px;
+    height: 900px;
+    background-image: url('project://database/Assets/Sprites/UI/spr_handGive.png?fileID=2800000&guid=0a926ffddddc6a941af3afa3f00cf6d5&type=3#spr_handGive');
+    rotate: 15deg;
+}
+
+.menu-settings {
+    left: 30%;
+    width: 50%;
+    height: 100%;
+    background-image: url('project://database/Assets/Sprites/UI/spr_tornSheet.png?fileID=2800000&guid=ed55e7d5c351a8645b5edfb74cdb36fa&type=3#spr_tornSheet');
+    rotate: 5deg;
+}
+
+.mainMenu-settings {
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.transition-opacity-03 {
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: linear;
+}
+
+.size-100p {
+    width: 100%;
+    height: 100%;
+}

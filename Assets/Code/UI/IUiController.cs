@@ -5,6 +5,6 @@ namespace UI
 {
 	public interface IUiController: IDisposable
 	{
-		VisualElement VisualElement { get; }
+		VisualElement RootElement { get; }
 	}
 }

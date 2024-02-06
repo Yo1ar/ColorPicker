@@ -1,0 +1,29 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="doc_menuButton" src="project://database/Assets/UI%20Toolkit/doc_menuButton.uxml?fileID=9197481963319205126&amp;guid=9f60e056c49888d40b7d49d32a555db8&amp;type=3#doc_menuButton" />
+    <ui:Template name="doc_settingsMenu" src="project://database/Assets/UI%20Toolkit/doc_settingsMenu.uxml?fileID=9197481963319205126&amp;guid=0fdb35c3549bd5f4abd94cff04ac5dd6&amp;type=3#doc_settingsMenu" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_gameMenu.uss?fileID=7433441132597879392&amp;guid=8d7009641781c4140ade2eac43c0b316&amp;type=3#uss_gameMenu" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_global.uss?fileID=7433441132597879392&amp;guid=e826b76f70afd6e4894303d1307a5410&amp;type=3#uss_global" />
+    <Style src="project://database/Assets/UI%20Toolkit/uss_mainMenu.uss?fileID=7433441132597879392&amp;guid=4bd70eced53b28943ae9e21934d03103&amp;type=3#uss_mainMenu" />
+    <ui:VisualElement name="root" class="flex-grow1 text-font-cheve text-size-150 transition-opacity-03">
+        <ui:VisualElement name="menus" class="flex-grow1 gameMenus">
+            <ui:VisualElement name="gameMenu" class="position-absolute size-100p align-justify-spaceAround transition-opacity-03 menu-padding">
+                <ui:Instance template="doc_menuButton" name="btn_resume">
+                    <AttributeOverrides element-name="btn" text="Resume" />
+                </ui:Instance>
+                <ui:Instance template="doc_menuButton" name="btn_restart">
+                    <AttributeOverrides element-name="btn" text="Restart" />
+                </ui:Instance>
+                <ui:Instance template="doc_menuButton" name="btn_settings">
+                    <AttributeOverrides element-name="btn" text="Settings" />
+                </ui:Instance>
+                <ui:Instance template="doc_menuButton" name="btn_mainMenu">
+                    <AttributeOverrides element-name="btn" text="Main Menu" />
+                </ui:Instance>
+            </ui:VisualElement>
+            <ui:Instance template="doc_settingsMenu" name="settingsMenu" class="position-absolute size-100p transition-opacity-03 menu-padding">
+                <AttributeOverrides element-name="btn_play" text="Exit" />
+                <AttributeOverrides element-name="btn" text="Back" />
+            </ui:Instance>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

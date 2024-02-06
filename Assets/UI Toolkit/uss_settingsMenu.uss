@@ -1,0 +1,23 @@
+.unity-base-slider__dragger {
+    top: 0;
+    border-width: 0;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0);
+    width: 50px;
+    height: 50px;
+    background-image: url('project://database/Assets/Sprites/UI/spr_button_label.png?fileID=2800000&guid=78237dae5d154314fad8f1a15b882013&type=3#spr_button_label');
+}
+
+.unity-base-slider__tracker {
+    border-width: 0;
+    border-radius: 25;
+    height: 30px;
+    margin-left: 10;
+    margin-right: 10;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url('project://database/Assets/Sprites/UI/spr_road_white.png?fileID=2800000&guid=a36cfacefe9a92f48a5774fc0c5a7487&type=3#spr_road_white');
+}
+
+.slider-width {
+    width: 60%;
+}

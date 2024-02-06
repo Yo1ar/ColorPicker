@@ -36,8 +36,13 @@ namespace GameCore.GameServices
 			return Task.CompletedTask;
 		}
 
-		private void InvokePickColor(InputAction.CallbackContext obj) =>
+		private void InvokePickColor(InputAction.CallbackContext obj)
+		{
+			if (Game.IsPaused)
+				return;
+
 			GlobalEventManager.OnColorPick?.Invoke();
+		}
 
 		private void InvokeGrayColor(InputAction.CallbackContext obj) =>
 			GlobalEventManager.OnGrayColor?.Invoke();
@@ -53,21 +58,44 @@ namespace GameCore.GameServices
 
 		private void InvokePlayerMove(InputAction.CallbackContext obj)
 		{
+			if (Game.IsPaused)
+				return;
+
 			var moveVector = obj.ReadValue<Vector2>();
 			PlayerEventManager.OnMove?.Invoke(moveVector.x);
 		}
 
-		private void InvokePlayerJump(InputAction.CallbackContext obj) =>
+		private void InvokePlayerJump(InputAction.CallbackContext obj)
+		{
+			if (Game.IsPaused)
+				return;
+
 			PlayerEventManager.OnJump?.Invoke();
+		}
 
-		private void InvokePlayerSpeedUp(InputAction.CallbackContext obj) =>
+		private void InvokePlayerSpeedUp(InputAction.CallbackContext obj)
+		{
+			if (Game.IsPaused)
+				return;
+
 			PlayerEventManager.OnSpeedUp?.Invoke();
+		}
 
-		private void InvokePlayerErase(InputAction.CallbackContext obj) =>
+		private void InvokePlayerErase(InputAction.CallbackContext obj)
+		{
+			if (Game.IsPaused)
+				return;
+
 			PlayerEventManager.OnErase?.Invoke();
+		}
 
-		private void InvokeLaunchFireball(InputAction.CallbackContext obj) =>
+		private void InvokeLaunchFireball(InputAction.CallbackContext obj)
+		{
+			if (Game.IsPaused)
+				return;
+
 			PlayerEventManager.OnShoot?.Invoke();
+		}
 
 		private void InvokeOnScreenTap(InputAction.CallbackContext obj) =>
 			GlobalEventManager.OnScreenTap?.Invoke();
@@ -93,7 +121,6 @@ namespace GameCore.GameServices
 			_actions.Main.BlueColor.started -= InvokeBlueColor;
 
 			_actions.Main.OnScreenTap.canceled -= InvokeOnScreenTap;
-
 			_backInputCaller.OnBackPressed -= InvokeBack;
 		}
 	}

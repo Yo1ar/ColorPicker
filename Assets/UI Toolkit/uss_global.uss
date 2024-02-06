@@ -1,0 +1,33 @@
+.opacity-0 {
+    opacity: 0;
+}
+
+.flex-grow1 {
+    flex-grow: 1;
+}
+
+.position-absolute {
+    position: absolute;
+}
+
+.size-100p {
+    width: 100%;
+    height: 100%;
+}
+
+.text-font-cheve {
+    -unity-font: url('project://database/Assets/TextMesh%20Pro/Fonts/Cheveuxdange.ttf?fileID=12800000&guid=9812e968786e25840bafa3863f49689a&type=3#Cheveuxdange');
+    -unity-font-definition: url('project://database/Assets/TextMesh%20Pro/Fonts/Cheveuxdange%20SDF%20UIToolkit.asset?fileID=11400000&guid=c0781e1a3ad3418489aa833514bf14c0&type=2#Cheveuxdange SDF UIToolkit');
+}
+
+.text-aligh-center {
+    -unity-text-align: middle-center;
+}
+
+.text-size-150 {
+    font-size: 150px;
+}
+
+.text-size-120 {
+    font-size: 120px;
+}

@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/doc_menuButton_uss.uss?fileID=7433441132597879392&amp;guid=4f4a54b62d5b6b64abf4f07601b2316f&amp;type=3#doc_menuButton_uss" />
+    <ui:Button text="Button" name="btn" class="button-transparent margin-padding-0 border-width-0" />
+</ui:UXML>
