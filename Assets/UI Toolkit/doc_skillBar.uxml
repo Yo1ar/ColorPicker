@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/uss_global.uss?fileID=7433441132597879392&amp;guid=e826b76f70afd6e4894303d1307a5410&amp;type=3#uss_global" />
     <Style src="project://database/Assets/UI%20Toolkit/uss_skillBar.uss?fileID=7433441132597879392&amp;guid=45dd2f6aaa6313243ab64cad8d9a97df&amp;type=3#uss_skillBar" />
-    <ui:VisualElement class="skillBar-settings text-font-cheve text-size-120">
+    <ui:VisualElement name="skillBar" class="skillBar-settings text-font-cheve text-size-120 text-color">
         <ui:Button name="btn_fireball" class="skillButton-settings" style="background-image: url(&apos;project://database/Assets/Sprites/spr_fireball.png?fileID=793817306&amp;guid=82bace71a616dbe4cb29642e8e3cfe68&amp;type=3#spr_fireball_1&apos;); -unity-background-image-tint-color: rgb(255, 71, 71);">
             <ui:VisualElement name="hint" class="position-absolute" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); background-image: url(&apos;project://database/Assets/Sprites/UI/spr_button_label.png?fileID=21300000&amp;guid=78237dae5d154314fad8f1a15b882013&amp;type=3#spr_button_label&apos;); width: 110px; height: 110px; left: 200px; top: -10px;">
                 <ui:Label text="F" class="flex-grow1" style="font-size: 60px;" />

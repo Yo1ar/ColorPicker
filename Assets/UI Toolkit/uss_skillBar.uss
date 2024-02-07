@@ -38,3 +38,7 @@
     left: 60%;
     top: 35%;
 }
+
+.text-color {
+    color: rgb(26, 26, 26);
+}
