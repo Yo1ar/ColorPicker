@@ -6,24 +6,15 @@ namespace UI.CustomElements
 {
 	public class TextureFill : VisualElement
 	{
-		private readonly Texture2D _texture;
 		private readonly EllipseMesh _ellipseMesh;
+		private Texture2D _texture;
 		private int _steps = 200;
 		private Color _tintColor = Color.white;
 		private FillStart _fillStart = FillStart.Up;
 		private FillDirection _fillDirection = FillDirection.Clockwise;
 		private float _progress;
 
-		public float Progress
-		{
-			get => _progress;
-			set
-			{
-				_progress = Mathf.Clamp(value, 0f, 100f);
-				MarkDirtyRepaint();
-			}
-		}
-		public int Steps
+		private int Steps
 		{
 			get => _steps;
 			set
@@ -32,6 +23,37 @@ namespace UI.CustomElements
 					return;
 
 				_steps = Mathf.Clamp(value, 4, 1000);
+				MarkDirtyRepaint();
+			}
+		}
+		private FillStart FillStart
+		{
+			get => _fillStart;
+			set
+			{
+				if (_fillStart == value)
+					return;
+				_fillStart = value;
+				MarkDirtyRepaint();
+			}
+		}
+		private FillDirection FillDirection
+		{
+			get => _fillDirection;
+			set
+			{
+				if (_fillDirection == value)
+					return;
+				_fillDirection = value;
+				MarkDirtyRepaint();
+			}
+		}
+		public float Progress
+		{
+			get => _progress;
+			set
+			{
+				_progress = Mathf.Clamp(value, 0f, 100f);
 				MarkDirtyRepaint();
 			}
 		}
@@ -46,35 +68,14 @@ namespace UI.CustomElements
 				MarkDirtyRepaint();
 			}
 		}
-		public FillStart FillStart
-		{
-			get => _fillStart;
-			set
-			{
-				if (_fillStart == value)
-					return;
-				_fillStart = value;
-				MarkDirtyRepaint();
-			}
-		}
-		public FillDirection FillDirection
-		{
-			get => _fillDirection;
-			set
-			{
-				if (_fillDirection == value)
-					return;
-				_fillDirection = value;
-				MarkDirtyRepaint();
-			}
-		}
 		public float TextureScale { get; set; }
+		public Vector2 TextureOffset { get; set; }
 
 		public TextureFill()
 		{
-			_texture = Resources.Load<Texture2D>("spr_leaf");
-			_ellipseMesh = new EllipseMesh(_steps);
 			style.flexGrow = 1;
+			style.unityBackgroundImageTintColor = Color.clear;
+			_ellipseMesh = new EllipseMesh(_steps);
 
 			generateVisualContent += OnGenerateVisualContent;
 		}
@@ -82,6 +83,7 @@ namespace UI.CustomElements
 		private void OnGenerateVisualContent(MeshGenerationContext context)
 		{
 			SetupMesh();
+			SetTexture();
 
 			NativeSlice<ushort> indexSlice = CalculateSlice();
 
@@ -90,10 +92,25 @@ namespace UI.CustomElements
 
 			MeshWriteData meshData = context.Allocate(_ellipseMesh.Vertices.Length, indexSlice.Length, _texture);
 
-			SetupUvCoords(meshData);
+			if (_texture != null)
+				SetupUvCoords(meshData);
 
 			meshData.SetAllVertices(_ellipseMesh.Vertices);
 			meshData.SetAllIndices(indexSlice);
+		}
+
+		private void SetTexture()
+		{
+			Background backgroundImage = contentContainer.resolvedStyle.backgroundImage;
+
+			if (backgroundImage.sprite != null)
+			{
+				_texture = backgroundImage.sprite.texture;
+				return;
+			}
+
+			if (backgroundImage.texture != null)
+				_texture = backgroundImage.texture;
 		}
 
 		private void SetupMesh()
@@ -111,7 +128,7 @@ namespace UI.CustomElements
 			int sliceSize = Mathf.FloorToInt(Progress * _ellipseMesh.Indices.Length / 100);
 
 			if (sliceSize < 3)
-				sliceSize = 3;
+				sliceSize = 1;
 
 			var indexArray = new NativeArray<ushort>(_ellipseMesh.Indices, Allocator.Temp);
 
@@ -131,34 +148,30 @@ namespace UI.CustomElements
 		{
 			float diameter = _ellipseMesh.Radius * 2;
 			Vector2 uvTextureScaledSize =
-				new Vector2(_texture.width, _texture.height * HeightOffset()) / TextureOffset() * TextureScale;
+				new Vector2(_texture.width, _texture.height) / ContainerOffset() * TextureScale + TextureOffset;
 
-			float HeightOffset()
+			float ContainerOffset()
 			{
-				if (contentRect.height < _texture.height * 2)
-					Debug.Log($"less");
-				else
-					Debug.Log($"more");
-				return 1;
-			}
-
-			float TextureOffset()
-			{
-				float some;
+				float offset;
 				if (contentRect.width < contentRect.height)
-					some = contentRect.height / contentRect.width;
+					offset = contentRect.height / contentRect.width;
 				else
-					some = 1;
-				return some;
+					offset = 1;
+				return offset * _texture.height * 2 / contentRect.height;
 			}
 
 			for (var i = 0; i < _ellipseMesh.Vertices.Length; i++)
 			{
 				Vector2 uvRelative =
-					((Vector2)_ellipseMesh.Vertices[i].position - _ellipseMesh.Center + uvTextureScaledSize) / diameter;
+					((Vector2)_ellipseMesh.Vertices[i].position
+					 - _ellipseMesh.Center
+					 + uvTextureScaledSize)
+					/ diameter;
 
 				_ellipseMesh.Vertices[i].uv =
 					uvRelative * meshData.uvRegion.size / TextureScale + meshData.uvRegion.min;
+
+				_ellipseMesh.Vertices[i].uv.y = 1 - _ellipseMesh.Vertices[i].uv.y;
 			}
 		}
 
@@ -203,12 +216,17 @@ namespace UI.CustomElements
 			private readonly UxmlFloatAttributeDescription _textureScaleAttribute = new()
 				{ name = "texture-scale", defaultValue = 1f };
 
+			private readonly UxmlIntAttributeDescription _textureOffsetXAttribute = new()
+				{ name = "texture-offset-x", defaultValue = 0 };
+
+			private readonly UxmlIntAttributeDescription _textureOffsetYAttribute = new()
+				{ name = "texture-offset-y", defaultValue = 0 };
+
 			private readonly UxmlColorAttributeDescription _tintColorAttribute = new()
 				{ name = "tint-color", defaultValue = Color.white };
 
 			private readonly UxmlFloatAttributeDescription _progressAttribute = new()
 				{ name = "progress", defaultValue = 82f };
-
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
@@ -222,6 +240,9 @@ namespace UI.CustomElements
 				textureFill.TextureScale = _textureScaleAttribute.GetValueFromBag(bag, cc);
 				textureFill.TintColor = _tintColorAttribute.GetValueFromBag(bag, cc);
 				textureFill.Progress = _progressAttribute.GetValueFromBag(bag, cc);
+				textureFill.TextureOffset =
+					new Vector2(_textureOffsetXAttribute.GetValueFromBag(bag, cc),
+						_textureOffsetYAttribute.GetValueFromBag(bag, cc));
 			}
 		}
 
