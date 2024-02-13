@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:editor="UnityEditor.UIElements" xmlns:MemoryProfiler="Unity.MemoryProfiler.Editor" xmlns:engine="UnityEngine.UIElements" xmlns="UnityEditor.ShortcutManagement" elementFormDefault="qualified" targetNamespace="UI.CustomElements" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:editor="UnityEditor.UIElements" xmlns:engine="UnityEngine.UIElements" xmlns="UnityEditor.Overlays" elementFormDefault="qualified" targetNamespace="UI.CustomElements" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="UnityEngine.UIElements.xsd" namespace="UnityEngine.UIElements" />
-  <xs:complexType name="FillTextureType">
+  <xs:simpleType name="CircleFill_fill_direction_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Clockwise" />
+      <xs:enumeration value="CounterClockwise" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="CircleFill_fill_start_Type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Up" />
+      <xs:enumeration value="Down" />
+      <xs:enumeration value="Left" />
+      <xs:enumeration value="Right" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CircleFillType">
     <xs:complexContent mixed="false">
       <xs:restriction base="engine:VisualElementType">
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -17,10 +31,14 @@
         <xs:attribute default="" name="class" type="xs:string" use="optional" />
         <xs:attribute default="" name="content-container" type="xs:string" use="optional" />
         <xs:attribute default="" name="style" type="xs:string" use="optional" />
-        <xs:attribute default="" name="status" type="xs:string" use="optional" />
+        <xs:attribute default="200" name="steps" type="xs:int" use="optional" />
+        <xs:attribute default="Clockwise" name="fill_direction" xmlns:q1="UI.CustomElements" type="q1:CircleFill_fill_direction_Type" use="optional" />
+        <xs:attribute default="Up" name="fill_start" xmlns:q2="UI.CustomElements" type="q2:CircleFill_fill_start_Type" use="optional" />
+        <xs:attribute default="50" name="circle_border" type="xs:int" use="optional" />
+        <xs:attribute default="75" name="progress" type="xs:float" use="optional" />
         <xs:anyAttribute processContents="lax" />
       </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
-  <xs:element name="FillTexture" substitutionGroup="engine:VisualElement" xmlns:q1="UI.CustomElements" type="q1:FillTextureType" />
+  <xs:element name="CircleFill" substitutionGroup="engine:VisualElement" xmlns:q3="UI.CustomElements" type="q3:CircleFillType" />
 </xs:schema>
