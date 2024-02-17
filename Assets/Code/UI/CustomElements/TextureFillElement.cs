@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 
 namespace UI.CustomElements
 {
-	public class TextureFill : VisualElement
+	public class TextureFillElement : VisualElement
 	{
 		private readonly EllipseMesh _ellipseMesh;
 		private Texture2D _texture;
@@ -71,7 +71,7 @@ namespace UI.CustomElements
 		public float TextureScale { get; set; }
 		public Vector2 TextureOffset { get; set; }
 
-		public TextureFill()
+		public TextureFillElement()
 		{
 			style.flexGrow = 1;
 			style.unityBackgroundImageTintColor = Color.clear;
@@ -202,7 +202,7 @@ namespace UI.CustomElements
 
 		#region UXML
 
-		public class TextureFillTraits : UxmlTraits
+		public class TextureFillElementTraits : UxmlTraits
 		{
 			private readonly UxmlEnumAttributeDescription<FillDirection> _fillDirectionAttribute = new()
 				{ name = "fill-direction", defaultValue = FillDirection.Clockwise };
@@ -232,7 +232,7 @@ namespace UI.CustomElements
 			{
 				base.Init(ve, bag, cc);
 
-				if (ve is not TextureFill textureFill)
+				if (ve is not TextureFillElement textureFill)
 					return;
 				textureFill.FillDirection = _fillDirectionAttribute.GetValueFromBag(bag, cc);
 				textureFill.FillStart = _fillStartAttribute.GetValueFromBag(bag, cc);
@@ -246,7 +246,7 @@ namespace UI.CustomElements
 			}
 		}
 
-		public class TextureFillFactory : UxmlFactory<TextureFill, TextureFillTraits> { }
+		public class TextureFillElementFactory : UxmlFactory<TextureFillElement, TextureFillElementTraits> { }
 
 		#endregion
 	}
