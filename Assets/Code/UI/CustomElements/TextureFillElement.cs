@@ -150,16 +150,6 @@ namespace UI.CustomElements
 			Vector2 uvTextureScaledSize =
 				new Vector2(_texture.width, _texture.height) / ContainerOffset() * TextureScale + TextureOffset;
 
-			float ContainerOffset()
-			{
-				float offset;
-				if (contentRect.width < contentRect.height)
-					offset = contentRect.height / contentRect.width;
-				else
-					offset = 1;
-				return offset * _texture.height * 2 / contentRect.height;
-			}
-
 			for (var i = 0; i < _ellipseMesh.Vertices.Length; i++)
 			{
 				Vector2 uvRelative =
@@ -172,6 +162,18 @@ namespace UI.CustomElements
 					uvRelative * meshData.uvRegion.size / TextureScale + meshData.uvRegion.min;
 
 				_ellipseMesh.Vertices[i].uv.y = 1 - _ellipseMesh.Vertices[i].uv.y;
+			}
+
+			return;
+
+			float ContainerOffset()
+			{
+				float offset;
+				if (contentRect.width < contentRect.height)
+					offset = contentRect.height / contentRect.width;
+				else
+					offset = 1;
+				return offset * _texture.height * 2 / contentRect.height;
 			}
 		}
 
@@ -199,6 +201,20 @@ namespace UI.CustomElements
 
 		private float GetMeshRadius() =>
 			contentRect.width < contentRect.height ? contentRect.width / 2 : contentRect.height / 2;
+
+		private class FillTexture
+		{
+			public Texture2D Texture { get; private set; }
+			public Rect Rect { get; private set; }
+			public Vector2 Scale { get; private set; }
+
+			public FillTexture(Texture2D texture, Rect rect, Vector2 scale)
+			{
+				Texture = texture;
+				Rect = rect;
+				Scale = scale;
+			}
+		}
 
 		#region UXML
 
