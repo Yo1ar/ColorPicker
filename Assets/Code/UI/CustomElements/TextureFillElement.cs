@@ -7,7 +7,7 @@ namespace UI.CustomElements
 	public class TextureFillElement : VisualElement
 	{
 		private readonly EllipseMesh _ellipseMesh;
-		private Texture2D _texture;
+		private readonly FillTexture _fillTexture;
 		private int _steps = 200;
 		private Color _tintColor = Color.white;
 		private FillStart _fillStart = FillStart.Up;
@@ -76,6 +76,7 @@ namespace UI.CustomElements
 			style.flexGrow = 1;
 			style.unityBackgroundImageTintColor = Color.clear;
 			_ellipseMesh = new EllipseMesh(_steps);
+			_fillTexture = new FillTexture();
 
 			generateVisualContent += OnGenerateVisualContent;
 		}
@@ -90,9 +91,10 @@ namespace UI.CustomElements
 			if (indexSlice.Length < 3)
 				return;
 
-			MeshWriteData meshData = context.Allocate(_ellipseMesh.Vertices.Length, indexSlice.Length, _texture);
+			MeshWriteData meshData =
+				context.Allocate(_ellipseMesh.Vertices.Length, indexSlice.Length, _fillTexture.Texture);
 
-			if (_texture != null)
+			if (_fillTexture != null)
 				SetupUvCoords(meshData);
 
 			meshData.SetAllVertices(_ellipseMesh.Vertices);
@@ -103,14 +105,23 @@ namespace UI.CustomElements
 		{
 			Background backgroundImage = contentContainer.resolvedStyle.backgroundImage;
 
-			if (backgroundImage.sprite != null)
-			{
-				_texture = backgroundImage.sprite.texture;
+			if (backgroundImage.sprite == null &&
+			    backgroundImage.texture == null)
 				return;
-			}
 
-			if (backgroundImage.texture != null)
-				_texture = backgroundImage.texture;
+			Texture2D texture = backgroundImage.sprite
+				? backgroundImage.sprite.texture
+				: backgroundImage.texture;
+
+			Rect rect = backgroundImage.sprite
+				? new Rect(backgroundImage.sprite.rect.position, backgroundImage.sprite.rect.size)
+				: new Rect(0, 0, texture.width, texture.height);
+
+			Vector2 scale = Vector2.one;
+
+			_fillTexture.Texture = texture;
+			_fillTexture.Rect = rect;
+			_fillTexture.Scale = scale;
 		}
 
 		private void SetupMesh()
@@ -148,7 +159,8 @@ namespace UI.CustomElements
 		{
 			float diameter = _ellipseMesh.Radius * 2;
 			Vector2 uvTextureScaledSize =
-				new Vector2(_texture.width, _texture.height) / ContainerOffset() * TextureScale + TextureOffset;
+				new Vector2(_fillTexture.Rect.width, _fillTexture.Rect.height)
+				/ ContainerOffset() * TextureScale + TextureOffset;
 
 			for (var i = 0; i < _ellipseMesh.Vertices.Length; i++)
 			{
@@ -173,7 +185,7 @@ namespace UI.CustomElements
 					offset = contentRect.height / contentRect.width;
 				else
 					offset = 1;
-				return offset * _texture.height * 2 / contentRect.height;
+				return offset * _fillTexture.Rect.height * 2 / contentRect.height;
 			}
 		}
 
@@ -204,16 +216,15 @@ namespace UI.CustomElements
 
 		private class FillTexture
 		{
-			public Texture2D Texture { get; private set; }
-			public Rect Rect { get; private set; }
-			public Vector2 Scale { get; private set; }
+			public float PositionedWidth => Rect.width + Rect.x;
+			public float PositionedHeight => Rect.height + Rect.y;
 
-			public FillTexture(Texture2D texture, Rect rect, Vector2 scale)
-			{
-				Texture = texture;
-				Rect = rect;
-				Scale = scale;
-			}
+			public Texture2D Texture { get; set; }
+			public Rect Rect { get; set; }
+			public Vector2 Scale { get; set; } = Vector2.one;
+
+			public override string ToString() =>
+				$"TEXTURE_{Texture.name} + POSITION_{Rect.position} + SIZE_{Rect.size} + SCALE_{Scale}";
 		}
 
 		#region UXML
