@@ -114,14 +114,21 @@ namespace UI.CustomElements
 				: backgroundImage.texture;
 
 			Rect rect = backgroundImage.sprite
-				? new Rect(backgroundImage.sprite.rect.position, backgroundImage.sprite.rect.size)
+				? backgroundImage.sprite.rect
 				: new Rect(0, 0, texture.width, texture.height);
 
-			Vector2 scale = Vector2.one;
+			// float diameter = _ellipseMesh.Radius * 2;
+			// var textureScale = new Vector2(
+			// 	diameter / texture.width,
+			// 	diameter / texture.height);
+			//
+			// var scale = new Vector2(
+			// 	rect.width / diameter * textureScale.x,
+			// 	rect.height / diameter * textureScale.y);
 
 			_fillTexture.Texture = texture;
 			_fillTexture.Rect = rect;
-			_fillTexture.Scale = scale;
+			_fillTexture.Scale = Vector2.one;
 		}
 
 		private void SetupMesh()
@@ -160,7 +167,7 @@ namespace UI.CustomElements
 			float diameter = _ellipseMesh.Radius * 2;
 			Vector2 uvTextureScaledSize =
 				new Vector2(_fillTexture.Rect.width, _fillTexture.Rect.height)
-				/ ContainerOffset() * TextureScale + TextureOffset;
+				/ ContainerScale() * TextureScale + TextureOffset;
 
 			for (var i = 0; i < _ellipseMesh.Vertices.Length; i++)
 			{
@@ -171,14 +178,17 @@ namespace UI.CustomElements
 					/ diameter;
 
 				_ellipseMesh.Vertices[i].uv =
-					uvRelative * meshData.uvRegion.size / TextureScale + meshData.uvRegion.min;
+					uvRelative
+					* meshData.uvRegion.size
+					/ TextureScale
+					+ meshData.uvRegion.min;
 
 				_ellipseMesh.Vertices[i].uv.y = 1 - _ellipseMesh.Vertices[i].uv.y;
 			}
 
 			return;
 
-			float ContainerOffset()
+			float ContainerScale()
 			{
 				float offset;
 				if (contentRect.width < contentRect.height)
@@ -216,15 +226,19 @@ namespace UI.CustomElements
 
 		private class FillTexture
 		{
-			public float PositionedWidth => Rect.width + Rect.x;
-			public float PositionedHeight => Rect.height + Rect.y;
-
+			public float WidthPos { get; set; }
+			public float HeightPos { get; set; }
 			public Texture2D Texture { get; set; }
 			public Rect Rect { get; set; }
-			public Vector2 Scale { get; set; } = Vector2.one;
+			public Vector2 Scale { get; set; }
 
-			public override string ToString() =>
-				$"TEXTURE_{Texture.name} + POSITION_{Rect.position} + SIZE_{Rect.size} + SCALE_{Scale}";
+			public override string ToString()
+			{
+				if (Texture != null)
+					return $"TEXTURE_{Texture.name} + POSITION_{Rect.position} + SIZE_{Rect.size}";
+				else
+					return "TEXTURE_NULL";
+			}
 		}
 
 		#region UXML
