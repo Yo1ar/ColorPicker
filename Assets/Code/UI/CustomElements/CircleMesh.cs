@@ -102,20 +102,20 @@ namespace UI.CustomElements
 				if (i == 0)
 					AddVertex(i, Center.x, Center.y);
 
-				AddVertex(i, outerX, outerY);
+				AddVertex(i + 1, outerX, outerY);
 
-				Indices[i * 3] = 0; // for center vertex
-				Indices[i * 3 + 1] = (ushort)(i + 1); // for edge vertex
-				Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i); // for previous edge vertex
+				Indices[i * 3] = 0;
+				Indices[i * 3 + 1] = (ushort)(i + 1);
+				Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i);
 			}
 
 			_isDirty = false;
 		}
 
-		private void AddVertex(int i, float outerX, float outerY) =>
-			Vertices[i + 1] = new Vertex
+		private void AddVertex(int index, float x, float y) =>
+			Vertices[index] = new Vertex
 			{
-				position = new Vector3(outerX, outerY, Vertex.nearZ),
+				position = new Vector3(x, y, Vertex.nearZ),
 				tint = TintColor,
 			};
 
