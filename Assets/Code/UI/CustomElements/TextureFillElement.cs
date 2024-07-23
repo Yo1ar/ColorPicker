@@ -73,10 +73,11 @@ namespace UI.CustomElements
 
 		public TextureFillElement()
 		{
-			style.flexGrow = 1;
-			style.unityBackgroundImageTintColor = Color.clear;
 			_circleMesh = new CircleMesh(_steps);
 			_fillTexture = new FillTexture();
+
+			style.flexGrow = 1;
+			style.unityBackgroundImageTintColor = Color.clear;
 
 			generateVisualContent += OnGenerateVisualContent;
 		}
@@ -99,6 +100,16 @@ namespace UI.CustomElements
 
 			meshData.SetAllVertices(_circleMesh.Vertices);
 			meshData.SetAllIndices(indexSlice);
+		}
+
+		private void SetupMesh()
+		{
+			_circleMesh.FillStart = _fillStart;
+			_circleMesh.Steps = Steps;
+			_circleMesh.TintColor = _tintColor;
+			_circleMesh.Center = contentRect.center;
+			_circleMesh.Radius = GetMeshRadius();
+			_circleMesh.UpdateMesh();
 		}
 
 		private void SetTexture()
@@ -129,16 +140,6 @@ namespace UI.CustomElements
 			_fillTexture.Texture = texture;
 			_fillTexture.Rect = rect;
 			_fillTexture.Scale = Vector2.one;
-		}
-
-		private void SetupMesh()
-		{
-			_circleMesh.FillStart = _fillStart;
-			_circleMesh.Steps = Steps;
-			_circleMesh.TintColor = _tintColor;
-			_circleMesh.Center = contentRect.center;
-			_circleMesh.Radius = GetMeshRadius();
-			_circleMesh.UpdateMesh();
 		}
 
 		private NativeSlice<ushort> CalculateSlice()
