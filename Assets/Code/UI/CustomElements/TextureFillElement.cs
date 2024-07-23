@@ -6,6 +6,7 @@ namespace UI.CustomElements
 {
 	public class TextureFillElement : VisualElement
 	{
+		private const int MinimalIndicesCount = 3;
 		private readonly CircleMesh _circleMesh;
 		private readonly FillTexture _fillTexture;
 		private Color _tintColor = Color.white;
@@ -89,7 +90,7 @@ namespace UI.CustomElements
 
 			NativeSlice<ushort> indexSlice = CalculateSlice();
 
-			if (indexSlice.Length < 3)
+			if (indexSlice.Length < MinimalIndicesCount)
 				return;
 
 			MeshWriteData meshData =
@@ -116,19 +117,14 @@ namespace UI.CustomElements
 		{
 			Background backgroundImage = contentContainer.resolvedStyle.backgroundImage;
 
-			if (backgroundImage.sprite == null &&
-			    backgroundImage.texture == null)
+			if (BackgroundImageIsEmpty(backgroundImage))
 				return;
 
-			Texture2D texture = backgroundImage.sprite
-				? backgroundImage.sprite.texture
-				: backgroundImage.texture;
+			Texture2D texture = GetBackgroundTexture(backgroundImage);
 
-			Rect rect = backgroundImage.sprite
-				? backgroundImage.sprite.rect
-				: new Rect(0, 0, texture.width, texture.height);
+			Rect rect = GetBackgroundRect(backgroundImage, texture);
 
-			// float diameter = _ellipseMesh.Radius * 2;
+			// float diameter = _circleMesh.Radius * 2;
 			// var textureScale = new Vector2(
 			// 	diameter / texture.width,
 			// 	diameter / texture.height);
@@ -142,23 +138,35 @@ namespace UI.CustomElements
 			_fillTexture.Scale = Vector2.one;
 		}
 
+		private static Rect GetBackgroundRect(Background backgroundImage, Texture2D texture) =>
+			backgroundImage.sprite
+				? backgroundImage.sprite.rect
+				: new Rect(0, 0, texture.width, texture.height);
+
+		private static Texture2D GetBackgroundTexture(Background backgroundImage) =>
+			backgroundImage.sprite
+				? backgroundImage.sprite.texture
+				: backgroundImage.texture;
+
+		private static bool BackgroundImageIsEmpty(Background backgroundImage) =>
+			backgroundImage.sprite == null &&
+			backgroundImage.texture == null;
+
 		private NativeSlice<ushort> CalculateSlice()
 		{
+			var sliceStart = 0;
 			int sliceSize = Mathf.FloorToInt(Progress * _circleMesh.Indices.Length / 100);
 
-			if (sliceSize < 3)
-				sliceSize = 1;
+			// if (sliceSize < MinimalIndicesCount)
+			// 	sliceSize = 1;
 
 			var indexArray = new NativeArray<ushort>(_circleMesh.Indices, Allocator.Temp);
 
-			int sliceStart;
 			if (FillDirection == FillDirection.Clockwise)
 			{
 				sliceSize = FindClosestMultipleBy3(sliceSize);
 				sliceStart = indexArray.Length - sliceSize;
 			}
-			else
-				sliceStart = 0;
 
 			return indexArray.Slice(sliceStart, sliceSize);
 		}
@@ -202,7 +210,7 @@ namespace UI.CustomElements
 
 		private int FindClosestMultipleBy3(int sliceSize)
 		{
-			int remainder = sliceSize % 3;
+			int remainder = sliceSize % MinimalIndicesCount;
 
 			if (remainder == 0)
 				return sliceSize;
