@@ -12,6 +12,9 @@ namespace UI.CustomElements
 		private int _steps;
 		private Vector2 _center;
 
+		private int VerticesCount => Steps + 1;
+		private int IndicesCount => Steps * 3;
+		private float StepAngle => 360f / Steps;
 		public Vertex[] Vertices { get; private set; }
 		public ushort[] Indices { get; private set; }
 		public float Radius
@@ -24,7 +27,6 @@ namespace UI.CustomElements
 				_radius = value;
 			}
 		}
-
 		public int Steps
 		{
 			get => _steps;
@@ -78,38 +80,41 @@ namespace UI.CustomElements
 			if (!_isDirty)
 				return;
 
-			int verticesCount = Steps + 1; // +1 for center vertex
-			int indicesCount = Steps * 3; // 3 indices per triangle
-
-			if (ShouldRecalculateVertices(verticesCount))
-				Vertices = new Vertex[verticesCount];
-
-			if (ShouldRecalculateIndices(indicesCount))
-				Indices = new ushort[indicesCount];
-
-			float angle = (float)360 / Steps; // angle of each triangle in degrees
-
 			float startingAngle = FillStart.GetAngle();
+
+			if (ShouldRepopulateVertices(VerticesCount))
+				Vertices = new Vertex[VerticesCount];
+
+			if (ShouldRepopulateIndices(IndicesCount))
+				Indices = new ushort[IndicesCount];
 
 			for (var i = 0; i < Steps; i++)
 			{
-				startingAngle -= angle;
-				float radians = startingAngle.ToRadians();
+				startingAngle -= StepAngle;
 
-				float outerX = Mathf.Cos(radians) * _radius + Center.x;
-				float outerY = Mathf.Sin(radians) * _radius + Center.y;
-
-				if (i == 0)
-					AddVertex(i, Center.x, Center.y);
-
-				AddVertex(i + 1, outerX, outerY);
-
-				Indices[i * 3] = 0;
-				Indices[i * 3 + 1] = (ushort)(i + 1);
-				Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i);
+				AddVertices(startingAngle.ToRadians(), i);
+				AddIndices(i);
 			}
 
 			_isDirty = false;
+		}
+
+		private void AddVertices(float radians, int i)
+		{
+			float outerX = Mathf.Cos(radians) * _radius + Center.x;
+			float outerY = Mathf.Sin(radians) * _radius + Center.y;
+
+			if (i == 0)
+				AddVertex(i, Center.x, Center.y);
+
+			AddVertex(i + 1, outerX, outerY);
+		}
+
+		private void AddIndices(int i)
+		{
+			Indices[i * 3] = 0;
+			Indices[i * 3 + 1] = (ushort)(i + 1);
+			Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i);
 		}
 
 		private void AddVertex(int index, float x, float y) =>
@@ -119,10 +124,10 @@ namespace UI.CustomElements
 				tint = TintColor,
 			};
 
-		private bool ShouldRecalculateIndices(int indicesCount) =>
+		private bool ShouldRepopulateIndices(int indicesCount) =>
 			Indices is null || Indices.Length != indicesCount;
 
-		private bool ShouldRecalculateVertices(int verticesCount) =>
+		private bool ShouldRepopulateVertices(int verticesCount) =>
 			Vertices is null || Vertices.Length != verticesCount;
 
 		private static bool IsFloatEquals(float value1, float value2) =>
