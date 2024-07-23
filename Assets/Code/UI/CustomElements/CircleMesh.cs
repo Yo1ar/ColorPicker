@@ -11,32 +11,10 @@ namespace UI.CustomElements
 		private float _radius;
 		private int _steps;
 		private Vector2 _center;
+		private float StepAngle => 360f / Steps;
 
 		private int VerticesCount => Steps + 1;
 		private int IndicesCount => Steps * 3;
-		private float StepAngle => 360f / Steps;
-		public Vertex[] Vertices { get; private set; }
-		public ushort[] Indices { get; private set; }
-		public float Radius
-		{
-			get => _radius;
-			set
-			{
-				if (!IsFloatEquals(_radius, value))
-					SetDirty();
-				_radius = value;
-			}
-		}
-		public int Steps
-		{
-			get => _steps;
-			set
-			{
-				if (_steps != value)
-					SetDirty();
-				_steps = value;
-			}
-		}
 		public Color TintColor
 		{
 			get => _tintColor;
@@ -58,6 +36,27 @@ namespace UI.CustomElements
 				_fillStart = value;
 			}
 		}
+		public float Radius
+		{
+			get => _radius;
+			set
+			{
+				if (!IsFloatEquals(_radius, value))
+					SetDirty();
+				_radius = value;
+			}
+		}
+		public int Steps
+		{
+			get => _steps;
+			set
+			{
+				if (_steps != value)
+					SetDirty();
+				_steps = value;
+			}
+		}
+		public ushort[] Indices { get; private set; }
 		public Vector2 Center
 		{
 			get => _center;
@@ -68,6 +67,7 @@ namespace UI.CustomElements
 				_center = value;
 			}
 		}
+		public Vertex[] Vertices { get; private set; }
 
 		public CircleMesh(int steps)
 		{
@@ -99,6 +99,12 @@ namespace UI.CustomElements
 			_isDirty = false;
 		}
 
+		private bool ShouldRepopulateVertices(int verticesCount) =>
+			Vertices is null || Vertices.Length != verticesCount;
+
+		private bool ShouldRepopulateIndices(int indicesCount) =>
+			Indices is null || Indices.Length != indicesCount;
+
 		private void AddVertices(float radians, int i)
 		{
 			float outerX = Mathf.Cos(radians) * _radius + Center.x;
@@ -110,13 +116,6 @@ namespace UI.CustomElements
 			AddVertex(i + 1, outerX, outerY);
 		}
 
-		private void AddIndices(int i)
-		{
-			Indices[i * 3] = 0;
-			Indices[i * 3 + 1] = (ushort)(i + 1);
-			Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i);
-		}
-
 		private void AddVertex(int index, float x, float y) =>
 			Vertices[index] = new Vertex
 			{
@@ -124,14 +123,12 @@ namespace UI.CustomElements
 				tint = TintColor,
 			};
 
-		private bool ShouldRepopulateIndices(int indicesCount) =>
-			Indices is null || Indices.Length != indicesCount;
-
-		private bool ShouldRepopulateVertices(int verticesCount) =>
-			Vertices is null || Vertices.Length != verticesCount;
-
-		private static bool IsFloatEquals(float value1, float value2) =>
-			Mathf.Abs(value1 - value2) < float.Epsilon;
+		private void AddIndices(int i)
+		{
+			Indices[i * 3] = 0;
+			Indices[i * 3 + 1] = (ushort)(i + 1);
+			Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i);
+		}
 
 		private void SetDirty()
 		{
@@ -140,5 +137,8 @@ namespace UI.CustomElements
 
 			_isDirty = true;
 		}
+
+		private static bool IsFloatEquals(float value1, float value2) =>
+			Mathf.Abs(value1 - value2) < float.Epsilon;
 	}
 }
