@@ -1,16 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.CustomElements
 {
-	public class EllipseMesh
+	public class CircleMesh
 	{
-		private Color _tintColor;
-		private float _radius;
 		private bool _isDirty;
-		private int _steps;
+		private Color _tintColor;
 		private FillStart _fillStart;
+		private float _radius;
+		private int _steps;
 		private Vector2 _center;
 
 		public Vertex[] Vertices { get; private set; }
@@ -20,11 +19,12 @@ namespace UI.CustomElements
 			get => _radius;
 			set
 			{
-				if (Mathf.Abs(_radius - value) > float.Epsilon)
+				if (!IsFloatEquals(_radius, value))
 					SetDirty();
 				_radius = value;
 			}
 		}
+
 		public int Steps
 		{
 			get => _steps;
@@ -67,7 +67,7 @@ namespace UI.CustomElements
 			}
 		}
 
-		public EllipseMesh(int steps)
+		public CircleMesh(int steps)
 		{
 			_steps = steps;
 			_isDirty = true;
@@ -78,55 +78,55 @@ namespace UI.CustomElements
 			if (!_isDirty)
 				return;
 
-			int verticesCount = Steps + 1;
-			int indicesCount = Steps * 3;
+			int verticesCount = Steps + 1; // +1 for center vertex
+			int indicesCount = Steps * 3; // 3 indices per triangle
 
-			if (Vertices is null || Vertices.Length != verticesCount)
+			if (ShouldRecalculateVertices(verticesCount))
 				Vertices = new Vertex[verticesCount];
 
-			if (Indices is null || Indices.Length != indicesCount)
+			if (ShouldRecalculateIndices(indicesCount))
 				Indices = new ushort[indicesCount];
 
+			float angle = (float)360 / Steps; // angle of each triangle in degrees
 
-			float angle = (float)360 / Steps;
-
-			float currentAngle = FillStart switch
-			{
-				FillStart.Up => -90f,
-				FillStart.Left => -180f,
-				FillStart.Down => -270f,
-				FillStart.Right => 0,
-				_ => throw new ArgumentOutOfRangeException(),
-			};
+			float startingAngle = FillStart.GetAngle();
 
 			for (var i = 0; i < Steps; i++)
 			{
-				currentAngle -= angle;
-				float radians = currentAngle * Mathf.Deg2Rad;
+				startingAngle -= angle;
+				float radians = startingAngle.ToRadians();
 
 				float outerX = Mathf.Cos(radians) * _radius + Center.x;
 				float outerY = Mathf.Sin(radians) * _radius + Center.y;
 
 				if (i == 0)
-					Vertices[i] = new Vertex()
-					{
-						position = Center,
-						tint = TintColor,
-					};
+					AddVertex(i, Center.x, Center.y);
 
-				Vertices[i + 1] = new Vertex
-				{
-					position = new Vector3(outerX, outerY, Vertex.nearZ),
-					tint = TintColor,
-				};
+				AddVertex(i, outerX, outerY);
 
-				Indices[i * 3] = 0;
-				Indices[i * 3 + 1] = (ushort)(i + 1);
-				Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i);
+				Indices[i * 3] = 0; // for center vertex
+				Indices[i * 3 + 1] = (ushort)(i + 1); // for edge vertex
+				Indices[i * 3 + 2] = (ushort)(i == 0 ? Vertices.Length - 1 : i); // for previous edge vertex
 			}
 
 			_isDirty = false;
 		}
+
+		private void AddVertex(int i, float outerX, float outerY) =>
+			Vertices[i + 1] = new Vertex
+			{
+				position = new Vector3(outerX, outerY, Vertex.nearZ),
+				tint = TintColor,
+			};
+
+		private bool ShouldRecalculateIndices(int indicesCount) =>
+			Indices is null || Indices.Length != indicesCount;
+
+		private bool ShouldRecalculateVertices(int verticesCount) =>
+			Vertices is null || Vertices.Length != verticesCount;
+
+		private static bool IsFloatEquals(float value1, float value2) =>
+			Mathf.Abs(value1 - value2) < float.Epsilon;
 
 		private void SetDirty()
 		{

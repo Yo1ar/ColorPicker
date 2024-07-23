@@ -6,13 +6,13 @@ namespace UI.CustomElements
 {
 	public class TextureFillElement : VisualElement
 	{
-		private readonly EllipseMesh _ellipseMesh;
+		private readonly CircleMesh _circleMesh;
 		private readonly FillTexture _fillTexture;
-		private int _steps = 200;
 		private Color _tintColor = Color.white;
-		private FillStart _fillStart = FillStart.Up;
 		private FillDirection _fillDirection = FillDirection.Clockwise;
+		private FillStart _fillStart = FillStart.Up;
 		private float _progress;
+		private int _steps = 200;
 
 		private int Steps
 		{
@@ -75,7 +75,7 @@ namespace UI.CustomElements
 		{
 			style.flexGrow = 1;
 			style.unityBackgroundImageTintColor = Color.clear;
-			_ellipseMesh = new EllipseMesh(_steps);
+			_circleMesh = new CircleMesh(_steps);
 			_fillTexture = new FillTexture();
 
 			generateVisualContent += OnGenerateVisualContent;
@@ -92,12 +92,12 @@ namespace UI.CustomElements
 				return;
 
 			MeshWriteData meshData =
-				context.Allocate(_ellipseMesh.Vertices.Length, indexSlice.Length, _fillTexture.Texture);
+				context.Allocate(_circleMesh.Vertices.Length, indexSlice.Length, _fillTexture.Texture);
 
 			if (_fillTexture != null)
 				SetupUvCoords(meshData);
 
-			meshData.SetAllVertices(_ellipseMesh.Vertices);
+			meshData.SetAllVertices(_circleMesh.Vertices);
 			meshData.SetAllIndices(indexSlice);
 		}
 
@@ -133,22 +133,22 @@ namespace UI.CustomElements
 
 		private void SetupMesh()
 		{
-			_ellipseMesh.FillStart = _fillStart;
-			_ellipseMesh.Steps = Steps;
-			_ellipseMesh.TintColor = _tintColor;
-			_ellipseMesh.Center = contentRect.center;
-			_ellipseMesh.Radius = GetMeshRadius();
-			_ellipseMesh.UpdateMesh();
+			_circleMesh.FillStart = _fillStart;
+			_circleMesh.Steps = Steps;
+			_circleMesh.TintColor = _tintColor;
+			_circleMesh.Center = contentRect.center;
+			_circleMesh.Radius = GetMeshRadius();
+			_circleMesh.UpdateMesh();
 		}
 
 		private NativeSlice<ushort> CalculateSlice()
 		{
-			int sliceSize = Mathf.FloorToInt(Progress * _ellipseMesh.Indices.Length / 100);
+			int sliceSize = Mathf.FloorToInt(Progress * _circleMesh.Indices.Length / 100);
 
 			if (sliceSize < 3)
 				sliceSize = 1;
 
-			var indexArray = new NativeArray<ushort>(_ellipseMesh.Indices, Allocator.Temp);
+			var indexArray = new NativeArray<ushort>(_circleMesh.Indices, Allocator.Temp);
 
 			int sliceStart;
 			if (FillDirection == FillDirection.Clockwise)
@@ -164,26 +164,26 @@ namespace UI.CustomElements
 
 		private void SetupUvCoords(MeshWriteData meshData)
 		{
-			float diameter = _ellipseMesh.Radius * 2;
+			float diameter = _circleMesh.Radius * 2;
 			Vector2 uvTextureScaledSize =
 				new Vector2(_fillTexture.Rect.width, _fillTexture.Rect.height)
 				/ ContainerScale() * TextureScale + TextureOffset;
 
-			for (var i = 0; i < _ellipseMesh.Vertices.Length; i++)
+			for (var i = 0; i < _circleMesh.Vertices.Length; i++)
 			{
 				Vector2 uvRelative =
-					((Vector2)_ellipseMesh.Vertices[i].position
-					 - _ellipseMesh.Center
+					((Vector2)_circleMesh.Vertices[i].position
+					 - _circleMesh.Center
 					 + uvTextureScaledSize)
 					/ diameter;
 
-				_ellipseMesh.Vertices[i].uv =
+				_circleMesh.Vertices[i].uv =
 					uvRelative
 					* meshData.uvRegion.size
 					/ TextureScale
 					+ meshData.uvRegion.min;
 
-				_ellipseMesh.Vertices[i].uv.y = 1 - _ellipseMesh.Vertices[i].uv.y;
+				_circleMesh.Vertices[i].uv.y = 1 - _circleMesh.Vertices[i].uv.y;
 			}
 
 			return;
@@ -242,32 +242,30 @@ namespace UI.CustomElements
 		}
 
 		#region UXML
-
 		public class TextureFillElementTraits : UxmlTraits
 		{
+			private readonly UxmlColorAttributeDescription _tintColorAttribute = new()
+				{ name = "tint-color", defaultValue = Color.white };
 			private readonly UxmlEnumAttributeDescription<FillDirection> _fillDirectionAttribute = new()
 				{ name = "fill-direction", defaultValue = FillDirection.Clockwise };
 
 			private readonly UxmlEnumAttributeDescription<FillStart> _fillStartAttribute = new()
 				{ name = "fill-start", defaultValue = FillStart.Up };
 
-			private readonly UxmlIntAttributeDescription _stepsAttribute = new()
-				{ name = "steps", defaultValue = 200 };
-
 			private readonly UxmlFloatAttributeDescription _textureScaleAttribute = new()
 				{ name = "texture-scale", defaultValue = 1f };
+
+			private readonly UxmlFloatAttributeDescription _progressAttribute = new()
+				{ name = "progress", defaultValue = 82f };
+
+			private readonly UxmlIntAttributeDescription _stepsAttribute = new()
+				{ name = "steps", defaultValue = 200 };
 
 			private readonly UxmlIntAttributeDescription _textureOffsetXAttribute = new()
 				{ name = "texture-offset-x", defaultValue = 0 };
 
 			private readonly UxmlIntAttributeDescription _textureOffsetYAttribute = new()
 				{ name = "texture-offset-y", defaultValue = 0 };
-
-			private readonly UxmlColorAttributeDescription _tintColorAttribute = new()
-				{ name = "tint-color", defaultValue = Color.white };
-
-			private readonly UxmlFloatAttributeDescription _progressAttribute = new()
-				{ name = "progress", defaultValue = 82f };
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
@@ -288,7 +286,6 @@ namespace UI.CustomElements
 		}
 
 		public class TextureFillElementFactory : UxmlFactory<TextureFillElement, TextureFillElementTraits> { }
-
 		#endregion
 	}
 }
