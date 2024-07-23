@@ -6,7 +6,7 @@ namespace UI.CustomElements
 {
 	public class TextureFillElement : VisualElement
 	{
-		private const int MinimalIndicesCount = 3;
+		private const int MinimalIndicesCountForPlane = 3;
 		private readonly CircleMesh _circleMesh;
 		private readonly FillTexture _fillTexture;
 		private Color _tintColor = Color.white;
@@ -90,11 +90,10 @@ namespace UI.CustomElements
 
 			NativeSlice<ushort> indexSlice = CalculateSlice();
 
-			if (indexSlice.Length < MinimalIndicesCount)
+			if (indexSlice.Length < MinimalIndicesCountForPlane)
 				return;
 
-			MeshWriteData meshData =
-				context.Allocate(_circleMesh.Vertices.Length, indexSlice.Length, _fillTexture.Texture);
+			MeshWriteData meshData = GetMeshData(context, indexSlice);
 
 			if (_fillTexture != null)
 				SetupUvCoords(meshData);
@@ -102,6 +101,9 @@ namespace UI.CustomElements
 			meshData.SetAllVertices(_circleMesh.Vertices);
 			meshData.SetAllIndices(indexSlice);
 		}
+
+		private MeshWriteData GetMeshData(MeshGenerationContext context, NativeSlice<ushort> indexSlice) =>
+			context.Allocate(_circleMesh.Vertices.Length, indexSlice.Length, _fillTexture.Texture);
 
 		private void SetupMesh()
 		{
@@ -210,7 +212,7 @@ namespace UI.CustomElements
 
 		private int FindClosestMultipleBy3(int sliceSize)
 		{
-			int remainder = sliceSize % MinimalIndicesCount;
+			int remainder = sliceSize % MinimalIndicesCountForPlane;
 
 			if (remainder == 0)
 				return sliceSize;
@@ -243,6 +245,7 @@ namespace UI.CustomElements
 		{
 			private readonly UxmlColorAttributeDescription _tintColorAttribute = new()
 				{ name = "tint-color", defaultValue = Color.white };
+
 			private readonly UxmlEnumAttributeDescription<FillDirection> _fillDirectionAttribute = new()
 				{ name = "fill-direction", defaultValue = FillDirection.Clockwise };
 
