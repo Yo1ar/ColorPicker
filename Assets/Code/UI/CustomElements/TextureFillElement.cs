@@ -202,24 +202,12 @@ namespace UI.CustomElements
 
 		private int FindClosestMultipleBy3(int sliceSize)
 		{
-			if (sliceSize % 3 == 0)
+			int remainder = sliceSize % 3;
+
+			if (remainder == 0)
 				return sliceSize;
 
-			int temp1 = sliceSize;
-			int temp2 = sliceSize;
-
-			for (var i = 1; i <= 2; i++)
-			{
-				temp1 += 1;
-				if (temp1 % 3 == 0)
-					return temp1;
-
-				temp2 -= 1;
-				if (temp2 % 3 == 0)
-					return temp2;
-			}
-
-			return sliceSize;
+			return remainder == 1 ? sliceSize - 1 : sliceSize + 1;
 		}
 
 		private float GetMeshRadius() =>
