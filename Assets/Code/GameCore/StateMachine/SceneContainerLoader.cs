@@ -10,10 +10,10 @@ namespace GameCore.StateMachine
 {
 	public class SceneContainerLoader
 	{
+		private const float LoadLimit = 0.9f;
 		private readonly SceneContainer _sceneContainer;
 		private AsyncOperation _mainLoading;
 		private AsyncOperation _uiLoading;
-		private const float LOAD_LIMIT = 0.9f;
 
 		public SceneContainerLoader(SceneContainer container) =>
 			_sceneContainer = container;
@@ -32,20 +32,20 @@ namespace GameCore.StateMachine
 
 		public void Activate()
 		{
-			GlobalEventManager.OnScreenTap.RemoveListener(Activate);
-			
+			GlobalEventManager.OnLevelLoaded -= Activate;
+
 			_mainLoading.allowSceneActivation = true;
 		}
 
 		private async Task LoadSceneSet()
 		{
-			UnityEngine.Debug.Log("2. loading in process");
-			
-			while (_mainLoading.progress <= LOAD_LIMIT
-			       && _uiLoading.progress <= LOAD_LIMIT)
+			Debug.Log("2. loading in process");
+
+			while (_mainLoading.progress <= LoadLimit
+			       && _uiLoading.progress <= LoadLimit)
 				await Task.Yield();
 
-			GlobalEventManager.OnLevelLoaded.AddListener(Activate);
+			GlobalEventManager.OnLevelLoaded += Activate;
 		}
 
 		private AsyncOperation LoadSceneAsync(SceneField scene)

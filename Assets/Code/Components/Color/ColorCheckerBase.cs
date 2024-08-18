@@ -18,7 +18,7 @@ public class ColorCheckerBase : ColorHolderBase
 	
 	public bool IsSameColor(ColorHolderBase @as)
 	{
-		if (@as.ColorToCheck == EColors.White)
+		if (@as.ColorToCheck == PlayerColor.White)
 			return true;
 		
 		return @as.ColorToCheck == Color;

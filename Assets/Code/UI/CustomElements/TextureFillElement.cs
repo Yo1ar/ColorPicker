@@ -6,7 +6,7 @@ namespace UI.CustomElements
 {
 	public class TextureFillElement : VisualElement
 	{
-		private const int MinimalIndicesCountForPlane = 3;
+		private const int OnePlaneIndicesCount = 3;
 		private readonly CircleMesh _circleMesh;
 		private readonly FillTexture _fillTexture;
 		private Color _tintColor = Color.white;
@@ -14,16 +14,14 @@ namespace UI.CustomElements
 		private FillStart _fillStart = FillStart.Up;
 		private float _progress;
 		private int _steps = 200;
-
-		private int Steps
+		private FillDirection FillDirection
 		{
-			get => _steps;
+			get => _fillDirection;
 			set
 			{
-				if (_steps == value)
+				if (_fillDirection == value)
 					return;
-
-				_steps = Mathf.Clamp(value, 4, 1000);
+				_fillDirection = value;
 				MarkDirtyRepaint();
 			}
 		}
@@ -38,23 +36,16 @@ namespace UI.CustomElements
 				MarkDirtyRepaint();
 			}
 		}
-		private FillDirection FillDirection
+
+		private int Steps
 		{
-			get => _fillDirection;
+			get => _steps;
 			set
 			{
-				if (_fillDirection == value)
+				if (_steps == value)
 					return;
-				_fillDirection = value;
-				MarkDirtyRepaint();
-			}
-		}
-		public float Progress
-		{
-			get => _progress;
-			set
-			{
-				_progress = Mathf.Clamp(value, 0f, 100f);
+
+				_steps = Mathf.Clamp(value, 4, 1000);
 				MarkDirtyRepaint();
 			}
 		}
@@ -66,6 +57,15 @@ namespace UI.CustomElements
 				if (_tintColor == value)
 					return;
 				_tintColor = value;
+				MarkDirtyRepaint();
+			}
+		}
+		public float Progress
+		{
+			get => _progress;
+			set
+			{
+				_progress = Mathf.Clamp(value, 0f, 100f);
 				MarkDirtyRepaint();
 			}
 		}
@@ -82,15 +82,15 @@ namespace UI.CustomElements
 
 			generateVisualContent += OnGenerateVisualContent;
 		}
-
+		
 		private void OnGenerateVisualContent(MeshGenerationContext context)
 		{
 			SetupMesh();
 			SetTexture();
-
+			
 			NativeSlice<ushort> indexSlice = CalculateSlice();
 
-			if (indexSlice.Length < MinimalIndicesCountForPlane)
+			if (indexSlice.Length < OnePlaneIndicesCount)
 				return;
 
 			MeshWriteData meshData = GetMeshData(context, indexSlice);
@@ -125,15 +125,6 @@ namespace UI.CustomElements
 			Texture2D texture = GetBackgroundTexture(backgroundImage);
 
 			Rect rect = GetBackgroundRect(backgroundImage, texture);
-
-			// float diameter = _circleMesh.Radius * 2;
-			// var textureScale = new Vector2(
-			// 	diameter / texture.width,
-			// 	diameter / texture.height);
-			//
-			// var scale = new Vector2(
-			// 	rect.width / diameter * textureScale.x,
-			// 	rect.height / diameter * textureScale.y);
 
 			_fillTexture.Texture = texture;
 			_fillTexture.Rect = rect;
@@ -175,18 +166,22 @@ namespace UI.CustomElements
 
 		private void SetupUvCoords(MeshWriteData meshData)
 		{
-			float diameter = _circleMesh.Radius * 2;
-			Vector2 uvTextureScaledSize =
-				new Vector2(_fillTexture.Rect.width, _fillTexture.Rect.height)
-				/ ContainerScale() * TextureScale + TextureOffset;
+			Vector2 uvTextureScaledSize = _fillTexture.Rect.size / ContainerScale() * TextureScale + TextureOffset;
 
+			Debug.Log($" texture size:{_fillTexture.Rect.size} " +
+			          $" container scale:{ContainerScale()} " +
+			          $" texture scale:{TextureScale} " +
+			          $" texture offset:{TextureOffset} " +
+			          $" uvTextureScaledSize:{uvTextureScaledSize}");
+
+			// then we need to calculate the uv coords for each vertex
 			for (var i = 0; i < _circleMesh.Vertices.Length; i++)
 			{
 				Vector2 uvRelative =
 					((Vector2)_circleMesh.Vertices[i].position
 					 - _circleMesh.Center
 					 + uvTextureScaledSize)
-					/ diameter;
+					/ _circleMesh.Diameter;
 
 				_circleMesh.Vertices[i].uv =
 					uvRelative
@@ -212,7 +207,7 @@ namespace UI.CustomElements
 
 		private int FindClosestMultipleBy3(int sliceSize)
 		{
-			int remainder = sliceSize % MinimalIndicesCountForPlane;
+			int remainder = sliceSize % OnePlaneIndicesCount;
 
 			if (remainder == 0)
 				return sliceSize;
@@ -220,15 +215,19 @@ namespace UI.CustomElements
 			return remainder == 1 ? sliceSize - 1 : sliceSize + 1;
 		}
 
-		private float GetMeshRadius() =>
-			contentRect.width < contentRect.height ? contentRect.width / 2 : contentRect.height / 2;
+		private float GetMeshRadius()
+		{
+			float aSquare = Mathf.Pow(contentRect.width / 2, 2);
+			float bSquare = Mathf.Pow(contentRect.height / 2, 2);
+			return Mathf.Sqrt(aSquare + bSquare);
+		}
 
 		private class FillTexture
 		{
 			public float WidthPos { get; set; }
 			public float HeightPos { get; set; }
-			public Texture2D Texture { get; set; }
 			public Rect Rect { get; set; }
+			public Texture2D Texture { get; set; }
 			public Vector2 Scale { get; set; }
 
 			public override string ToString()

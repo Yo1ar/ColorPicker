@@ -76,26 +76,26 @@ namespace UI
 			_playerColorHolder.OnColorChanged += ChangePlayerSkill;
 		}
 
-		private void ChangePlayerSkill(EColors color)
+		private void ChangePlayerSkill(PlayerColor color)
 		{
 			_fireballButton.visible = false;
 			_eraserButton.visible = false;
 			_speedButton.visible = false;
 
-			_jumpButton.style.unityBackgroundImageTintColor = new StyleColor(Colors.GetColor(EColors.White));
+			_jumpButton.style.unityBackgroundImageTintColor = new StyleColor(Colors.GetColor(PlayerColor.White));
 
 			switch (color)
 			{
-				case EColors.Gray:
+				case PlayerColor.Gray:
 					_eraserButton.visible = true;
 					break;
-				case EColors.Red:
+				case PlayerColor.Red:
 					_fireballButton.visible = true;
 					break;
-				case EColors.Green:
-					_jumpButton.style.unityBackgroundImageTintColor = new StyleColor(Colors.GetColor(EColors.Green));
+				case PlayerColor.Green:
+					_jumpButton.style.unityBackgroundImageTintColor = new StyleColor(Colors.GetColor(PlayerColor.Green));
 					break;
-				case EColors.Blue:
+				case PlayerColor.Blue:
 					_speedButton.visible = true;
 					break;
 				default:

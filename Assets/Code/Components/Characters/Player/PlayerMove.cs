@@ -47,7 +47,7 @@ namespace Characters.Player
 
 		private void SpeedUpPlayer()
 		{
-			if (_playerColorHolder.ColorToCheck != EColors.Blue)
+			if (_playerColorHolder.ColorToCheck != PlayerColor.Blue)
 				return;
 			
 			_audioSourcesController.PlaySoundOneShot(_speedUpSound);

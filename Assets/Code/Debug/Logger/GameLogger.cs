@@ -11,10 +11,10 @@ namespace Logger
 
 		public GameLogger()
 		{
-			_gameLogEvent = new LogEvent("GameCore", EColors.Red);
-			_gameLoopLogEvent = new LogEvent("Gameplay", EColors.Blue);
-			_inputLogEvent = new LogEvent("Input", EColors.Gray);
-			_uiLogEvent = new LogEvent("UI", EColors.Green);
+			_gameLogEvent = new LogEvent("GameCore", PlayerColor.Red);
+			_gameLoopLogEvent = new LogEvent("Gameplay", PlayerColor.Blue);
+			_inputLogEvent = new LogEvent("Input", PlayerColor.Gray);
+			_uiLogEvent = new LogEvent("UI", PlayerColor.Green);
 		}
 
 		public void SwitchAllLogActivity(bool isActive)

@@ -9,13 +9,13 @@ namespace Level.UI
 	{
 		[SerializeField] private Animator _animator;
 		[SerializeField] private CanvasGroup[] _hints;
+		private readonly int _collapseTriggerHash = Animator.StringToHash("collapse");
 
 		private readonly int _expandTriggerHash = Animator.StringToHash("expand");
-		private readonly int _collapseTriggerHash = Animator.StringToHash("collapse");
+		private bool _canPickColor;
 		private ColorHolderBase _playerColorHolder;
 		private FactoryService _factoryService;
 		private IWildColorContainer _wildColorContainer;
-		private bool _canPickColor;
 
 		private void Awake()
 		{
@@ -24,8 +24,38 @@ namespace Level.UI
 
 			if (_factoryService.Player)
 				ConnectPlayerColorHolder();
+		}
 
+		private void Start()
+		{
+			SetHintsActive(false);
+		}
+
+		private void OnEnable()
+		{
 			_factoryService.OnPlayerCreated.AddListener(ConnectPlayerColorHolder);
+			GlobalEventManager.OnStartPickColor += ExpandColors;
+			GlobalEventManager.OnColorPicked += CollapseColors;
+			GlobalEventManager.OnColorPicked += SetPlayerColor;
+		}
+
+		private void OnDisable()
+		{
+			_factoryService.OnPlayerCreated.RemoveListener(ConnectPlayerColorHolder);
+			GlobalEventManager.OnStartPickColor -= ExpandColors;
+			GlobalEventManager.OnColorPicked -= CollapseColors;
+			GlobalEventManager.OnColorPicked -= SetPlayerColor;
+		}
+
+		private void SetPlayerColor(PlayerColor color)
+		{
+			if (_playerColorHolder.ColorToCheck == color)
+				return;
+
+			if (_wildColorContainer.TryUseWildColorBonus())
+				_playerColorHolder.SetColor(color);
+
+			_canPickColor = false;
 		}
 
 		private void ConnectPlayerColorHolder()
@@ -34,28 +64,11 @@ namespace Level.UI
 			_wildColorContainer = _factoryService.Player.GetComponent<IWildColorContainer>();
 		}
 
-		private void OnEnable()
-		{
-			GlobalEventManager.OnColorPick.AddListener(ExpandColors);
-
-			GlobalEventManager.OnGrayColor.AddListener(CollapseColors);
-			GlobalEventManager.OnGrayColor.AddListener(SetPlayerGray);
-
-			GlobalEventManager.OnRedColor.AddListener(CollapseColors);
-			GlobalEventManager.OnRedColor.AddListener(SetPlayerRed);
-
-			GlobalEventManager.OnGreenColor.AddListener(CollapseColors);
-			GlobalEventManager.OnGreenColor.AddListener(SetPlayerGreen);
-
-			GlobalEventManager.OnBlueColor.AddListener(CollapseColors);
-			GlobalEventManager.OnBlueColor.AddListener(SetPlayerBlue);
-		}
-
 		private void ExpandColors()
 		{
 			if (_canPickColor)
 			{
-				CollapseColors();
+				CollapseColors(PlayerColor.White);
 				_canPickColor = false;
 				return;
 			}
@@ -69,54 +82,10 @@ namespace Level.UI
 			SetHintsActive(true);
 		}
 
-		private void CollapseColors()
+		private void CollapseColors(PlayerColor _)
 		{
 			_animator.Play(_collapseTriggerHash);
 			SetHintsActive(false);
-		}
-
-		private void SetPlayerGray()
-		{
-			if (_playerColorHolder.ColorToCheck == EColors.Gray)
-				return;
-
-			if (_wildColorContainer.TryUseWildColorBonus())
-				_playerColorHolder.SetColor(EColors.Gray);
-
-			_canPickColor = false;
-		}
-
-		private void SetPlayerRed()
-		{
-			if (_playerColorHolder.ColorToCheck == EColors.Red)
-				return;
-
-			if (_wildColorContainer.TryUseWildColorBonus())
-				_playerColorHolder.SetColor(EColors.Red);
-
-			_canPickColor = false;
-		}
-
-		private void SetPlayerGreen()
-		{
-			if (_playerColorHolder.ColorToCheck == EColors.Green)
-				return;
-
-			if (_wildColorContainer.TryUseWildColorBonus())
-				_playerColorHolder.SetColor(EColors.Green);
-
-			_canPickColor = false;
-		}
-
-		private void SetPlayerBlue()
-		{
-			if (_playerColorHolder.ColorToCheck == EColors.Blue)
-				return;
-
-			if (_wildColorContainer.TryUseWildColorBonus())
-				_playerColorHolder.SetColor(EColors.Blue);
-
-			_canPickColor = false;
 		}
 
 		private void SetHintsActive(bool value)

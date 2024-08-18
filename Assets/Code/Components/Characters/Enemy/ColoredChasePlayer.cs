@@ -90,7 +90,7 @@ namespace Characters.Enemy
 	#if UNITY_EDITOR
 		private void OnDrawGizmosSelected()
 		{
-			Gizmos.color = Colors.GetColor(EColors.White);
+			Gizmos.color = Colors.GetColor(PlayerColor.White);
 			Gizmos.DrawWireSphere(transform.position, _targetReachedDistance);
 		}
 	#endif

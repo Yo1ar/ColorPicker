@@ -8,10 +8,10 @@ namespace GameCore.GameUI
 	public class LoadingScreen : MonoBehaviour
 	{
 		[SerializeField] private TMP_Text _text;
-		private ShowHideCanvasGroup _showHideCanvas;
 
-		private const string TEXT_LOADING = "Loading...";
-		private const string TEXT_TAP_ON_SCREEN = "Tap to Play";
+		private const string TextLoading = "Loading...";
+		private const string TextTapOnScreen = "Tap to Play";
+		private ShowHideCanvasGroup _showHideCanvas;
 
 		public UnityEvent OnShown => _showHideCanvas.OnShown;
 		private UnityEvent OnHided => _showHideCanvas.OnHided;
@@ -33,14 +33,14 @@ namespace GameCore.GameUI
 
 		public void Hide()
 		{
-			GlobalEventManager.OnScreenTap.RemoveListener(Hide);
+			GlobalEventManager.OnScreenTap -= Hide;
 			_showHideCanvas.Hide();
 		}
 
 		public void MakeReadyToPlay() =>
-			_text.SetText(TEXT_TAP_ON_SCREEN);
+			_text.SetText(TextTapOnScreen);
 
 		private void SetLoadingText() =>
-			_text.SetText(TEXT_LOADING);
+			_text.SetText(TextLoading);
 	}
 }

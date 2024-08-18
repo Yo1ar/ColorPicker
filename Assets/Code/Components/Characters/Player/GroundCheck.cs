@@ -56,7 +56,7 @@ namespace Characters.Player
 					break;
 				}
 
-				if (otherColorHolder.ColorToCheck == EColors.White
+				if (otherColorHolder.ColorToCheck == PlayerColor.White
 				    || otherColorHolder.ColorToCheck == _playerColorHolder.ColorToCheck)
 				{
 					isProperGround = true;

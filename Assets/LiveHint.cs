@@ -18,9 +18,9 @@ public sealed class LiveHint : ColorCheckerBase
 	{
 		base.Awake();
 
-		if (_hintObject.ColorToCheck == EColors.White)
+		if (_hintObject.ColorToCheck == PlayerColor.White)
 		{
-			SetColor(EColors.White);
+			SetColor(PlayerColor.White);
 			_text.SetText(WHITE);
 			return;
 		}
@@ -41,7 +41,7 @@ public sealed class LiveHint : ColorCheckerBase
 		PlayerColorHolder.OnColorChanged += PlayerColorCheck;
 	}
 
-	private void PlayerColorCheck(EColors color)
+	private void PlayerColorCheck(PlayerColor color)
 	{
 		if (_hintObject.IsSameColor(@as: PlayerColorHolder))
 		{

@@ -6,19 +6,19 @@ using Utils.Constants;
 public class ColorHolderBase : MonoBehaviour
 {
 	[Header("Coloring")]
-	[SerializeField] protected EColors Color;
+	[SerializeField] protected PlayerColor Color;
 	[SerializeField] protected SpriteRenderer View;
 	[SerializeField] private Image _image;
-	public event Action<EColors> OnColorChanged;
-	public EColors ColorToCheck => Color;
+	public event Action<PlayerColor> OnColorChanged;
+	public PlayerColor ColorToCheck => Color;
 	
 	private void Awake() =>
 		Recolor();
 
-	public void SetColor(EColors color)
+	public void SetColor(PlayerColor color)
 	{
 		if (name == "chase")
-			Debug.Log("Set color to " + color.ToString());
+			Debug.Log("Set color to " + color);
 		
 		Color = color;
 		Recolor();

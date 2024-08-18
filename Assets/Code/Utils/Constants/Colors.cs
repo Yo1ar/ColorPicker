@@ -16,30 +16,30 @@ namespace Utils.Constants
 		public static readonly Color BlueT = new(0.2509804f, 0.8156863f, 1f, 0.5f);
 		public static readonly Color Transparent = new(0, 0, 0, 0);
 
-		public static Color GetColor(EColors color) =>
+		public static Color GetColor(PlayerColor color) =>
 			color switch
 			{
-				EColors.White => White,
-				EColors.Red => Red,
-				EColors.Green => Green,
-				EColors.Blue => Blue,
-				EColors.Gray => Gray,
+				PlayerColor.White => White,
+				PlayerColor.Red => Red,
+				PlayerColor.Green => Green,
+				PlayerColor.Blue => Blue,
+				PlayerColor.Gray => Gray,
 				_ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
 			};
 
-		public static string GetLogColor(EColors color) =>
+		public static string GetLogColor(PlayerColor color) =>
 			color switch
 			{
-				EColors.White => "white",
-				EColors.Red => "red",
-				EColors.Green => "green",
-				EColors.Blue => "blue",
-				EColors.Gray => "gray",
+				PlayerColor.White => "white",
+				PlayerColor.Red => "red",
+				PlayerColor.Green => "green",
+				PlayerColor.Blue => "blue",
+				PlayerColor.Gray => "gray",
 				_ => throw new ArgumentOutOfRangeException(nameof(color), color, null)
 			};
 	}
 
-	public enum EColors
+	public enum PlayerColor
 	{
 		White = 0,
 		Red = 1,

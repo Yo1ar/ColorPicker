@@ -31,9 +31,9 @@ public sealed class ColorBonusCreator : ColorCheckerBase
 		PlayerColorHolder.OnColorChanged += CheckNeededColor;
 	}
 
-	private void CheckNeededColor(EColors color)
+	private void CheckNeededColor(PlayerColor color)
 	{
-		if (color != EColors.Red)
+		if (color != PlayerColor.Red)
 		{
 			_text.SetText(NO_PROBLEM);
 			CreateWildBonus();

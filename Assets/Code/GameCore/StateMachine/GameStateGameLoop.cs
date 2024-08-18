@@ -1,4 +1,3 @@
-using GameCore.Events;
 using GameCore.GameServices;
 
 namespace GameCore.StateMachine
@@ -13,10 +12,7 @@ namespace GameCore.StateMachine
 		public void Enter() =>
 			Game.SetPause(false);
 
-		public void Exit()
-		{
+		public void Exit() =>
 			Services.FactoryService.ClearErasables();
-			GlobalEventManager.OnLevelLoaded.RemoveAllListeners();
-		}
 	}
 }

@@ -8,9 +8,9 @@ namespace UI
 	{
 		private IGameMenuController _gameMainMenuController;
 		private ISettingsMenuController _settingsMenuController;
-		private ShowHideUiHandler _showHideUiHandlerWholeMenu;
 		private ShowHideUiHandler _showHideUiHandlerGameMenu;
 		private ShowHideUiHandler _showHideUiHandlerSettings;
+		private ShowHideUiHandler _showHideUiHandlerWholeMenu;
 
 		protected override void Awake()
 		{
@@ -28,8 +28,7 @@ namespace UI
 
 		private void OnEnable()
 		{
-			GlobalEventManager.OnBackPressed.AddListener(ToggleWholeMenu);
-
+			GlobalEventManager.OnBackPressed += ToggleWholeMenu;
 			_gameMainMenuController.ResumeButton.clicked += HideWholeMenu;
 			_gameMainMenuController.SettingsButton.clicked += ShowSettings;
 			_settingsMenuController.BackButton.clicked += ShowGameMenu;
@@ -37,8 +36,7 @@ namespace UI
 
 		private void OnDisable()
 		{
-			GlobalEventManager.OnBackPressed.RemoveListener(ToggleWholeMenu);
-
+			GlobalEventManager.OnBackPressed -= ToggleWholeMenu;
 			_gameMainMenuController.ResumeButton.clicked -= HideWholeMenu;
 			_gameMainMenuController.SettingsButton.clicked -= ShowSettings;
 			_settingsMenuController.BackButton.clicked -= ShowGameMenu;

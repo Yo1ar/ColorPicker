@@ -10,19 +10,14 @@ namespace Characters.Player
 	{
 		[SerializeField] private float _fireballShootRecharge = 1f;
 		[SerializeField] private float _eraserRecharge = 5;
+		private AudioClip _eraseSound;
+		private AudioClip _fireSound;
+		private AudioSourcesController _audioController;
+		private Camera _camera;
+		private ColorHolderBase _playerColorHolder;
 
 		private FactoryService _factoryService;
 		private PlayerAnimation _playerAnimation;
-		private ColorHolderBase _playerColorHolder;
-		private AudioClip _fireSound;
-		private AudioClip _eraseSound;
-		private AudioSourcesController _audioController;
-		private Camera _camera;
-
-		public Cooldown FireballCooldown { get; private set; }
-		public Cooldown EraserCooldown { get; private set; }
-		public bool IsAttacking { get; private set; }
-		public bool ErasableMode { get; private set; } = false;
 
 		private void Awake()
 		{
@@ -49,6 +44,11 @@ namespace Characters.Player
 			PlayerEventManager.OnErase.RemoveListener(SwitchErasableMode);
 		}
 
+		public Cooldown FireballCooldown { get; private set; }
+		public Cooldown EraserCooldown { get; private set; }
+		public bool IsAttacking { get; private set; }
+		public bool ErasableMode { get; private set; } = false;
+
 		public void SwitchErasableMode()
 		{
 			if (CanErase())
@@ -61,7 +61,7 @@ namespace Characters.Player
 				if (SystemInfo.deviceType == DeviceType.Desktop)
 					UseEraserDesktop();
 				else
-					GlobalEventManager.OnScreenTap.AddListener(UseEraser);
+					GlobalEventManager.OnScreenTap += UseEraser;
 
 				return;
 			}
@@ -71,7 +71,29 @@ namespace Characters.Player
 			foreach (IErasable erasable in _factoryService.Erasables)
 				erasable.Highlight(false);
 
-			GlobalEventManager.OnScreenTap.RemoveListener(UseEraser);
+			GlobalEventManager.OnScreenTap -= UseEraser;
+		}
+
+		public void ShootFireball()
+		{
+			if (!CanLaunchFireball())
+				return;
+
+			IsAttacking = true;
+
+			_playerAnimation.AnimatePreAttack();
+		}
+
+		public void LaunchFireball()
+		{
+			_audioController.PlaySoundOneShot(_fireSound);
+			_factoryService.CreateFireball(
+				position: transform.position,
+				direction: GetShootDirection(),
+				rotation: Vector3.zero);
+
+			FireballCooldown.Reset();
+			IsAttacking = false;
 		}
 
 		private void UseEraser()
@@ -119,35 +141,13 @@ namespace Characters.Player
 			}
 		}
 
-		public void ShootFireball()
-		{
-			if (!CanLaunchFireball())
-				return;
-
-			IsAttacking = true;
-
-			_playerAnimation.AnimatePreAttack();
-		}
-
-		public void LaunchFireball()
-		{
-			_audioController.PlaySoundOneShot(_fireSound);
-			_factoryService.CreateFireball(
-				position: transform.position,
-				direction: GetShootDirection(),
-				rotation: Vector3.zero);
-
-			FireballCooldown.Reset();
-			IsAttacking = false;
-		}
-
 		private Vector2 GetShootDirection() =>
 			new(transform.localScale.x, 0);
 
 		private bool CanLaunchFireball() =>
-			_playerColorHolder.ColorToCheck == EColors.Red && FireballCooldown.IsReady;
+			_playerColorHolder.ColorToCheck == PlayerColor.Red && FireballCooldown.IsReady;
 
 		private bool CanErase() =>
-			_playerColorHolder.ColorToCheck == EColors.Gray && !ErasableMode && EraserCooldown.IsReady;
+			_playerColorHolder.ColorToCheck == PlayerColor.Gray && !ErasableMode && EraserCooldown.IsReady;
 	}
 }

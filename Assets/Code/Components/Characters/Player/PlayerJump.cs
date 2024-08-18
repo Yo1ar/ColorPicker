@@ -60,7 +60,7 @@ namespace Characters.Player
 
 		private bool CanDoubleJump()
 		{
-			if (_colorHolder.ColorToCheck != EColors.Green)
+			if (_colorHolder.ColorToCheck != PlayerColor.Green)
 				return false;
 
 			if (!_canDoubleJump)

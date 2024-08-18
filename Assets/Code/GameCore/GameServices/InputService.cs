@@ -2,14 +2,15 @@ using System.Threading.Tasks;
 using GameCore.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils.Constants;
 
 namespace GameCore.GameServices
 {
 	public class InputService : ServiceBase
 	{
-		private FactoryService _factoryService;
-		private readonly PlayerActions _actions = new();
 		private readonly BackInputCaller _backInputCaller = Object.FindObjectOfType<BackInputCaller>();
+		private readonly PlayerActions _actions = new();
+		private FactoryService _factoryService;
 
 		public override Task InitService()
 		{
@@ -41,20 +42,20 @@ namespace GameCore.GameServices
 			if (Game.IsPaused)
 				return;
 
-			GlobalEventManager.OnColorPick?.Invoke();
+			GlobalEventManager.OnStartPickColor.Invoke();
 		}
 
 		private void InvokeGrayColor(InputAction.CallbackContext obj) =>
-			GlobalEventManager.OnGrayColor?.Invoke();
+			GlobalEventManager.OnColorPicked?.Invoke(PlayerColor.Gray);
 
 		private void InvokeRedColor(InputAction.CallbackContext obj) =>
-			GlobalEventManager.OnRedColor?.Invoke();
+			GlobalEventManager.OnColorPicked?.Invoke(PlayerColor.Red);
 
 		private void InvokeGreenColor(InputAction.CallbackContext obj) =>
-			GlobalEventManager.OnGreenColor?.Invoke();
+			GlobalEventManager.OnColorPicked?.Invoke(PlayerColor.Green);
 
 		private void InvokeBlueColor(InputAction.CallbackContext obj) =>
-			GlobalEventManager.OnBlueColor?.Invoke();
+			GlobalEventManager.OnColorPicked?.Invoke(PlayerColor.Blue);
 
 		private void InvokePlayerMove(InputAction.CallbackContext obj)
 		{
@@ -101,7 +102,7 @@ namespace GameCore.GameServices
 			GlobalEventManager.OnScreenTap?.Invoke();
 
 		private void InvokeBack() =>
-			GlobalEventManager.OnBackPressed?.Invoke();
+			GlobalEventManager.OnBackPressed.Invoke();
 
 		~InputService()
 		{

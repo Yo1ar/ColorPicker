@@ -9,7 +9,7 @@ namespace Logger
 		private readonly string _eventType;
 		public bool IsActive;
 
-		public LogEvent(string eventType, EColors color)
+		public LogEvent(string eventType, PlayerColor color)
 		{
 			#if UNITY_EDITOR
 			_eventType = eventType.LogBold().LogColored(Colors.GetLogColor(color));

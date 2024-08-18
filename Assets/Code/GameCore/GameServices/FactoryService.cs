@@ -13,17 +13,17 @@ namespace GameCore.GameServices
 		private readonly ProjectilePool _dropPool;
 		private AssetService _assetService;
 
-		public GameObject Player { get; private set; }
+		public readonly UnityEvent OnPlayerCreated = new();
 		public List<IErasable> Erasables { get; } = new();
 
-		public readonly UnityEvent OnPlayerCreated = new();
+		public GameObject Player { get; private set; }
 
 		public FactoryService(AssetService assetService)
 		{
 			_assetService = assetService;
 			_fireballPool = new ProjectilePool(_assetService.FireballProjectile);
 			_dropPool = new ProjectilePool(_assetService.DropProjectile);
-			GlobalEventManager.OnLevelUnloaded.AddListener(RemovePlayer);
+			GlobalEventManager.OnLevelUnloaded += RemovePlayer;
 		}
 
 		public override Task InitService()
@@ -59,6 +59,6 @@ namespace GameCore.GameServices
 			Object.DestroyImmediate(Player);
 
 		~FactoryService() =>
-			GlobalEventManager.OnLevelUnloaded.RemoveListener(RemovePlayer);
+			GlobalEventManager.OnLevelUnloaded -= RemovePlayer;
 	}
 }

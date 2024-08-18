@@ -38,27 +38,27 @@ namespace Level.UI
 			_playerColorHolder.OnColorChanged += ChangePlayerSkill;
 		}
 
-		private void ChangePlayerSkill(EColors color)
+		private void ChangePlayerSkill(PlayerColor color)
 		{
 			_fireballButton.gameObject.SetActive(false);
 			_eraserButton.gameObject.SetActive(false);
 			_speedUpButton.gameObject.SetActive(false);
 			
 			if (_jumpButton.TryGetComponent(out ColorHolderBase holder))
-				holder.SetColor(EColors.White);
+				holder.SetColor(PlayerColor.White);
 
 			switch (color)
 			{
-				case EColors.Gray:
+				case PlayerColor.Gray:
 					_eraserButton.gameObject.SetActive(true);
 					break;
-				case EColors.Red:
+				case PlayerColor.Red:
 					_fireballButton.gameObject.SetActive(true);
 					break;
-				case EColors.Green:
-					holder.SetColor(EColors.Green);
+				case PlayerColor.Green:
+					holder.SetColor(PlayerColor.Green);
 					break;
-				case EColors.Blue:
+				case PlayerColor.Blue:
 					_speedUpButton.gameObject.SetActive(true);
 					break;
 				default:

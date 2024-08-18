@@ -68,7 +68,8 @@ namespace UI.CustomElements
 			}
 		}
 		public Vertex[] Vertices { get; private set; }
-
+		public float Diameter => _radius * 2;
+		
 		public CircleMesh(int steps)
 		{
 			_steps = steps;
